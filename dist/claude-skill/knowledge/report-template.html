@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+  Reprocess report template. The AI replaces every {{PLACEHOLDER}} and removes these comments.
+  Tables: use <table> with a header row. Mode tags: <span class="tag A">A Automate</span> (A/B/C/D/E).
+  Mermaid: keep diagrams inside <pre class="mermaid">. Quote all labels. No < > & " inside labels.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reprocess report: {{PROCESS_NAME}}</title>
+<style>
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;max-width:980px;margin:2rem auto;padding:0 1rem;color:#1f2937;line-height:1.5}
+  h1{font-size:1.6rem;margin-bottom:.2rem}
+  h2{border-bottom:2px solid #e5e7eb;padding-bottom:.3rem;margin-top:2.2rem}
+  .meta{color:#6b7280;font-size:.9rem}
+  table{border-collapse:collapse;width:100%;font-size:.9rem;margin:1rem 0}
+  th,td{border:1px solid #e5e7eb;padding:.4rem .6rem;text-align:left;vertical-align:top}
+  th{background:#f9fafb}
+  .tag{display:inline-block;padding:0 .5rem;border-radius:999px;font-size:.8rem;font-weight:600;white-space:nowrap}
+  .A{background:#dbeafe}.B{background:#fef3c7}.C{background:#dcfce7}.D{background:#fee2e2}.E{background:#f3f4f6;border:1px dashed #9ca3af}
+  .option{border:1px solid #e5e7eb;border-radius:8px;padding:.8rem 1rem;margin:1rem 0}
+  .option.recommended{border:2px solid #2563eb}
+  .note{background:#f9fafb;border-left:4px solid #9ca3af;padding:.6rem 1rem;font-size:.9rem}
+  pre.mermaid{background:#fff;margin:1rem 0}
+  @media print{pre.mermaid,table,.option{break-inside:avoid}h2{break-after:avoid}}
+</style>
+</head>
+<body>
+
+<h1>{{PROCESS_NAME}}: AI-native redesign</h1>
+<p class="meta">Prepared with Reprocess v0.1 on {{DATE}} · Scope: {{SCOPE}} · Draft for discussion, not a validated design.</p>
+
+<h2>1. Executive summary</h2>
+<ul>
+  {{SUMMARY_BULLETS}}
+</ul>
+
+<h2>2. Current state</h2>
+<pre class="mermaid">
+{{CURRENT_STATE_MERMAID}}
+</pre>
+{{CURRENT_STATE_TABLE}}
+
+<h2>3. Future state</h2>
+<p>
+  <span class="tag A">A Automate (no AI)</span>
+  <span class="tag B">B AI-assist + human review</span>
+  <span class="tag C">C AI-autonomous with guardrails</span>
+  <span class="tag D">D Human</span>
+  <span class="tag E">E Eliminate</span>
+  · Diamonds = human gates
+</p>
+<pre class="mermaid">
+{{FUTURE_STATE_MERMAID}}
+</pre>
+
+<h2>4. Step classification</h2>
+<!-- Columns: # | Step | Mode | Why | Confidence | Predictability | Input structure | Error cost | Reversibility | Volume | Accountability -->
+{{CLASSIFICATION_TABLE}}
+
+<h2>5. Human gates</h2>
+<!-- Columns: Gate | Location | What the human checks | Actions | Escalation trigger | Evidence to loosen later -->
+{{GATES_TABLE}}
+
+<h2>6. Build options</h2>
+<!-- One <div class="option recommended"> for the recommended option, <div class="option"> for each alternative.
+     Each: tools by role (with license), why it fits, effort, running-cost drivers, risks, maintenance. -->
+{{BUILD_OPTIONS}}
+
+<h2>7. Rollout plan and metrics</h2>
+{{ROLLOUT_AND_METRICS}}
+
+<h2>8. Limitations and how to improve</h2>
+<h3>Limitations of this analysis</h3>
+{{ANALYSIS_LIMITATIONS}}
+<h3>Limitations of the proposed system</h3>
+{{SYSTEM_LIMITATIONS}}
+<h3>Information that would improve this advice</h3>
+{{INFO_NEEDED}}
+<h3>What to tune once running</h3>
+{{TUNING}}
+
+<h2>9. Assumptions</h2>
+{{ASSUMPTIONS}}
+
+<p class="note">
+  Diagrams load from the internet (jsDelivr). If you see diagram code instead of a picture, your network may block it: paste the code into
+  <a href="https://mermaid.live">mermaid.live</a>. Tool licenses, features and pricing change. Verify before you adopt anything.
+  AI-generated analysis: review it with the people who run this process.
+</p>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, securityLevel: 'strict' });
+</script>
+</body>
+</html>

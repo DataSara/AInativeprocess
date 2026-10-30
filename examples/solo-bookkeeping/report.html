@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reprocess report: Freelance consultant monthly bookkeeping</title>
+<style>
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;max-width:980px;margin:2rem auto;padding:0 1rem;color:#1f2937;line-height:1.5}
+  h1{font-size:1.6rem;margin-bottom:.2rem}
+  h2{border-bottom:2px solid #e5e7eb;padding-bottom:.3rem;margin-top:2.2rem}
+  .meta{color:#6b7280;font-size:.9rem}
+  table{border-collapse:collapse;width:100%;font-size:.9rem;margin:1rem 0}
+  th,td{border:1px solid #e5e7eb;padding:.4rem .6rem;text-align:left;vertical-align:top}
+  th{background:#f9fafb}
+  .tag{display:inline-block;padding:0 .5rem;border-radius:999px;font-size:.8rem;font-weight:600;white-space:nowrap}
+  .A{background:#dbeafe}.B{background:#fef3c7}.C{background:#dcfce7}.D{background:#fee2e2}.E{background:#f3f4f6;border:1px dashed #9ca3af}
+  .option{border:1px solid #e5e7eb;border-radius:8px;padding:.8rem 1rem;margin:1rem 0}
+  .option.recommended{border:2px solid #2563eb}
+  .note{background:#f9fafb;border-left:4px solid #9ca3af;padding:.6rem 1rem;font-size:.9rem}
+  pre.mermaid{background:#fff;margin:1rem 0}
+  @media print{pre.mermaid,table,.option{break-inside:avoid}h2{break-after:avoid}}
+</style>
+</head>
+<body>
+
+<h1>Freelance consultant monthly bookkeeping: AI-native redesign</h1>
+<p class="meta">Prepared with Reprocess v0.1 on 2026-10-28 (example) · Scope: One person; monthly, quarterly and year-end bookkeeping · Draft for discussion, not a validated design.</p>
+
+<h2>1. Executive summary</h2>
+<ul>
+  <li>Most of the work is predictable: 6 of 10 future steps need no AI, only rules, imports and integrations.</li><li>AI helps in 2 places, receipt extraction and categorizing transactions that rules miss, and a human confirms both.</li><li>Estimate: about 6.4 h/month today drops to 1.8 to 2.8 h/month, but self-hosting adds 1 to 2 h/month of upkeep. Net saving is about 1.7 to 3.7 h/month.</li><li>A simpler option with no AI and no server (Option 2) gets roughly half the benefit with no upkeep. It is a valid choice.</li><li>Start with a pilot of bank import, rules and receipt matching. That step has the highest saving and lowest risk.</li>
+</ul>
+
+<h2>2. Current state</h2>
+<pre class="mermaid">
+flowchart LR
+  c1["Copy hours into Word invoice"] --> c2["Email invoices"] --> c8["Check payments, chase late clients"]
+  c3["Forward and photograph receipts"] --> c6
+  c4["Download bank and card CSVs"] --> c5["Categorize 120 transactions by hand"] --> c6["Match receipts to transactions"] --> c7["Monthly review"]
+  c7 --> c9["Quarterly tax estimate and payment"] --> c10["Year-end pack: re-type totals, zip receipts"]
+</pre>
+<table><tr><th>#</th><th>Step</th><th>Owner</th><th>Input</th><th>Output</th><th>Tool</th><th>Frequency</th><th>Time/month</th><th>Pain point</th></tr><tr><td>1</td><td>Invoice clients</td><td>Owner</td><td>Timesheet hours</td><td>PDF invoices</td><td>Excel, Word, Gmail</td><td>Monthly, 4 to 6 invoices</td><td>60 min</td><td>Manual copying</td></tr><tr><td>2</td><td>Collect receipts</td><td>Owner</td><td>Emails, paper receipts</td><td>Files in a folder</td><td>Gmail, phone</td><td>Monthly</td><td>45 min</td><td>Receipts go missing</td></tr><tr><td>3</td><td>Get bank transactions</td><td>Owner</td><td>Bank and card sites</td><td>Rows in spreadsheet</td><td>Browser, Excel</td><td>Monthly</td><td>20 min</td><td>Tedious</td></tr><tr><td>4</td><td>Categorize transactions</td><td>Owner</td><td>About 120 rows</td><td>Category per row</td><td>Excel</td><td>Monthly</td><td>90 min</td><td>Boring, error-prone</td></tr><tr><td>5</td><td>Match receipts</td><td>Owner</td><td>Receipts and rows</td><td>Matched or missing list</td><td>Excel</td><td>Monthly</td><td>60 min</td><td>Boring, error-prone</td></tr><tr><td>6</td><td>Chase payments</td><td>Owner</td><td>Bank rows, invoices</td><td>Reminder emails</td><td>Gmail</td><td>Monthly, 1 to 2 late</td><td>30 min</td><td>Forgets for weeks</td></tr><tr><td>7</td><td>Review the month</td><td>Owner</td><td>Spreadsheet</td><td>Decisions</td><td>Excel</td><td>Monthly</td><td>20 min</td><td>None</td></tr><tr><td>8</td><td>Tax estimate</td><td>Owner</td><td>Categorized data</td><td>Tax payment</td><td>Excel, bank</td><td>Quarterly</td><td>30 min (90 per quarter)</td><td>None</td></tr><tr><td>9</td><td>Year-end pack</td><td>Owner</td><td>Full year</td><td>Summary and receipt zip</td><td>Excel, files</td><td>Yearly</td><td>30 min (6 h per year)</td><td>Year-end scramble</td></tr><tr><td></td><td><b>Total</b></td><td></td><td></td><td></td><td></td><td></td><td><b>about 385 min, 6.4 h</b></td><td></td></tr></table>
+
+<h2>3. Future state</h2>
+<p>
+  <span class="tag A">A Automate (no AI)</span>
+  <span class="tag B">B AI-assist + human review</span>
+  <span class="tag C">C AI-autonomous with guardrails</span>
+  <span class="tag D">D Human</span>
+  <span class="tag E">E Eliminate</span>
+  · Diamonds = human gates
+</p>
+<pre class="mermaid">
+flowchart LR
+  f1["Invoice drafts from timesheet"]:::A --> g1{"Approve invoices?"} -->|yes| f2["Send invoices, auto reminders"]:::A --> f8["Escalate persistent late payers"]:::D
+  f3["Receipts auto-collected into Paperless"]:::A --> f3b["AI extracts vendor, date, amount, tax"]:::B --> g2{"Confirm extraction batch"} --> f6
+  f4["Scheduled bank and card import"]:::A --> f5a["Rules categorize recurring vendors"]:::A --> f5b["AI suggests category for the rest"]:::B --> g3{"Confirm categories"} --> f6["Auto-match receipts to transactions"]:::A
+  f6 --> f6x["Resolve unmatched items"]:::D --> f7["Dashboard and monthly review"]:::D --> f9["Tax estimate report"]:::A --> g4{"Verify and pay tax"} --> f10["Year-end export for accountant"]:::A
+  f11["Re-type yearly totals"]:::E
+  classDef A fill:#dbeafe,stroke:#2563eb
+  classDef B fill:#fef3c7,stroke:#d97706
+  classDef C fill:#dcfce7,stroke:#16a34a
+  classDef D fill:#fee2e2,stroke:#dc2626
+  classDef E fill:#f3f4f6,stroke:#9ca3af,stroke-dasharray:5 5
+</pre>
+
+<h2>4. Step classification</h2>
+<table><tr><th>#</th><th>Step</th><th>Mode</th><th>Why</th><th>Confidence</th><th>Predict.</th><th>Input</th><th>Error cost</th><th>Reversible</th><th>Volume</th><th>Accountab.</th></tr><tr><td>1</td><td>Invoice drafts from timesheet</td><td><span class="tag A">A Automate</span></td><td>Hours times rate is a fixed rule. A human approves before sending because it goes to clients.</td><td>High</td><td>High</td><td>Structured</td><td>Med</td><td>Partly</td><td>Low</td><td>Med</td></tr><tr><td>2</td><td>Collect receipts</td><td><span class="tag A">A Automate</span></td><td>Email forwarding rule plus a phone scan app that uploads to a watched folder. Paper still needs a photo.</td><td>High</td><td>High</td><td>Mixed</td><td>Low</td><td>Yes</td><td>Med</td><td>Low</td></tr><tr><td>3</td><td>Extract receipt data (new)</td><td><span class="tag B">B AI-assist</span></td><td>OCR plus a local LLM read messy receipts. Misread amounts and tax are common, so a human confirms.</td><td>Med</td><td>Low</td><td>Unstructured</td><td>Med</td><td>Yes</td><td>Med</td><td>Med</td></tr><tr><td>4</td><td>Bank and card import</td><td><span class="tag A">A Automate</span></td><td>Scheduled CSV import. Automatic bank feeds depend on your country and bank [ASSUMPTION: CSV only].</td><td>High</td><td>High</td><td>Structured</td><td>Low</td><td>Yes</td><td>Med</td><td>Low</td></tr><tr><td>5a</td><td>Categorize recurring vendors</td><td><span class="tag A">A Automate</span></td><td>Rules such as "vendor contains X means category Y". You said most vendors repeat.</td><td>High</td><td>High</td><td>Structured</td><td>Low</td><td>Yes</td><td>High</td><td>Med</td></tr><tr><td>5b</td><td>Categorize the rest</td><td><span class="tag B">B AI-assist</span></td><td>LLM suggests a category with a reason. A human confirms, because categories affect tax.</td><td>Med</td><td>Med</td><td>Semi</td><td>Med</td><td>Yes</td><td>Med</td><td>Med</td></tr><tr><td>6</td><td>Match receipts to transactions</td><td><span class="tag A">A Automate</span></td><td>Amount plus date within 3 days is a rule. Exceptions go to a human.</td><td>High</td><td>High</td><td>Structured</td><td>Low</td><td>Yes</td><td>High</td><td>Low</td></tr><tr><td>7</td><td>Chase payments</td><td><span class="tag A">A Automate</span></td><td>Scheduled reminders at 7 and 21 days overdue. A human handles escalation (D) because it is about the relationship.</td><td>High</td><td>High</td><td>Structured</td><td>Med</td><td>No</td><td>Low</td><td>Med</td></tr><tr><td>8</td><td>Monthly review</td><td><span class="tag D">D Human</span></td><td>Business judgment. A dashboard (A) prepares it.</td><td>High</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Low</td><td>High</td></tr><tr><td>9</td><td>Tax estimate</td><td><span class="tag D">D Human</span></td><td>The report is calculated automatically (A). The owner verifies and pays, because they are accountable for tax.</td><td>High</td><td>High</td><td>Structured</td><td>High</td><td>No</td><td>Low</td><td>High</td></tr><tr><td>10</td><td>Year-end pack</td><td><span class="tag A">A Automate</span></td><td>Export reports and receipts by year. Re-typing totals is eliminated (E).</td><td>High</td><td>High</td><td>Structured</td><td>Med</td><td>Yes</td><td>Low</td><td>Med</td></tr></table>
+
+<h2>5. Human gates</h2>
+<table><tr><th>Gate</th><th>Location</th><th>What the human checks</th><th>Actions</th><th>Escalation trigger</th><th>Evidence to loosen later</th></tr><tr><td>G1</td><td>Before invoices are sent</td><td>Hours, rate, client, PO number</td><td>Approve / edit / hold</td><td>Hours differ from the contract cap</td><td>Keep it. Client-facing money stays approved.</td></tr><tr><td>G2</td><td>After receipt extraction</td><td>Amount, date and tax against the image, reviewed in a monthly batch</td><td>Confirm / correct</td><td>Extracted total does not match the bank amount</td><td>After 3 months with under 2% corrections, auto-accept receipts that match a bank transaction exactly and review only mismatches (moves to C).</td></tr><tr><td>G3</td><td>After AI category suggestions</td><td>Category for non-rule transactions</td><td>Accept / change</td><td>Any amount over a set threshold, e.g. 500</td><td>Turn frequent corrections into rules (A). The AI share should shrink over time.</td></tr><tr><td>G4</td><td>Before tax payment</td><td>Calculated tax against last quarter and accountant guidance</td><td>Pay / adjust</td><td>Change of more than 25% from last quarter</td><td>Do not loosen.</td></tr></table>
+
+<h2>6. Build options</h2>
+
+<div class="option recommended"><h3>Recommended: self-hosted stack on your NAS (Docker)</h3>
+<ul>
+<li><b>Documents and OCR:</b> Paperless-ngx (GPL-3.0). It has a watched email inbox and folder, and auto-tags vendors.</li>
+<li><b>Bookkeeping and rules:</b> Firefly III (AGPL-3.0) with its CSV data importer. Its rules engine handles step 5a.</li>
+<li><b>Orchestration:</b> n8n (Sustainable Use License, source-available, free for internal use). It links Paperless, the LLM and Firefly III, and runs the monthly batches and approval emails.</li>
+<li><b>AI model:</b> Ollama (MIT) running a small open-weight model of about 7 to 8B parameters on the NAS. Volume is small, about 40 receipts a month, so slow inference is fine. Data stays on your machine.</li>
+<li><b>Invoicing and reminders:</b> Invoice Ninja (source-available, verify license) with automatic payment reminders. Or keep your Word template and let n8n email you a draft for approval.</li>
+</ul>
+<p><b>Why it fits:</b> you are comfortable with low-code, have a home server and want data local. <b>Effort:</b> M, about 2 to 4 days of setup and tuning. <b>Running cost:</b> electricity and your time. <b>Risks:</b> a small local model will misread some receipts, so keep G2. 16 GB RAM is tight for running everything at once; run the LLM batch alone. <b>Maintenance:</b> 1 to 2 h/month for updates and checking backups. Financial data needs encrypted, tested backups.</p></div>
+
+<div class="option"><h3>Option 2: no server, no AI (GnuCash desktop)</h3>
+<ul>
+<li>GnuCash (GPL-2.0+). Its CSV import learns your categories over time, so it learns step 4 without an LLM.</li>
+<li>Gmail filter forwards receipts to one label. A phone scan app saves to one synced folder.</li>
+<li>Calendar reminders for chasing payments and tax dates.</li>
+</ul>
+<p><b>Effort:</b> S, about half a day. <b>Saving:</b> about 1.5 to 2.5 h/month. Categorizing and receipt collection improve; matching stays manual. <b>Maintenance:</b> almost none. <b>Trade-off:</b> less automation, but nothing to run or secure. Choose this if you don't want to look after a server.</p></div>
+
+<div class="option"><h3>Option 3: ERPNext, if you plan to grow or hire</h3>
+<p>ERPNext (GPL-3.0) covers invoicing, payment reminders, bank reconciliation and accounting in one system. Add Paperless-ngx for receipts. <b>Effort:</b> L. It is overkill for one person today, but worth it if you expect staff or more than about 15 clients.</p></div>
+
+<h2>7. Rollout plan and metrics</h2>
+<ol>
+<li><b>Weeks 1 to 2, pilot:</b> bank import, recurring-vendor rules and auto-matching (steps 4, 5a, 6). Highest saving, no AI risk.</li>
+<li><b>Weeks 3 to 4:</b> receipt collection into Paperless (2), then AI extraction with gate G2 (3).</li>
+<li><b>Month 2:</b> AI category suggestions with gate G3 (5b), and invoices with reminders (1, 7).</li>
+<li><b>Month 3:</b> review the metrics and decide whether G2 can move to exception-only review.</li></ol>
+<p><b>Track monthly:</b> total bookkeeping minutes, share of transactions categorized by rules, AI correction rate (extraction and category), unmatched receipts at month end, days to payment on invoices.</p>
+<p><b>Estimate arithmetic:</b> future step times are 10 to 15 (invoices), 10 to 15 (receipts), 10 to 20 (extraction review), 5 (import), 15 to 30 (categorizing), 10 to 20 (matching exceptions), 10 (chasing), 15 to 20 (review), 15 to 20 (tax), 5 to 10 (year-end) min/month. That totals 105 to 165 min, against 385 min today. Subtract 60 to 120 min/month of upkeep for a net saving of about 100 to 220 min/month. These are estimates; measure them in the pilot.</p>
+
+<h2>8. Limitations and how to improve</h2>
+<h3>Limitations of this analysis</h3>
+<ul><li>Based only on the SOP above; no access to your files or bank.</li><li>Tax rules depend on your country and are not assessed here. Your accountant stays the authority.</li><li>Future step times are estimates, not measurements.</li><li>Tool details and licenses may have changed since this was written.</li></ul>
+<h3>Limitations of the proposed system</h3>
+<ul><li>Local small models misread blurry photos, handwritten receipts and foreign-language receipts more often than large hosted models.</li><li>The AI can suggest a plausible but wrong tax category. G3 is there for that reason.</li><li>Rules break when vendors change their billing names; review rule misses monthly.</li><li>Bank CSV formats change without notice, and the import will fail until you remap the columns.</li><li>Self-hosting makes you the IT department: updates, backups and security.</li></ul>
+<h3>Information that would improve this advice</h3>
+<ul><li>Your country and bank. Automatic bank feeds may replace CSV downloads.</li><li>The share of transactions that are recurring vendors, to firm up the 5a estimate.</li><li>Whether your accountant accepts a specific export format (this could remove step 10).</li><li>How many receipts are paper versus email.</li></ul>
+<h3>What to tune once running</h3>
+<ul><li>Add a rule each time you correct the same vendor twice.</li><li>Give the extraction prompt 5 to 10 examples of your real receipts.</li><li>Adjust the G3 amount threshold to your comfort level.</li><li>Try a larger model if the extraction correction rate stays above 5%.</li></ul>
+
+<h2>9. Assumptions</h2>
+<ul><li>[ASSUMPTION] The bank offers CSV export only, with no feed.</li><li>[ASSUMPTION] At least half of the transactions come from recurring vendors.</li><li>[ASSUMPTION] The NAS can run Docker containers.</li><li>[ASSUMPTION] There is no legal requirement to keep paper originals (check locally).</li></ul>
+
+<p class="note">
+  Diagrams load from the internet (jsDelivr). If you see diagram code instead of a picture, your network may block it: paste the code into
+  <a href="https://mermaid.live">mermaid.live</a>. Tool licenses, features and pricing change. Verify before you adopt anything.
+  AI-generated analysis: review it with the people who run this process.
+</p>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, securityLevel: 'strict' });
+</script>
+</body>
+</html>
