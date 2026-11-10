@@ -54,7 +54,7 @@ Score each 1–5, multiply by the weight, and add up. Treat it as a structured w
 - What happens when a staff member leaves: can I remove their access in one place?
 
 ## 5. Compliance features (only those that apply; see the risk checklist)
-- Finance and audit: approval workflows with thresholds, segregation of duties, unchangeable records, export of evidence for auditors.
+- Finance and audit: approval workflows with thresholds, segregation of duties, unchangeable records, export of evidence for auditors. For SOX-relevant systems ask for the vendor's SOC 1 Type II report (and SOC 2 for security), the complementary user-entity controls you must run, how configuration changes are logged, and whether you can restrict who changes workflows and approval rules.
 - Health: BAA, minimum-necessary access, audit trail.
 - Regulated quality records (e.g. medical devices, pharma): electronic signatures and audit trails that meet your rules; the vendor's validation support package.
 - Marketing messages: consent capture, opt-out handling, quiet hours.

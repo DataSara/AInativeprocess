@@ -32,9 +32,9 @@ Menu names change between Copilot releases. If a label below doesn't match, look
 - Don't add SOPs with personal or confidential data to the agent's knowledge. Everyone you share the agent with can draw on it.
 
 ## Known Copilot limitations (to test and report)
-- Long answers may be cut off. Corporate reports are often 20–30 KB, so the agent splits the HTML into parts that end with `<!-- END PART n OF N -->`. Paste them into one file in order; the last part ends with `</html>`. If it stops mid-way, reply `continue`.
+- Long answers may be cut off. Reports aim for under 30 KB, but longer ones are split into parts that end with `<!-- END PART n OF N -->`. Paste them into one file in order; the last part ends with `</html>`. If it stops mid-way, reply `continue`.
 - Whether Code interpreter produces a downloadable `.html` file can vary. If it doesn't, copy the HTML code block into Notepad and save it as `reprocess-report.html`.
-- Diagrams load from jsDelivr. Some corporate networks block it; the report then shows diagram code, and every diagram also has a plain-text step list underneath. Don't paste diagram code into external websites unless your policy allows it; a desktop diagram tool your organization approves is safer.
+- Diagrams load from jsDelivr. Some corporate networks block it; the report then shows diagram code, and the step tables in sections 3 and 5 list the same steps. Don't paste diagram code into external websites unless your policy allows it; a desktop diagram tool your organization approves is safer.
 - If you need Word or PDF: open the HTML in a browser and use Print → Save as PDF, or open the HTML file in Word.
 
 ## Fallback: no agent builder

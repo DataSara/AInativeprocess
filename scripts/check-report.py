@@ -14,14 +14,20 @@ ALLOWED = {"html", "head", "meta", "title", "style", "body", "h1", "h2", "h3", "
            "table", "tr", "th", "td", "thead", "tbody", "b", "i", "span", "div", "br", "pre", "script"}
 ALLOWED_ATTRS = {"class", "lang", "charset", "name", "content", "http-equiv", "src", "colspan", "rowspan"}
 BAD_DIAGRAM_LINE = re.compile(r"^\s*(%%|(click|style|linkStyle)\b)", re.I)
-BAD_LABEL_CHARS = re.compile(r"[<>&'`;%|]")
+BAD_LABEL_CHARS = re.compile(r"[<>&'`;%|#{}\\]")
+
+
+COMMENT = re.compile(r"<!--.*?-->", re.S)
+PART_MARKER = re.compile(r"^<!-- END PART \d+ OF \d+ -->$")
 
 
 def template_parts():
     t = TEMPLATE.read_text(encoding="utf-8")
     csp = re.search(r'<meta http-equiv="Content-Security-Policy"[^>]*>', t).group(0)
     script = re.search(r'<script src="[^"]+"></script>', t).group(0)
-    return csp, script
+    style = re.search(r"<style>\n.*?</style>", t, re.S).group(0)
+    footer = re.search(r'<p class="note">\s*<b>Not legal, tax.*?</p>', t, re.S).group(0)
+    return csp, script, style, footer
 
 
 class Checker(HTMLParser):
@@ -50,15 +56,28 @@ class Checker(HTMLParser):
 
 
 def check(path):
-    text = Path(path).read_text(encoding="utf-8")
-    csp, script = template_parts()
+    raw = Path(path).read_text(encoding="utf-8")
+    csp, script, style, footer = template_parts()
+    problems = []
+    for comment in COMMENT.findall(raw):
+        if not PART_MARKER.match(comment.strip()):
+            problems.append(f"HTML comment left in report: {comment[:50]!r}")
+    if raw.count("<!--") != len(COMMENT.findall(raw)):
+        problems.append("unclosed HTML comment")
+    text = COMMENT.sub("", raw)  # string checks must not be satisfied by text hidden in comments
     c = Checker()
     c.feed(text)
-    problems = list(c.problems)
-    if csp not in text:
-        problems.append("Content-Security-Policy meta tag missing or changed")
-    if text.count("<script") != 1 or script not in text:
+    problems += c.problems
+    if text.count(csp) != 1 or text.lower().count("content-security-policy") != 1:
+        problems.append("Content-Security-Policy meta tag missing, changed or duplicated")
+    if c.scripts != 1 or text.count(script) != 1:
         problems.append("pinned Mermaid script missing or changed, or extra scripts present")
+    if style not in text:
+        problems.append("style block differs from the template")
+    if " ".join(footer.split()) not in " ".join(text.split()):
+        problems.append("footer disclaimer differs from the template")
+    if re.search(r"javascript:|data:text/html|vbscript:", text, re.I):
+        problems.append("script URL found")
     if c.metas > 3:
         problems.append(f"{c.metas} meta tags (template has 3)")
     if c.styles != 1:
@@ -71,11 +90,13 @@ def check(path):
         for line in block.splitlines():
             if BAD_DIAGRAM_LINE.match(line):
                 problems.append(f"forbidden diagram line: {line.strip()[:60]}")
+            if re.search(r"https?:|www\.", line, re.I):
+                problems.append(f"URL in diagram: {line.strip()[:60]}")
             for label in re.findall(r'"([^"]*)"', line):
                 if BAD_LABEL_CHARS.search(label):
                     problems.append(f"special character in diagram label: {label[:60]}")
     size = len(text.encode("utf-8"))
-    if size > 60_000:
+    if size > 45_000:
         problems.append(f"report is {size // 1000} KB (aim under 30 KB)")
     elif size > 30_000:
         print(f"  note: {path} is {size // 1000} KB (aim under 30 KB)")
