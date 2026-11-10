@@ -160,5 +160,13 @@ Prefer built-in integrations over community nodes and plugins. Vet the maintaine
 ### S11. Cost and abuse (LLM10)
 Rate limits, max items per run, spend caps and alerts with the AI provider.
 
+### S13. Safe use of ready-made AI assistants (apps-only users)
+- Use a business or work plan for anything about clients, staff or money. A business plan usually has a data processing agreement, admin controls and no training on your data by default; a consumer plan usually doesn't. Check the plan's terms page, not the marketing page.
+- Turn on MFA for the assistant account. Turn memory/personalization off for client work. Don't share chat links that contain client data.
+- No connectors to mailboxes, drives, accounting or bank accounts, and no "agent" or "act for me" modes on accounts holding client data or money, unless an admin (or, for a sole trader, you after reading the terms) has approved the scopes. Prefer read-only.
+- No third-party plugins, extensions or custom assistants with client data.
+- AI meeting notes or call recording: get everyone's consent first, and check recording laws (some places require all parties to agree).
+- Paste only what the task needs. Check every output before it's used or sent; you remain responsible for it.
+
 ### S12. Document chat / RAG (LLM08)
 Index only curated, access-controlled sources. Check that each user's permissions carry through to retrieved content. Anyone who can edit an indexed document can plant instructions.

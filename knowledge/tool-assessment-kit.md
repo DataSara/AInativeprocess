@@ -11,6 +11,7 @@ List the 3–8 capabilities the redesigned process needs from the tool, e.g. "se
 | Criterion | Weight (1–3) | Tool 1 | Tool 2 | Tool 3 |
 |---|---|---|---|---|
 | Covers every must-have | gate: yes/no | | | |
+| Signs the agreement you need (DPA; BAA for US health data; client consent where required) | gate: yes/no | | | |
 | Works with the tools you already use (import/export, integrations) | | | | |
 | Total monthly cost at your volume, incl. add-ons, per-user fees, card or SMS fees | | | | |
 | Setup effort (hours) and who will do it | | | | |
@@ -30,6 +31,10 @@ Score each 1–5, multiply by the weight, and add up. Treat it as a structured w
 - How long is data kept after I cancel? Can I delete it myself?
 - Which subcontractors (sub-processors) handle my data?
 - Is there a business plan with different terms from the consumer plan?
+- Does the vendor use my data for its own purposes (analytics, product improvement, advertising)?
+- Which AI providers (sub-processors) process my data, where, and how long do they keep it?
+- How quickly will you notify me of a data breach, and how?
+- Is data encrypted in transit and at rest? Can you share an independent security report or certification?
 
 ## 4. Security questions
 - Login: is multi-factor authentication available, and can I require it for all users? Single sign-on (for organizations)?
@@ -37,6 +42,7 @@ Score each 1–5, multiply by the weight, and add up. Treat it as a structured w
 - Audit log: does it record who changed what, and can admins edit or delete the log?
 - Approvals: does an approval need a login, or can anyone with a link approve?
 - Integrations: what access does each connection ask for (read-only vs full)? Can I revoke it?
+- Can the vendor's AI features act on my emails, documents or accounts by themselves? Can I limit them to drafts that a person approves?
 - Has the vendor published security information (independent audit report, security page, vulnerability disclosure)?
 - What happens when a staff member leaves: can I remove their access in one place?
 
@@ -60,7 +66,7 @@ Score each 1–5, multiply by the weight, and add up. Treat it as a structured w
 - Reviews from businesses of your size and sector, from sources you trust (not the vendor's own site).
 
 ## 8. Trial plan (before you commit)
-1. Run 5–10 real (anonymized) cases through the free trial, including one awkward exception.
+1. Run 5–10 realistic but **made-up** cases through the free trial, including one awkward exception. Don't put real customer, patient or staff data into a trial until the agreement in section 3 is signed.
 2. Have the person who will use it daily do the trial, not just the buyer.
 3. Test the export (section 6) and the remove-a-user process (section 4).
 4. Check the real monthly bill at your volume against your budget.
@@ -72,5 +78,8 @@ Score each 1–5, multiply by the weight, and add up. Treat it as a structured w
 - Approvals that work by link alone for money or regulated decisions.
 - Pressure to sign before the trial ends, or prices only "on request" for a small business.
 - Asks for passwords to other systems instead of a proper integration.
+- No written answer on where data is stored or who processes it.
+- No way to turn off AI features, or AI that sends or acts without approval by default.
+- Won't sign a DPA (or a BAA for health data) on the plan you can afford.
 
 *This kit helps you structure your own assessment. It is not an endorsement or a legal review; check contracts with a qualified adviser where the stakes are high.*
