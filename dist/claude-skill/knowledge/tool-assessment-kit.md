@@ -6,6 +6,7 @@ The same kit works for open-source tools and for new features or add-ons of tool
 
 ## 1. Must-haves for this process (fill in from the analysis)
 List the 3–8 capabilities the redesigned process needs from the tool, e.g. "sends a reminder 24 h before the appointment", "three-way match against purchase orders", "approval with a login, not a link". A tool that misses a must-have is out, however good the rest is.
+- For tools that staff, candidates or customers use, add: accessible to disabled users (WCAG 2.2 AA as the usual benchmark, verify).
 
 ## 1b. How to find 2–3 candidates (Reprocess won't name them)
 - Search for the tool type plus your sector and size, e.g. "booking app for small salons with deposits".
@@ -13,6 +14,7 @@ List the 3–8 capabilities the redesigned process needs from the tool, e.g. "se
 - Check the app marketplace or integrations page of the tools you already use: listed apps already connect to them.
 - Read independent reviews from businesses of your size; ignore "best of" lists that are adverts.
 - Shortlist only tools that clearly cover your must-haves on their public pricing or feature pages.
+- Inside a company: start with IT's software catalogue and procurement; the security, privacy and AI review route decides; peers in other teams may already use an approved tool.
 
 ## 2. Score card (use for 2–3 shortlisted tools)
 | Criterion | Weight (1–3) | Tool 1 | Tool 2 | Tool 3 |

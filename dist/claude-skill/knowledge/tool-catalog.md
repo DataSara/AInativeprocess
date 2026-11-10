@@ -15,12 +15,21 @@ Before any new tool, check the built-in features of what the user already has: t
 
 **Technical comfort decides the options:**
 - *Apps only*: tools they already have, then ready-made tool types, with step-by-step how-to and safe-use rules. A general-purpose AI assistant on a business plan (not a consumer plan for sensitive data) is often the right "AI" for drafting and summarizing; explain how to use it safely (no personal or confidential data unless the plan's terms allow it, check every output). Nothing from the self-hosted sections below.
-- *Configure*: settings, rules and built-in automation in tools they have, plus low-code open-source tools if they can get them approved or hosted.
+- *Configure*: settings, rules and built-in automation in tools they have, plus low-code open-source tools if they can get them approved or hosted. Employees: see "Inside a company" below.
 - *Build*: open-source tools below, with the build disclaimer, access design, security, compliance and legal steps. Self-hosting only if they can run, patch and back up a server; in organizations, label it an "IT project" and name the approval path.
 - Spreadsheets: LibreOffice Calc (MPL-2.0; verify), or the spreadsheet they already use.
 - Forms: the office suite's form tool if already licensed; LimeSurvey (GPL-2.0+) or Formbricks (AGPL-3.0 core, some paid modules) if self-hosting.
 - For solo and micro businesses with no IT person, the recommended option should need **no server**. Self-hosted rows below are alternatives unless the user says they can run, patch and back up a server.
 - Don't recommend Skill C tools to users who said no-code or low-code.
+
+## Inside a company: configure what you already have
+For employees, "configure" usually means asking a system owner, not installing anything.
+- Ask each system owner (HR system, applicant tracking, ERP, CRM, ticketing, reconciliation tool) what the licensed version already does; expect queue time and change control.
+- The company's own low-code workflow tool (name it only if the user does) runs under admin data-loss-prevention rules: check allowed connectors and whether flows touching personal or financial data must be registered.
+- Flows run under a service account or shared connection with a named co-owner, never one person's login.
+- Built-in AI features of existing systems are new AI steps: check what they read, write and send, whether they act without a human, and their data terms (assessment kit).
+- Agents built in the office suite share their knowledge with everyone they're shared with.
+- Self-hosting open-source tools is an IT project with a security review: offer it only as an alternative, and only if the user's IT team builds and runs software.
 
 ## Orchestration and integration (moving data between systems, schedules, triggers)
 | Tool | Use it for | License | Skill | Self-host | Notes |
