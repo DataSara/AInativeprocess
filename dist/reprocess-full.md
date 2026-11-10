@@ -83,6 +83,10 @@ Pick follow-up questions from here; don't ask all of them. Ask max 4 per round, 
 - Is any of it personal, financial, health, card-payment or confidential client data? (Ask about the type only, never for the data itself.)
 - Which AI tools are approved in your organization, and under what terms (business plan, data region, training opt-out)?
 
+## Employees of larger organizations (any team size; ask in round 1)
+- Count this as one question if needed: Is the AI tool you're using approved for this data's classification? What classification is it? Is any of it under a legal hold, or unannounced financial, deal or launch information (insider or need-to-know list)? Who can open where the files and outputs live (sites, channels, shared or delegate mailboxes)?
+- Do you act for someone else (delegate, shared mailbox), or hold a customer's data as their service provider?
+
 ## People and decisions
 - Who does each step? Who approves? Who is accountable if it goes wrong?
 - Which decisions follow written rules, and which rely on experience or judgment?
@@ -92,6 +96,9 @@ Pick follow-up questions from here; don't ask all of them. Ask max 4 per round, 
 - Does anyone approve after the action has already taken effect?
 - Which steps involve talking to customers, suppliers or colleagues?
 - Does any step decide something about a specific person (staff schedules, task allocation, performance, hiring, credit, refunds, account blocks)?
+- Does any step screen, reject, rank or score people, even by fixed rules (knock-out questions, minimum scores)? Where are the candidates or workers (countries, states)?
+- Do you set or monitor work rates, quotas or idle time? Is each quota given in writing, including to temps?
+- Do health, disability, leave or accommodation details pass through this process? Where are they kept, and who sees them?
 
 ## Risk and compliance
 - Is this process audited or regulated (financial controls, SOX, GDPR, HIPAA, industry rules)?
@@ -114,6 +121,7 @@ Pick follow-up questions from here; don't ask all of them. Ask max 4 per round, 
 ## Messages to customers and leads
 - Will any step send automated texts, emails or calls? To existing customers or to leads?
 - What consent do you record, and how do people opt out?
+- Where do consent, opt-outs and objections live, and do they reach agencies and ad platforms already holding your lists? Does any audience use inferred traits?
 - Do you ever send to many people at once?
 
 ## Current-state risks (ask even where nothing will be automated)
@@ -132,6 +140,7 @@ Pick follow-up questions from here; don't ask all of them. Ask max 4 per round, 
 
 ## Organization scale (several teams or sites)
 - Ask first, on its own: shall we split this into sub-processes and do one at a time? (Doesn't count toward the question limit.)
+- Which sub-process first? (Suggest the highest risk or pain; the user chooses.)
 - What are the main sub-processes and who owns each?
 - What are the hand-offs between teams, sites or systems? Which ones fail most?
 - Is the process the same at every site, or are there local variations?
@@ -309,12 +318,14 @@ Wording rule: say "may trigger", "check with …", "verify locally". Never say a
 
 Ask for the jurisdiction (countries, US states) and rough headcount if you don't have them. Most items below depend on them.
 
+Employer and large-organisation sections: §2 and §2b (hiring, checks, right to work), §3b (other parties' data), §4 first bullet (employee health data), §5 and §5b (controls, inside information), §6b (commitments, internal broadcasts), §8c (marketing), §10b (frontline work), §11 (legal hold), S3 (delegated mailboxes), S14 (assistants grounded in workplace data).
+
 ---
 
 ## Part 1: Risk and compliance
 
 ### 1. Do not propose (prohibited or near-prohibited)
-- EU AI Act Art. 5 (in force since Feb 2025): emotion recognition in the workplace or in education (e.g. "score agent stress or sentiment on calls"), social scoring, manipulative techniques, untargeted face scraping, some biometric categorisation.
+- EU AI Act Art. 5 (applies since Feb 2025): emotion recognition from biometric data (face, voice) in the workplace or in education (e.g. "score agent stress from call audio"); social scoring; manipulative techniques; untargeted face scraping; some biometric categorisation. Text sentiment isn't covered by this ban, but scoring workers from it is still employee evaluation (§2).
 - Generating fake reviews or testimonials (US FTC rule 16 CFR Part 465; UK DMCC Act 2024).
 - Feeding non-public competitor data (shared through a common pricing vendor or otherwise) into a pricing step (US Sherman Act §1, EU TFEU Art. 101; see the DOJ v. RealPage case; some US states have added rules on shared pricing algorithms *(verify)*).
 
@@ -323,13 +334,29 @@ A gate can be loosened only with evidence, and for money or regulated records on
 - Zero errors in *n* reviewed items gives a 95% upper bound on the true error rate of about 3/*n* (the "rule of three"): 0 errors in 100 → under ~3%; 0 in 300 → under ~1%.
 - A few errors widen it a lot: 4 errors in 200 (2%) is consistent with a true rate of about 5%.
 - Corrections measured under review understate errors, because reviewers rubber-stamp (automation bias). Seed known-bad test items to check reviewer attention.
-- Loosen in steps (e.g. full review → large sample → exceptions only), keep a sample forever, and re-tighten when inputs, models or prompts change, or when errors rise.
+- Loosen in steps (e.g. full review → large sample → exceptions only), keep a sample forever, and re-tighten when inputs, models (including vendor updates you don't control, S14) or prompts change, or when errors rise.
+- Low volume (weekly or monthly runs): the bound stays wide for a long time. Keep the gate, or loosen only after an agreed number of periods with no corrections. Record hands-on time and waiting time separately in baselines.
 
 ### 2. Decisions about people: keep D, or B with a named approver
-- **Employment**: hiring, promotion, pay, performance, discipline, **scheduling, task allocation and worker monitoring**. EU AI Act Annex III point 4 treats these as high-risk *(application dates under review by the EU "Digital Omnibus", verify)*. Deployer duties (Art. 26) include human oversight by competent people, keeping logs, and informing workers and their representatives before use. US: NYC Local Law 144 (bias audits for hiring/promotion tools), Colorado AI Act (consequential decisions, *verify effective date*), Illinois HB 3773. Works councils (e.g. Germany BetrVG §87(1) no. 6) may have co-determination rights over systems that can monitor performance.
+- **Employment**: hiring, promotion, pay, performance, discipline, shifts, task allocation and worker monitoring; background and right-to-work checks (§2b).
+  - **Human review doesn't take a tool out of scope.** EU AI Act Annex III point 4 covers AI used to target job ads, analyse or filter applications, evaluate candidates, allocate tasks, and monitor or evaluate workers. Under the EU AI Omnibus (in force 27 July 2026) these high-risk rules apply from 2 Dec 2027 *(verify)*. A system that profiles people stays high-risk even for preparatory tasks (Art. 6(3)). Deployers (Art. 26): human oversight by competent people, logs, and informing workers' representatives and affected workers before use.
+  - **Using a general-purpose assistant for a high-risk HR purpose** (screening, ranking, scoring or summarising candidates or workers) may make the employer the *provider* of a high-risk system (Art. 25(1)(c)) *(verify)*. Flag it to Legal before design, not at pilot.
+  - **Rules are decisions too.** A mode A rule that rejects, ranks or filters people (knock-out questions, minimum scores, auto-reject) is a decision about a person: for EU/UK people it may be a solely automated decision (GDPR Art. 22), so a human reviews rejections or offers review on request; everywhere, monitor pass rates by group (US: UGESP 29 CFR 1607, four-fifths rule of thumb). Work-authorisation questions: ask only what the law allows (US: don't screen out on citizenship or immigration status unless law requires it, 8 U.S.C. 1324b *(verify)*).
+  - **US**: NYC Local Law 144 (bias audit, public summary, notice; its rule defines "substantially assist or replace" narrowly, so Legal decides whether a tool is in scope); Illinois HB 3773 (from 1 Jan 2026: notice of AI use, no discriminatory effect, no zip codes as a proxy); Illinois AI Video Interview Act (notice, explanation and consent before AI analyses video interviews; limit sharing; delete on request); California Civil Rights Council rules on automated-decision systems under FEHA (from 1 Oct 2025; keep ADS records, *verify period*) and CPPA automated decision-making rules for employment decisions (*verify dates*); Colorado AI Act (*verify effective date*).
+  - **Tell people first**: candidates and workers are told before AI is used on them (EU AI Act Art. 26(7), (11); NYC and Illinois notices). §7 covers customers; this covers people you employ or may employ.
+  - **Works councils**: Germany BetrVG §87(1) no. 6 (systems able to monitor), §94 (personnel questionnaires, assessment principles), §95 (selection guidelines); similar rights elsewhere in the EU *(verify)*.
+  - **Training**: AI that grades tests, steers learning or proctors exams may be high-risk under Annex III point 3 *(verify whether internal L&D counts)*.
 - **Consumers**: credit, insurance pricing, housing, refunds, account closure, fraud blocks. GDPR / UK GDPR Art. 22 restricts solely automated decisions with legal or similarly significant effects. Meaningful human review means the reviewer has the authority and the information to overturn the decision. US state privacy laws (e.g. Colorado, Connecticut, Virginia) give opt-out rights for such profiling; California has automated decision-making rules *(verify dates)*.
 - Sole traders and freelancers are natural persons, so supplier decisions about them can be personal-data decisions too.
 - Mode C is excluded whenever the output feeds a report, score, note or coaching record about identifiable people, even indirectly (e.g. AI categorising manager override comments that end up in a performance note).
+
+### 2b. Pre-employment checks, pay transparency and right to work *(verify by country and state)*
+- **Background checks (US FCRA)**: standalone disclosure and written authorisation before ordering; pre-adverse action notice with the report and summary of rights, a waiting period, then the adverse action notice. Fair-chance laws (e.g. NYC, California) delay criminal checks until after a conditional offer and require an individual assessment. AI never summarises, scores or recommends on a background report; HR adjudicates.
+- **Criminal-record data** in the EU/UK is restricted (GDPR Art. 10): keep it out of trackers, chats and assistants.
+- **Right to work**: US Form I-9 Section 2 within 3 business days of starting work; the employee chooses which acceptable documents to present (asking for specific documents can be discrimination, 8 U.S.C. 1324b(a)(6)); E-Verify only after hire, never to pre-screen; any remote examination procedure applied consistently. UK: check before the first day and keep copies. AI never examines, chooses or judges identity documents. ID copies live only in the HR system, outside shared sites and assistant reach.
+- **Pay transparency**: several US states and cities require pay ranges in job postings; the EU Pay Transparency Directive (2023/970; national laws due by 7 June 2026, *verify*) requires pay information before interview and bans asking about pay history. Make "no range, no post" a system block.
+- **Sourced candidates (EU/UK)**: people found on a platform get a privacy notice within a month (GDPR Art. 14); platform terms may forbid copying profiles into other tools or AI.
+- **Hiring records**: US employers generally keep application and selection records at least 1 year (29 CFR 1602.14), longer for some federal contractors and when a charge is filed. Rejected candidates' records included.
 
 ### 3. Personal data in the future system
 The chat-input privacy reminder isn't enough. For any step that sends personal data to an AI service or a new tool, flag:
@@ -341,7 +368,16 @@ The chat-input privacy reminder isn't enough. For any step that sends personal d
 - **Customer, supplier and marketplace data** may be restricted by contract: retailer data-sharing agreements, marketplace seller terms (e.g. how sellers may use buyer data), NDAs. Client contracts may forbid AI or machine translation entirely; get written permission and record it (a "do not loosen" gate).
 - **DPIA likely** (Art. 35) when two or more apply: new technology such as AI; systematic monitoring of employees; large scale; vulnerable people; special-category data; automated decisions with significant effect; combining datasets. Tell the user to involve their privacy team or DPO before the pilot.
 
+### 3b. Other parties' confidential data (customers, suppliers, candidates)
+- One counterparty per site, folder and chat. A grounded assistant mixes them unless the storage is separated (S14).
+- No reuse of one client's designs, data or prices in another's deliverable or benchmark without written contract permission.
+- Never pass one supplier's non-public prices, costs or plans to a competitor, or customers' current prices to other customers (information exchange: TFEU Art. 101, Sherman Act §1, *verify*).
+- **Service-provider (processor) role**: data you hold for a customer (configs, logs, usage data, tickets) may be used only on the customer's documented instructions (GDPR Art. 28(3)(a)); a new AI service touching it may need the customer's sub-processor authorisation (Art. 28(2)). Using it for your own purposes (account planning, upsell analysis) can make you its controller (Art. 28(10)) and breach the contract. Check the customer DPA before any AI step; health data in customer material: check business-associate terms (HIPAA).
+- Secrets found in received files: never paste them anywhere; tell the owner to revoke and rotate; record that you did.
+- At close-out, return or delete per contract, after checking legal holds.
+
 ### 4. Health, card and financial data
+- **Employee and applicant health, disability and leave data (any employer)**: HIPAA usually doesn't cover records an employer holds as employer *(verify)*, but medical information about employees and applicants must be kept confidential and in separate files (US: ADA, 29 CFR 1630.14; FMLA, 29 CFR 825.500(g); GINA, 29 CFR 1635.9). EU/UK: special-category data (Art. 9). Accommodation requests, medical restrictions, leave reasons, and dietary or accessibility answers: only the logistics ("extra 15 minutes", "no lifting over 10 kg") reach managers, schedulers, trackers, channels or AI; the reason stays with the accommodations, medical or leave team. Never mode B or C on these records.
 - **Health (US HIPAA)**: first establish whether HIPAA applies. A provider is a covered entity if it sends standard electronic transactions (e.g. insurance claims, eligibility checks); a private-pay-only practice may not be *(verify)*. If HIPAA doesn't apply, state health-privacy laws, licensing-board confidentiality rules and consumer health-data laws (e.g. Washington's My Health My Data Act) may apply instead. Covered entities and business associates need a Business Associate Agreement with every AI or automation vendor that touches PHI. Consumer AI chat plans generally don't offer one. Apply minimum-necessary access and keep audit logs. Substance-use records have extra rules (42 CFR Part 2).
 - **Crisis, self-harm, abuse or threat messages** (any business, especially health, care, education): a person reads inbound messages the same day; AI must never sort, close, archive or answer them; auto-replies give emergency and crisis contacts (verify the numbers for your country) and say when a person will reply; don't quote the message in other systems. Sending health information by ordinary email needs the client's informed agreement to unencrypted email, or use an encrypted/portal option. Don't paste PHI into Reprocess itself.
 - **Cards (PCI DSS v4.0.1)**: any automation, OCR or LLM step that sees a full card number comes into PCI scope. Use the payment processor's tokens or references and mask card numbers before OCR/AI.
@@ -357,6 +393,19 @@ The chat-input privacy reminder isn't enough. For any step that sends personal d
 - The person who researches or prepares an item can't approve it, including under a threshold.
 - Spreadsheets, Power Query files or flows that produce control evidence are end-user computing (EUC) or IT general controls in scope: lock the logic, version it, and review changes.
 - AI may not propose misconduct, theft or fraud codes about employees. Only a human assigns them, and Loss Prevention/HR handle any inquiry about a person.
+- Adding AI to a key control is a control change: tell the control owner before the period it starts; auditors may need to re-test.
+- Reports a reviewer relies on (system reports, queries, AI summaries) need evidence that they are complete and accurate: keep the parameters and the source (information produced by the entity; PCAOB AS 2201, AS 1105, *verify*).
+- An assistant never edits formulas, links or locked tabs in control workbooks. AI worksheet functions are not control logic: results can change on recalculation, and at least one has been retired, turning recalculated cells into errors while old results stay cached *(verify for your suite)*.
+- Vendor model updates aren't under your change control (S14): for B steps inside key controls keep a standing sample forever.
+- Finance-narrative failure modes to train reviewers on: stale carry-forward (last period's reason reused), a wrong figure inside fluent text, a cause that isn't in the data.
+- Expenses, gifts, hospitality and events: anti-bribery rules (US FCPA; UK Bribery Act 2010) and the company's gifts policy apply. AI may sort receipts and flag policy breaches; a human approves, and anything for a public official goes to Compliance.
+
+### 5b. Inside information and externally reported numbers (listed companies)
+- Unannounced results, forecasts, guidance inputs, deals, launches or large contracts may be material non-public information (MNPI). Ask whether any of it is, and whether there is an insider or need-to-know list.
+- AI steps must not widen who sees it: distribution lists, large channels, shared folders, agent knowledge, assistant reach (S14). Keep the recipient list a human gate in quarter-end and pre-announcement windows; respect blackout periods.
+- **Web search off** for this work: deal code names, targets or unannounced figures in a prompt can end up in search queries sent outside the business terms (S14).
+- Disclosure to investors, analysts or press is restricted (US Regulation FD; EU MAR Art. 17). EU issuers keep insider lists (MAR Art. 18), and a leak of delayed inside information can force immediate disclosure (MAR Art. 17(7)) *(verify)*. AI never drafts or sends to investors, analysts or press without IR/Legal.
+- Metrics also reported externally: one controlled definition owned by Finance, internal decks reconcile to it, and changes need Finance/IR approval (SEC 2020 MD&A guidance on key performance indicators, *verify*).
 
 ### 6. Pricing, promotions and claims
 - Prices and claims shown to customers stay human-approved.
@@ -364,7 +413,7 @@ The chat-input privacy reminder isn't enough. For any step that sends personal d
 - Price accuracy and item-pricing: US weights-and-measures inspections follow NIST Handbook 130/133 practices, and some states have item-pricing or scanner-accuracy laws with refund or penalty rules *(verify by state)*.
 - Shelf or tag prices must match the register: price changes that go live at the register before tags change can breach state price-accuracy and weights-and-measures rules.
 - Personalised pricing may need disclosure (EU Consumer Rights Directive as amended in 2019; New York's algorithmic pricing disclosure law *(verify scope)*).
-- B2B price discrimination and promotional allowances: US Robinson-Patman Act §2(a), §2(d)/(e).
+- B2B price discrimination and promotional allowances: US Robinson-Patman Act §2(a), §2(d)/(e). Buyers who knowingly induce or receive a discriminatory price can be liable too (§2(f)): check supplier chargebacks and allowance demands against agreed terms *(verify)*.
 - Marketing claims need substantiation (US FTC Act §5). Drip pricing and fake reviews are restricted (UK DMCC Act 2024).
 - When someone asks for "AI pricing": third-party pricing tools that pool competitors' non-public data are the algorithmic-collusion risk (see §1). Scraping public competitor prices is a separate question (site terms of use).
 
@@ -372,9 +421,11 @@ The chat-input privacy reminder isn't enough. For any step that sends personal d
 
 ### 6b. External messages: what may not be said
 For any message to customers, carriers or suppliers, state what it may not promise or disclose (delivery dates, reasons for delay that create liability, other customers' information), and who owns the template (Sales, Customer Service, Legal). Retail "price point" suggestions to resellers can raise resale-price-maintenance concerns: phrase them as suggestions.
+- **Commitments in drafts**: AI drafts to customers never add prices, discounts, credits, waivers, service levels, roadmap or delivery promises. Non-standard terms go to the approver named in the pricing or deal policy; side promises can change revenue recognition (Finance checks).
+- **Internal broadcasts**: confidential, price-sensitive or people-related content to senior or large audiences (leaders, big channels, distribution lists, channels with contractors or guests): a human sends; do not loosen.
 
 ### 7. AI transparency
-- Customers talking to an AI must be told (EU AI Act Art. 50 *(verify application date)*; California BOT Act; Utah AI disclosure rules *(verify)*).
+- Customers talking to an AI must be told (EU AI Act Art. 50, from August 2026 *(verify)*; California BOT Act; Utah AI disclosure rules *(verify)*).
 - Label AI-drafted customer messages where your sector or policy requires it.
 
 ### 8. Marketing and outreach (common for small businesses)
@@ -390,10 +441,20 @@ For any message to customers, carriers or suppliers, state what it may not promi
 - Staff pay: travel time between job sites during the workday is generally paid working time (US FLSA; UK National Minimum Wage rules). Scheduling and timesheet automation must capture it.
 - When one person does everything, segregation of duties isn't possible: name a compensating check (accountant review, keeping records, a waiting period before paying new payees).
 
+### 8c. Marketing data and AI-generated content
+- No targeting on sensitive traits or inferences (health, pregnancy, sexuality, religion, ethnicity, financial distress, children). EU: GDPR Art. 9; online platforms may not show ads based on profiling with special-category data, or profiled ads to minors (DSA Arts. 26(3), 28(2)). US: consumer health-data laws (e.g. Washington's My Health My Data Act can cover health inferences from purchases; consent to collect, separate consent to share, *verify*) and state laws requiring opt-in for sensitive data (*verify by state*).
+- Uploaded customer lists, hashed or not, are personal data. Apply opt-outs and objections (GDPR Art. 21; US state opt-outs incl. browser opt-out signals, *verify*) before every upload and to audiences already on ad platforms.
+- AI-generated or manipulated images, audio or video that look real (people, objects, places, events) must be disclosed under the EU AI Act Art. 50(4) from August 2026 *(verify scope)*. Follow platform labels and likeness or voice rights (some US states regulate digital replicas, *verify*). Keep a record of which assets used AI.
+- Endorsements and influencer posts need clear disclosure of material connections (FTC Endorsement Guides, 16 CFR 255; UK CAP Code).
+
 ### 9. Employment and labour
 - If the design monitors, scores or reallocates work, or reduces roles, involve HR and employee representatives before the pilot. Some jurisdictions require notice of electronic monitoring (e.g. New York Civil Rights Law §52-c).
 - AI literacy: the EU AI Act Art. 4 expects staff who use AI to be trained. In every case, train gate reviewers on how the AI step fails before go-live.
 - Express savings as capacity, not headcount.
+- Rule-based monitoring (rates, idle-time tracking, badge or login data) is monitoring even without AI: notice laws, works councils and DPIAs still apply.
+- Unionised workforce: changes to monitoring, quotas, scheduling or discipline may need bargaining first (US NLRA; similar rules elsewhere, *verify*). Never use AI to watch organising or protected concerted activity.
+- Accessibility: candidate and employee tools, forms, courses and reports must be usable by disabled people (ADA; WCAG 2.2 AA as the usual benchmark, *verify*).
+- Mandatory training (e.g. harassment prevention in some US states, safety training, regulated-industry training): completion records are evidence. AI may remind and summarise; it never marks training complete or grants an exemption *(verify by state and sector)*.
 
 ### 10. Sector rules (AI may suggest; a qualified human decides)
 - **Food**: HACCP, US FSMA (incl. the Food Traceability Rule, *verify compliance date*, and the Sanitary Transportation rule, which requires shippers to specify temperature and pre-cooling to carriers in writing), EU Reg. 178/2002 traceability. Allergens stay fully human, with no customer-facing chatbot answering allergen questions (UK: Food Information Regulations 2014, PPDS "Natasha's Law").
@@ -404,11 +465,20 @@ For any message to customers, carriers or suppliers, state what it may not promi
 - **Customs**: tariff (HS) classification errors carry penalties. AI may suggest; a licensed or responsible person confirms.
 - **Regulated professions** (legal, tax, accounting, healthcare, financial advice): professional rules on confidentiality, supervision and sign-off apply.
 
+### 10b. Frontline operations (warehouses, stores, field work) *(verify by state)*
+- **Quota laws**: several US states (e.g. California, New York, Washington, Minnesota, Oregon) regulate warehouse productivity quotas above size thresholds: describe each quota in writing (at hire and on change, in the worker's language); don't count meal or rest breaks, bathroom use or travel to them; answer workers' requests for their quota and own speed data within the legal deadline. Make the written quota and the request process steps in the map, including for agency temps.
+- **OSHA recordkeeping (US)**: EHS decides recordability, records within 7 calendar days, reports a fatality within 8 hours and in-patient hospitalisation, amputation or eye loss within 24 hours (29 CFR 1904.29, 1904.39); temps you supervise day to day usually go on your log (1904.31); privacy-case names are withheld (1904.29). AI never decides recordability.
+- **Anti-retaliation**: nothing may deter injury reporting (29 CFR 1904.35(b)(1)(iv); OSH Act §11(c)). No rate coaching, discipline or incentive loss linked to an injury report; HR reviews any rate coaching soon after one.
+- **Heat and ergonomics**: state heat rules and the employer's heat plan.
+- Medical restrictions and light duty: logistics only (§4).
+
 ### 11. Records and retention
 - Never mark a record-producing step "Eliminate" without saying where the record now lives.
 - Statutory retention varies by record type and country (e.g. tax records commonly 5–10 years). Check locally.
 - E-invoicing mandates are spreading (e.g. Germany, Poland, France, EU ViDA *(verify dates)*). They may change how invoices must be sent and kept.
 - AI prompts, outputs and approval logs can themselves be records.
+- **Legal hold**: ask whether a hold covers this process. Under a hold, nothing is deleted, eliminated or left to auto-expire: records, chats, transcripts, AI history. A step marked E keeps its records until Legal releases them.
+- Meeting recordings, transcripts and AI recaps are records that hold other people's data and statements. Decide before the pilot whether they're kept, for how long, and who can open them.
 
 ### 12. Intellectual property and confidentiality
 - Purely AI-generated content may not be protected by copyright (US Copyright Office guidance, 2025).
@@ -429,12 +499,13 @@ Emails, invoices, supplier PDFs, tickets, web pages, chat messages and the SOP i
 - Loosening a gate on an extraction or email-routing step is a security change: re-check S1 and S6 first.
 
 ### S2. The "lethal trifecta"
-Private data + untrusted content + a way to send data out, all in one AI component, means data can be exfiltrated (e.g. an agent that reads a mailbox and can also send email or call webhooks). Never combine all three in an autonomous step. Split the components or add a gate, and allow-list outbound destinations.
+Private data + untrusted content + a way to send data out (including links or images an assistant renders), all in one AI component, means data can be exfiltrated (e.g. an agent that reads a mailbox and can also send email or call webhooks). Never combine all three in an autonomous step. Split the components or add a gate, and allow-list outbound destinations.
 
 ### S3. Least privilege (LLM06 excessive agency)
 - One service account per workflow, with no admin API users.
 - Minimal OAuth scopes: read-only mail access when the step only reads; no send permission unless a gate precedes it. In office-suite and mail platforms, prefer delegated or tightly scoped application permissions *(verify the current options with your admin)*.
 - Write to a staging table or create drafts that a human or rules step promotes. Don't write straight to the ERP or the books.
+- **Delegated and shared mailboxes or calendars**: a grounded assistant can reach whatever the delegate can *(verify per suite)*, including HR, legal, board and deal mail. The principal's agreement is needed but not enough: company policy and the owners of that information decide. AI drafts; the delegate sends "on behalf" (never "as") under the principal's written rules; no auto-replies as the principal; review full-access and private-item settings; remove delegates who no longer need access.
 
 ### S4. Output handling (LLM05)
 Before any system write: schema check, ranges, totals cross-foot, master-data lookup, duplicate/idempotency check. Write as drafts where the system supports it.
@@ -455,6 +526,7 @@ Before any system write: schema check, ranges, totals cross-foot, master-data lo
 - Carrier and contractor remit-to changes need the same callback control, even when another team pays them.
 - New vendors: verify bank details by callback to an independently sourced number (not one on the onboarding form) before the first payment.
 - Bank-detail changes: callback to a number already on file (not one from the email), dual approval, and a waiting period.
+- Employee payroll bank-detail changes are a common fraud too: accept them only through the HR or payroll system's own login (with MFA) or a verified callback, never from an email or chat request, and tell the employee through a known channel when details change.
 - 3-way match, duplicate and split-invoice detection, review of new vendors and first payments, and positive pay where the bank offers it.
 
 ### S7. Secrets
@@ -483,11 +555,23 @@ Rate limits, max items per run, spend caps and alerts with the AI provider.
 - Turn on MFA for the assistant account. Turn memory/personalization off for client work. Don't share chat links that contain client data.
 - No connectors to mailboxes, drives, accounting or bank accounts, and no "agent" or "act for me" modes on accounts holding client data or money, unless an admin (or, for a sole trader, you after reading the terms) has approved the scopes. Prefer read-only.
 - No third-party plugins, extensions or custom assistants with client data.
-- AI meeting notes or call recording: get everyone's consent first, and check recording laws (some places require all parties to agree).
+- AI meeting notes or call recording: get everyone's consent first, and check recording laws (some places require all parties to agree). Recording rules differ by country and US state (some criminalise recording without everyone's consent; others allow it but data-protection notice still applies): ask Legal for each country in the meeting.
 - Paste only what the task needs. Check every output before it's used or sent; you remain responsible for it.
 
 ### S12. Document chat / RAG (LLM08)
 Index only curated, access-controlled sources. Check that each user's permissions carry through to retrieved content. Anyone who can edit an indexed document can plant instructions.
+
+### S14. Assistants grounded in your workplace data
+Office-suite assistants answer from everything the user can open: mail, chats, meetings, calendars, files, shared and external channels, connected systems. The user doesn't switch this on per chat.
+- **Reach = permissions.** Before a pilot, ask who can open each source the step touches (sites, channels, shared or delegate mailboxes). Fix oversharing first. For HR, legal, deal, health and customer content, ask the admin about sensitivity labels with encryption or restricted search; assistants honour label usage rights *(verify your tenant)*.
+- **Scope by reference, not by intent.** "Use only customer A's files" doesn't stop the assistant pulling customer B's. Point it at named files, check every citation, keep one counterparty per site and chat.
+- **History is a record.** Prompts, answers and citations are stored and searchable by admins (eDiscovery, retention, legal hold). Users can delete their own history: ask Legal first if a hold or retention rule may apply.
+- **Web search leaves the business terms.** Search queries are built from the prompt and any open or named document and sent to a web search service under different terms; for at least one major suite they fall outside the data protection addendum, HIPAA and regional data-boundary commitments *(verify)*. Turn web search off for confidential, deal, people or health work; some research modes have no user toggle, so ask the admin.
+- **Other providers' models.** Admins may enable third-party models; some are outside regional data-boundary commitments, and some run under the model provider's own terms with data retention. Ask which models are allowed for this data class.
+- **Injection without pasting.** Any email or file the user can reach can carry instructions, even one never opened; vendor filters help but don't cover every feature (a critical zero-click case was published and fixed in 2025, CVE-2025-32711). "Drafts only" is not a full barrier: links or images in an answer can carry data out. Don't open links in answers built from outside content; report odd outputs to Security.
+- **Model updates aren't your change.** The vendor updates models outside your change control. For B steps in key or regulated controls, keep a standing sample and re-check after announced updates.
+- **Agents share their knowledge** with everyone they're shared with. No personal or confidential files in agent knowledge.
+- **No evaluating people from their communications.** At least one vendor restricts AI inferences about an employee's performance, attitude or emotional state from workplace communications. Don't design steps that need it; outputs about people may be softened or refused.
 
 
 ---

@@ -21,6 +21,10 @@ Pick follow-up questions from here; don't ask all of them. Ask max 4 per round, 
 - Is any of it personal, financial, health, card-payment or confidential client data? (Ask about the type only, never for the data itself.)
 - Which AI tools are approved in your organization, and under what terms (business plan, data region, training opt-out)?
 
+## Employees of larger organizations (any team size; ask in round 1)
+- Count this as one question if needed: Is the AI tool you're using approved for this data's classification? What classification is it? Is any of it under a legal hold, or unannounced financial, deal or launch information (insider or need-to-know list)? Who can open where the files and outputs live (sites, channels, shared or delegate mailboxes)?
+- Do you act for someone else (delegate, shared mailbox), or hold a customer's data as their service provider?
+
 ## People and decisions
 - Who does each step? Who approves? Who is accountable if it goes wrong?
 - Which decisions follow written rules, and which rely on experience or judgment?
@@ -30,6 +34,9 @@ Pick follow-up questions from here; don't ask all of them. Ask max 4 per round, 
 - Does anyone approve after the action has already taken effect?
 - Which steps involve talking to customers, suppliers or colleagues?
 - Does any step decide something about a specific person (staff schedules, task allocation, performance, hiring, credit, refunds, account blocks)?
+- Does any step screen, reject, rank or score people, even by fixed rules (knock-out questions, minimum scores)? Where are the candidates or workers (countries, states)?
+- Do you set or monitor work rates, quotas or idle time? Is each quota given in writing, including to temps?
+- Do health, disability, leave or accommodation details pass through this process? Where are they kept, and who sees them?
 
 ## Risk and compliance
 - Is this process audited or regulated (financial controls, SOX, GDPR, HIPAA, industry rules)?
@@ -52,6 +59,7 @@ Pick follow-up questions from here; don't ask all of them. Ask max 4 per round, 
 ## Messages to customers and leads
 - Will any step send automated texts, emails or calls? To existing customers or to leads?
 - What consent do you record, and how do people opt out?
+- Where do consent, opt-outs and objections live, and do they reach agencies and ad platforms already holding your lists? Does any audience use inferred traits?
 - Do you ever send to many people at once?
 
 ## Current-state risks (ask even where nothing will be automated)
@@ -70,6 +78,7 @@ Pick follow-up questions from here; don't ask all of them. Ask max 4 per round, 
 
 ## Organization scale (several teams or sites)
 - Ask first, on its own: shall we split this into sub-processes and do one at a time? (Doesn't count toward the question limit.)
+- Which sub-process first? (Suggest the highest risk or pain; the user chooses.)
 - What are the main sub-processes and who owns each?
 - What are the hand-offs between teams, sites or systems? Which ones fail most?
 - Is the process the same at every site, or are there local variations?
