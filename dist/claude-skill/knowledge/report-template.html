@@ -23,7 +23,7 @@
   h1{font-size:1.6rem;margin-bottom:.2rem}
   h2{border-bottom:2px solid #e5e7eb;padding-bottom:.3rem;margin-top:2.2rem}
   .meta{color:#6b7280;font-size:.9rem}
-  table{border-collapse:collapse;width:100%;font-size:.9rem;margin:1rem 0}
+  table{border-collapse:collapse;width:100%;font-size:.9rem;margin:1rem 0;display:block;overflow-x:auto}
   th,td{border:1px solid #e5e7eb;padding:.4rem .6rem;text-align:left;vertical-align:top}
   th{background:#f9fafb}
   .tag{display:inline-block;padding:0 .5rem;border-radius:999px;font-size:.8rem;font-weight:600;white-space:nowrap}
@@ -31,7 +31,7 @@
   .option{border:1px solid #e5e7eb;border-radius:8px;padding:.8rem 1rem;margin:1rem 0}
   .option.recommended{border:2px solid #2563eb}
   .note{background:#f9fafb;border-left:4px solid #9ca3af;padding:.6rem 1rem;font-size:.9rem}
-  pre.mermaid{background:#fff;margin:1rem 0}
+  pre.mermaid{background:#fff;margin:1rem 0;overflow-x:auto}
   @media print{pre.mermaid,table,.option{break-inside:avoid}h2{break-after:avoid}}
 </style>
 </head>
@@ -39,19 +39,33 @@
 
 <h1>{{PROCESS_NAME}}: AI-native redesign</h1>
 <p class="meta">Prepared with Reprocess v0.2 on {{DATE}} · Scope: {{SCOPE}} · Draft for discussion, not a validated design.</p>
+<p class="note">Diagrams are drawn in your browser from cdn.jsdelivr.net (your process text is not sent). If your network blocks it, each diagram has a plain-text step list underneath, and the diagram code can be pasted into any Mermaid-compatible tool your organization allows.</p>
 
 <h2>1. Executive summary</h2>
+<p><b>Do this week (max 3 steps):</b></p>
+<ol>
+  {{THIS_WEEK_STEPS}}
+</ol>
 <ul>
   {{SUMMARY_BULLETS}}
 </ul>
+<!-- Summary bullets must include any High risk flag and any control or access weakness the user mentioned. -->
 
-<h2>2. Current state</h2>
+<h2>2. Scope, sub-processes and hand-offs</h2>
+<!-- In scope / out of scope. If the process was split: list sub-processes and which one this report covers.
+     Hand-offs table: From | To | What passes | How it fails | Deferred risk and interim control | Owner.
+     If not split, one line saying so. -->
+{{SCOPE_AND_HANDOFFS}}
+
+<h2>3. Current state</h2>
 <pre class="mermaid">
 {{CURRENT_STATE_MERMAID}}
 </pre>
+<!-- Plain-text fallback: an ordered list of the same steps, one line each. -->
+{{CURRENT_STATE_STEP_LIST}}
 {{CURRENT_STATE_TABLE}}
 
-<h2>3. Future state</h2>
+<h2>4. Future state</h2>
 <p>
   <span class="tag A">A Automate (no AI)</span>
   <span class="tag B">B AI-assist + human review</span>
@@ -63,29 +77,49 @@
 <pre class="mermaid">
 {{FUTURE_STATE_MERMAID}}
 </pre>
+<!-- Plain-text fallback: ordered list "step — mode — gate after it, if any". -->
+{{FUTURE_STATE_STEP_LIST}}
 
-<h2>4. Step classification</h2>
-<!-- Columns: # | Step | Mode | Why | Confidence | Predictability | Input structure | Error cost | Reversibility | Volume | Accountability -->
+<h2>5. Step classification</h2>
+<!-- Columns: # | Step | Mode | Why | Confidence | Predictability | Input structure | Error cost | Reversibility | Volume | Accountability.
+     Mark steps already automated today as "no change". -->
 {{CLASSIFICATION_TABLE}}
 
-<h2>5. Human gates</h2>
-<!-- Columns: Gate | Location | What the human checks | Approver role | Actions | Escalation trigger | Record kept | Evidence to loosen later -->
+<h2>6. Human gates</h2>
+<!-- Columns: Gate | After step | What the human checks | Approver role | Must not approve (preparer, poster, beneficiary) | Threshold |
+     Enforced by (system block or policy only) | Escalation trigger | Record kept (what, where) | Loosening (evidence needed, or "Do not loosen" and why). -->
 {{GATES_TABLE}}
+<!-- Only if the process is regulated or audited: Control impact table. Columns: Control (ID if known) | Key control? | Changed how |
+     Validation / change control needed | Evidence for auditors | Owner. Otherwise omit this block. -->
+{{CONTROL_IMPACT_TABLE}}
 
-<h2>6. Build options</h2>
-<!-- One <div class="option recommended"> for the recommended option, <div class="option"> for each alternative.
-     Each: tools by role (with license), why it fits, effort, running-cost drivers, risks, maintenance. -->
+<h2>7. Options and how to build</h2>
+<!-- Match the user's technical comfort.
+     Apps only: options use tools they already have, then ready-made tool TYPES (never commercial product names). Give step-by-step how-to and safe-use rules.
+     Configure or build: open with this sentence in a <p class="note">: "You are responsible for security, privacy and legal compliance of anything you build; involve qualified people."
+     Then tools by role (open-source with license, or tools they already use), access and credentials, security, compliance and legal steps.
+     One <div class="option recommended"> for the recommended option, <div class="option"> for each alternative. Each: what to use, why it fits,
+     effort (hours or days, S/M/L in brackets), monthly cost range in the user's currency compared with their budget (or "unknown: check X"), risks, maintenance.
+     Include an option with little or no AI. Never name commercial vendors. -->
 {{BUILD_OPTIONS}}
+<!-- If a ready-made tool type is recommended or is an alternative: include the tool assessment kit, tailored (must-haves for this process
+     filled in, relevant sections only). Otherwise omit. -->
+{{ASSESSMENT_KIT}}
 
-<h2>7. Rollout plan and metrics</h2>
+<h2>8. Rollout plan and metrics</h2>
 {{ROLLOUT_AND_METRICS}}
 
-<h2>8. Risk, compliance and security flags</h2>
+<h3>Starter kit (drafts: check before use)</h3>
+<!-- Optional. Wording for fixed messages, policies and checklists the plan needs: reminder texts, consent wording, team instruction card. Omit if none. -->
+{{STARTER_KIT}}
+
+<h2>9. Risk, compliance and security flags</h2>
 <p class="note">Screening only, not a compliance determination. Each flag needs checking by the person or team named.</p>
-<!-- Columns: Flag | Step(s) | Why it may apply | Who should check | Status (always "unverified"). From the risk checklist file. If nothing applies, say which checks were run. -->
+<!-- Columns: Flag | Step(s) | Why it may apply | Who should check | Status (always "unverified"). From the risk checklist file.
+     Include risks in the CURRENT process too. If nothing applies, say which checks were run. -->
 {{RISK_FLAGS_TABLE}}
 
-<h2>9. Limitations and how to improve</h2>
+<h2>10. Limitations and how to improve</h2>
 <h3>Limitations of this analysis</h3>
 {{ANALYSIS_LIMITATIONS}}
 <h3>Limitations of the proposed system</h3>
@@ -94,16 +128,18 @@
 {{INFO_NEEDED}}
 <h3>What to tune once running</h3>
 {{TUNING}}
+<h3>Parked items</h3>
+<!-- Everything the user mentioned that this report doesn't address (out-of-scope steps, control or access weaknesses, open questions), with a suggested owner. -->
+{{PARKED_ITEMS}}
 
-<h2>10. Assumptions</h2>
+<h2>11. Assumptions</h2>
+<!-- Every [ASSUMPTION], including future step times, reduction rates and thresholds you proposed, for the user to adjust. -->
 {{ASSUMPTIONS}}
 
 <p class="note">
   <b>Not legal, tax, financial or security advice, and not a compliance determination.</b> This AI-generated draft is based only on what was shared in the conversation.
-  Review it with the people who run the process and with your compliance, legal and security teams before acting. Tools named are examples, not endorsements;
-  licenses, features, security status and pricing change, so verify before you adopt anything. You are responsible for decisions made using this report.<br>
-  Diagrams are drawn in your browser by Mermaid, loaded from cdn.jsdelivr.net; your process text is not sent. If you see diagram code instead of a picture,
-  your network may block it: paste the code into mermaid.live.
+  Review it with the people who run the process and with your compliance, legal and security teams before acting. Open-source tools named are examples, not endorsements;
+  no commercial products are recommended. Licenses, features, security status and pricing change, so verify before you adopt anything. You are responsible for decisions made using this report.
 </p>
 
 <script src="https://cdn.jsdelivr.net/npm/mermaid@11.17.2/dist/mermaid.min.js"></script>

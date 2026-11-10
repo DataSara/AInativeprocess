@@ -1,6 +1,6 @@
 # Set up Reprocess as a Microsoft 365 Copilot agent
 
-About 5 minutes, with no install and no admin rights, **if your organization allows users to create agents**. If you don't see "Create agent", ask your M365 admin, or use the fallback at the bottom.
+About 5 minutes, with no install and no admin rights, **if your organization allows users to create agents**. Many regulated tenants disable agent creation: if you don't see "Create agent", **use the fallback at the bottom**, which works in plain Copilot chat.
 
 Menu names change between Copilot releases. If a label below doesn't match, look for the closest equivalent.
 
@@ -16,11 +16,13 @@ Menu names change between Copilot releases. If a label below doesn't match, look
    - [`knowledge/question-bank.md`](../knowledge/question-bank.md)
    - [`knowledge/report-template.html`](../knowledge/report-template.html). If .html uploads are blocked, rename it to `report-template.txt`.
    - [`knowledge/risk-checklist.md`](../knowledge/risk-checklist.md)
+   - [`knowledge/tool-assessment-kit.md`](../knowledge/tool-assessment-kit.md)
 5. **Capabilities:** turn on **Code interpreter**, so the agent can try to create the report file for download.
 6. **Starter prompts** (optional):
-   - `Here's my SOP, redesign it` (then attach the SOP)
-   - `I don't have an SOP, interview me`
+   - `Here's my SOP, redesign it. Use your question bank, risk checklist, tool catalog and report template.` (then attach the SOP)
+   - `I don't have an SOP, interview me. Use your question bank and risk checklist.`
    - `Analyze one sub-process of a large workflow`
+   Agent knowledge retrieval can vary between runs; naming the files in the prompt makes it more reliable.
 7. **Create**, then share it with colleagues if your tenant allows.
 
 ## Data and policy
@@ -30,9 +32,10 @@ Menu names change between Copilot releases. If a label below doesn't match, look
 - Don't add SOPs with personal or confidential data to the agent's knowledge. Everyone you share the agent with can draw on it.
 
 ## Known Copilot limitations (to test and report)
-- Long answers may be cut off. The prompt tells the agent to split the HTML report into parts. If it stops mid-way, reply `continue`.
+- Long answers may be cut off. Corporate reports are often 20–30 KB, so the agent splits the HTML into parts that end with `<!-- END PART n OF N -->`. Paste them into one file in order; the last part ends with `</html>`. If it stops mid-way, reply `continue`.
 - Whether Code interpreter produces a downloadable `.html` file can vary. If it doesn't, copy the HTML code block into Notepad and save it as `reprocess-report.html`.
-- Diagrams load from jsDelivr. Some corporate networks block it; the report then shows diagram code, which you can paste into mermaid.live.
+- Diagrams load from jsDelivr. Some corporate networks block it; the report then shows diagram code, and every diagram also has a plain-text step list underneath. Don't paste diagram code into external websites unless your policy allows it; a desktop diagram tool your organization approves is safer.
+- If you need Word or PDF: open the HTML in a browser and use Print → Save as PDF, or open the HTML file in Word.
 
 ## Fallback: no agent builder
 Open Copilot chat, attach `dist/reprocess-full.md`, and type:

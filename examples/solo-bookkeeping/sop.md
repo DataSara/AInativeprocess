@@ -8,6 +8,7 @@ Paste this into a Reprocess session as the SOP. The expected output is in `repor
 **Tools today:** Excel timesheet, Word invoice template, Gmail, a bookkeeping spreadsheet, phone camera, one business bank account, one business credit card.
 **Technical comfort:** Low-code. I can build spreadsheet formulas and follow a Docker tutorial. I have a small home server (NAS, 16 GB RAM).
 **Data sensitivity:** Client names and my financial data. I'd prefer it not to leave my own machines.
+**Budget:** ideally no new subscriptions; up to about 20 a month if it's worth it. I work on a laptop.
 
 ## Monthly
 1. **Invoice clients** (60 min). Copy each client's hours from my timesheet into the Word template, export a PDF, email it.

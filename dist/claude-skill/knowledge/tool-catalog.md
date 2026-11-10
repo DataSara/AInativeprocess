@@ -8,6 +8,20 @@ Columns: **Tool** · **Use it for** · **License** · **Skill** (N = no-code UI,
 
 "OSI" = an OSI-approved open-source license. "Source-available" = the code is public but use is restricted. Say so when you recommend one.
 
+## Start here: what the user already has
+Before any new tool, check the built-in features of what the user already has: their booking app, accounting software, online marketplace, point-of-sale, office suite (rules, forms, templates, reminders, built-in automation), and in organizations the ERP, warehouse, planning and CRM systems (configuration, unused licensed modules, workflow and approval engines). Ask the system owner to verify. These need no new system and often deliver most of the saving. Name these tools only when the user has named them. Paid add-ons or higher tiers of tools they already use are fair options; label them commercial, price "verify".
+
+**Naming rule:** never name commercial products the user hasn't mentioned. Describe the tool type (e.g. "booking app with deposits", "field-service app", "AP invoice-capture service", "validated eQMS", "carrier identity-verification service") and attach the tool assessment kit. Open-source tools below may be named on the build path.
+
+**Technical comfort decides the options:**
+- *Apps only*: tools they already have, then ready-made tool types, with step-by-step how-to and safe-use rules. A general-purpose AI assistant on a business plan (not a consumer plan for sensitive data) is often the right "AI" for drafting and summarizing; explain how to use it safely (no personal or confidential data unless the plan's terms allow it, check every output). Nothing from the self-hosted sections below.
+- *Configure*: settings, rules and built-in automation in tools they have, plus low-code open-source tools if they can get them approved or hosted.
+- *Build*: open-source tools below, with the build disclaimer, access design, security, compliance and legal steps. Self-hosting only if they can run, patch and back up a server; in organizations, label it an "IT project" and name the approval path.
+- Spreadsheets: LibreOffice Calc (MPL-2.0; verify), or the spreadsheet they already use.
+- Forms: the office suite's form tool if already licensed; LimeSurvey (GPL-2.0+) or Formbricks (AGPL-3.0 core, some paid modules) if self-hosting.
+- For solo and micro businesses with no IT person, the recommended option should need **no server**. Self-hosted rows below are alternatives unless the user says they can run, patch and back up a server.
+- Don't recommend Skill C tools to users who said no-code or low-code.
+
 ## Orchestration and integration (moving data between systems, schedules, triggers)
 | Tool | Use it for | License | Skill | Self-host | Notes |
 |---|---|---|---|---|---|
@@ -44,7 +58,7 @@ Columns: **Tool** · **Use it for** · **License** · **Skill** (N = no-code UI,
 | Tool | Use it for | License | Skill | Self-host | Notes |
 |---|---|---|---|---|---|
 | Paperless-ngx | Scan, OCR, tag and archive documents (receipts, invoices, letters) | GPL-3.0 | N | S | Has built-in auto-matching for tags and correspondents. Community AI add-ons exist; verify maturity and review them as code with access to all your documents. Turn on MFA; use an app password for the mail inbox. |
-| Tesseract | OCR engine | Apache-2.0 | C | S | Weak on poor photos and handwriting. |
+| Tesseract | OCR engine | Apache-2.0 | C | S | Command-line/developer tool, not for no-code users. Weak on poor photos and handwriting. |
 | docTR | Deep-learning OCR | Apache-2.0 | C | M | Better on varied layouts than Tesseract. |
 | Docling | Convert PDFs/Office files to structured text/tables for LLMs | MIT | C | S | |
 | Unstructured | Parse many document types for LLM pipelines | Apache-2.0 | C | M | |
@@ -58,6 +72,35 @@ Columns: **Tool** · **Use it for** · **License** · **Skill** (N = no-code UI,
 | ToolJet | Internal tools | AGPL-3.0 | L | M | |
 | Baserow | Airtable-like database with forms | MIT (core) | N | S | Good shared "work queue" table. |
 | Label Studio | Reviewing and correcting AI labels/extractions at volume | Apache-2.0 | L | M | Useful when tracking AI accuracy. |
+
+## Small-business operations (booking, CRM, invoicing, marketing, time, files)
+Licences checked against each project's GitHub repository on 2026-11-10; re-verify before relying on them.
+| Tool | Use it for | License | Skill | Self-host | Notes |
+|---|---|---|---|---|---|
+| Easy!Appointments | Online booking and appointment reminders | GPL-3.0 | N | M | Needs a web server. Most solo owners are better served by the booking feature of an app they already use. |
+| Cal.com | Scheduling links and booking | MIT per current repo (repository moved in 2026; verify) | N | M | Hosted plans exist (commercial). |
+| EspoCRM | CRM: leads, contacts, follow-up tasks | AGPL-3.0 | N/L | M | |
+| Twenty | Modern CRM | AGPL-3.0 with some commercial-licensed files | N/L | M | |
+| Mautic | Email marketing automation | GPL-3.0 | L | M | Consent and unsubscribe handling are your responsibility (see risk checklist §8). |
+| listmonk | Newsletters and mailing lists | AGPL-3.0 | L | S | Needs an email-sending service (SMTP provider). |
+| Invoice Ninja | Invoicing, quotes, payment reminders, client portal | Elastic License 2.0 (source-available, not OSI) | N | M | Free to self-host for your own business; hosted plan exists. |
+| Akaunting | Small-business accounting and invoicing | Business Source License (source-available, not OSI) | N | M | Check the licence's use grant. |
+| Kimai | Time tracking and timesheets | AGPL-3.0 | N | S | Staff hours feed pay; check working-time and pay rules. |
+| Nextcloud | File sharing, client upload folders, calendar | AGPL-3.0 | N | M | Use expiring, password-protected upload links for client documents. |
+| Vaultwarden / Bitwarden | Shared password manager (door codes, logins) | Vaultwarden: AGPL-3.0 (unofficial server). Bitwarden server: AGPL-3.0 plus Bitwarden License for some features | N | S | Hosted Bitwarden plans are commercial and need no server. Remove access the day someone leaves. |
+| OmegaT | Translation memory (CAT tool) | GPL-3.0 (verify) | N | none (desktop) | |
+
+**SMS and phone:** sending business texts always needs a commercial carrier or SMS gateway, and in the US usually 10DLC registration. There's no realistic open-source way around it. Consent and opt-out rules apply (risk checklist §8).
+
+## Analytics, forecasting and optimization (numbers come from these, never from LLM text)
+| Tool | Use it for | License | Skill | Self-host | Notes |
+|---|---|---|---|---|---|
+| pandas | Data cleaning and analysis in Python | BSD-3-Clause | C | none | |
+| statsmodels | Statistical models, time-series forecasting | BSD-3-Clause | C | none | |
+| scikit-learn | Machine-learning models (classification, regression, anomaly detection) | BSD-3-Clause | C | none | |
+| Nixtla StatsForecast | Fast statistical forecasting at scale | Apache-2.0 | C | none | Back-test against the current method and a naive forecast before use. |
+| Google OR-Tools | Optimization (routing, scheduling, load building) | Apache-2.0 | C | none | Open-source library despite the corporate maintainer. |
+Any model that feeds decisions without per-item review: define the baseline it must beat, back-test, monitor accuracy and bias, and name an owner. In regulated or audited processes it may need validation.
 
 ## Reporting and monitoring
 | Tool | Use it for | License | Skill | Self-host | Notes |
@@ -75,7 +118,6 @@ Columns: **Tool** · **Use it for** · **License** · **Skill** (N = no-code UI,
 | ERPNext | ERP: accounting, inventory, HR, manufacturing | GPL-3.0 | N/L | M | Fully open source. |
 | Firefly III | Personal/small-business finance tracking with rules engine | AGPL-3.0 | N | S | Not a full accounting/invoicing system. |
 | GnuCash | Desktop double-entry bookkeeping; CSV import learns your categories | GPL-2.0+ | N | none (desktop) | No server needed. |
-| Invoice Ninja | Invoicing, quotes, payment reminders, client portal | Elastic License 2.0 for v5 (source-available, not OSI; verify) | N | M | Free to self-host for your own business; a hosted plan exists. |
 
 ## Process modeling (documenting the as-is / to-be)
 | Tool | Use it for | License | Notes |
@@ -84,9 +126,12 @@ Columns: **Tool** · **Use it for** · **License** · **Skill** (N = no-code UI,
 | draw.io (diagrams.net) | Drag-and-drop process diagrams | Apache-2.0 | Desktop app or browser. |
 
 ## Selection notes for the AI
-- Corporate users often can't self-host without IT approval. Say what approval they'll need and offer the least-infrastructure option.
+- Corporate users often can't self-host without IT approval. Say what approval they'll need and offer the least-infrastructure option. If no open-source option is realistic under their IT constraints, say so in one line instead of padding.
+- Corporate IT and security reviews check: SSO/SAML, audit logs, role-based access, data residency, and for regulated use e-signatures and validation support. Many open-source tools keep SSO and audit logs in paid editions: say "verify which edition includes it".
+- An interactive AI chat assistant is not the same as an AI model an automation can call unattended. A step that needs AI inside a flow needs an API or a local model, with its own data terms.
 - Prefer one orchestration tool and add others only for clear gaps.
-- Local models (Ollama) keep data in-house but are less accurate than large hosted models. Say this trade-off plainly.
+- Local models (Ollama) keep data in-house but are less accurate than large hosted models. Say this trade-off plainly. It is also a legal question, not just accuracy: health, tax, children's or NDA-covered data may go to a hosted AI or SaaS only under the right agreement (BAA, DPA, client consent). Never suggest consumer AI plans for it (risk checklist §3–4).
+- If the data is regulated, prefer the option with the fewest new systems holding it.
 - Self-hosting means owning updates, backups, security patches and uptime. Include a maintenance estimate. If the user can't commit to monthly patching, recommend a desktop or managed option instead.
 - For any AI step that reads emails, documents or web pages, follow the risk checklist's security section (prompt injection, least privilege, no send/pay/write tools without a gate).
 
