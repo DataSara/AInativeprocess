@@ -8,14 +8,15 @@
   DIAGRAMS: Mermaid decodes HTML entities, so inside diagram labels DELETE these characters, never escape them: < > & " ' ` # ; % { } [ ] ( ) |
   (e.g. write Approve PO over 5k, not Approve "PO" > 5k). Never write lines starting with click, %%, style, linkStyle, or any init/config directive.
   Diagrams over about 12 nodes: use flowchart TB or split into two diagrams.
-  SIZE: aim under 30 KB (about 6,000 words of visible text). Cells max about 25 words. Risk flags max about 10 rows, hand-offs max about 8; merge similar items.
+  SIZE: aim under 30 KB (about 6,000 words of visible text). Cells max about 25 words. Hand-offs max about 8; merge similar items.
+  Risk flags: list every High flag (never merge or drop one to save space); merge Medium and Low ones to keep the table under about 12 rows.
   If too long, cut in this order: limitations detail → classification "why" text → merge hand-offs → assessment kit down to must-haves and data/security questions → rollout detail.
-  Never cut: gates, risk flags, control-impact table, safety-critical starter-kit items (e.g. bank call-back checklist), the footer.
+  Never cut: gates, every High risk flag, control-impact table, safety-critical starter-kit items (e.g. bank call-back checklist), the footer.
   SPLIT DECLINED: map at summary level (max about 15 steps) and note site variations in the table.
   PARTIAL ANALYSIS (one sub-process of several): end section 2 with a "Next session" block: sub-processes left, hand-offs, open risks, and the facts already gathered, for the user to paste into the next session.
   Tables: use <table> with a header row. Mode tags: <span class="tag A">A Automate</span> (A/B/C/D/E).
   Mermaid: keep diagrams inside <pre class="mermaid">, flowchart LR. Quote all labels: s1["Label"]. No < > & " inside labels.
-  COMPACT MODE (solo or micro team, up to about 5 people): aim for 8–10 printed pages. Keep every section but shorten: scope is one line; classification table columns # | Step | Mode | Why only;
+  COMPACT MODE (only if the whole organisation is small, up to about 5 people, and nothing is externally audited; a one-person role inside a larger or audited company gets the full report): aim for 8–10 printed pages. Keep every section but shorten: scope is one line; classification table columns # | Step | Mode | Why only;
   limitations max 3 bullets per subsection; omit the control-impact table; tailor the assessment kit to must-haves, how to find candidates, score card and trial plan.
   Use plain words: "a second person or your accountant checks" instead of "segregation of duties"; "keep a record" instead of "evidence for auditors".
   If one person does everything, say so once and name the compensating check (accountant review, a record, a waiting period) instead of "must not approve".
@@ -73,6 +74,7 @@
 {{SCOPE_AND_HANDOFFS}}
 
 <h2>3. Current state</h2>
+<!-- Diagram labels: DELETE these characters, never escape them: < > & " ' ` # ; % { } [ ] ( ) | -->
 <pre class="mermaid">
 {{CURRENT_STATE_MERMAID}}
 </pre>
@@ -87,18 +89,21 @@
   <span class="tag E">E Eliminate</span>
   · Diamonds = human gates
 </p>
+<!-- Diagram labels: DELETE these characters, never escape them: < > & " ' ` # ; % { } [ ] ( ) | -->
 <pre class="mermaid">
 {{FUTURE_STATE_MERMAID}}
 </pre>
 
 <h2>5. Step classification</h2>
 <!-- Columns: # | Step | Mode | Why (one line) | Confidence | Ratings as six letters H/M/L in this order: predictability, input structure, error cost,
-     reversibility, volume, accountability (e.g. "H H L H M L"); explain the order once above the table. Mark steps already automated today as "no change". -->
+     reversibility, volume, accountability (e.g. "H H L H M L"); explain the order once above the table. Mark steps already automated today as "no change".
+     One mode per row; split mixed steps. A step that rejects, ranks or filters people is never plain A: add a human review of rejections (or review on request in the EU/UK) and pass-rate monitoring. -->
 {{CLASSIFICATION_TABLE}}
 
 <h2>6. Human gates</h2>
 <!-- Columns: Gate | After step | What the human checks | Approver role | Must not approve (preparer, poster, beneficiary) | Threshold |
-     Enforced by (system block or policy only) | Escalation trigger | Record kept (what, where) | Loosening (evidence needed, or "Do not loosen" and why). -->
+     Enforced by (system block or policy only) | Escalation trigger | Record kept (what, where) | Loosening (evidence needed, or "Do not loosen" and why).
+     Low volume (weekly or monthly): keep the gate, or loosen only after an agreed number of periods with no corrections. Record hands-on and waiting time separately. -->
 {{GATES_TABLE}}
 <!-- Only if the process is regulated or audited: Control impact table. Columns: Control (ID if known) | Key control? | Changed how |
      Validation / change control needed | Evidence for auditors | Owner. Otherwise omit this block. -->
@@ -107,7 +112,8 @@
 <h2>7. Risk, compliance and security flags</h2>
 <p class="note">Screening only, not a compliance determination. Each flag needs checking by the person or team named.</p>
 <!-- Columns: Flag | Step(s) | Why it may apply | Who should check | Status (always "unverified"). From the risk checklist file.
-     Include risks in the CURRENT process too. If nothing applies, say which checks were run. -->
+     Include risks in the CURRENT process too. If nothing applies, say which checks were run.
+     If the user works in a medium or large organisation and uses an assistant grounded on work data, include a row "Assistant reach, history and web search (S14)". -->
 {{RISK_FLAGS_TABLE}}
 
 <h2>8. Options and how to build</h2>
