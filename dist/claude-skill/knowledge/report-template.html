@@ -5,6 +5,10 @@
   HTML-escape all user-supplied text (& < > " as &amp; &lt; &gt; &quot;). Never add <script>, event handlers (onclick, onerror...), iframes, forms or external links/images.
   Tables: use <table> with a header row. Mode tags: <span class="tag A">A Automate</span> (A/B/C/D/E).
   Mermaid: keep diagrams inside <pre class="mermaid">, flowchart LR. Quote all labels: s1["Label"]. No < > & " inside labels.
+  COMPACT MODE (just you or a team of up to about 5): aim for 8–10 printed pages. Keep sections 1, 3, 4, 6, 7, 8, 9, 11; make section 2 one line;
+  classification table columns # | Step | Mode | Why only; omit the control-impact table; tailor the assessment kit to must-haves, score card and trial plan.
+  Use plain words: "a second person or your accountant checks" instead of "segregation of duties"; "keep a record" instead of "evidence for auditors".
+  If one person does everything, say so once and name the compensating check (accountant review, a record, a waiting period) instead of "must not approve".
   Human gates are diamonds: g1{"Approve?"}. In the future-state diagram, tag each step with :::A to :::E and end it with these lines:
     classDef A fill:#dbeafe,stroke:#2563eb
     classDef B fill:#fef3c7,stroke:#d97706
@@ -49,7 +53,7 @@
 <ul>
   {{SUMMARY_BULLETS}}
 </ul>
-<!-- Summary bullets must include any High risk flag and any control or access weakness the user mentioned. -->
+<!-- Max 5 summary bullets. They must include any High risk flag and any control or access weakness the user mentioned. -->
 
 <h2>2. Scope, sub-processes and hand-offs</h2>
 <!-- In scope / out of scope. If the process was split: list sub-processes and which one this report covers.

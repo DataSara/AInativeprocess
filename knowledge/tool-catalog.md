@@ -11,7 +11,7 @@ Columns: **Tool** · **Use it for** · **License** · **Skill** (N = no-code UI,
 ## Start here: what the user already has
 Before any new tool, check the built-in features of what the user already has: their booking app, accounting software, online marketplace, point-of-sale, office suite (rules, forms, templates, reminders, built-in automation), and in organizations the ERP, warehouse, planning and CRM systems (configuration, unused licensed modules, workflow and approval engines). Ask the system owner to verify. These need no new system and often deliver most of the saving. Name these tools only when the user has named them. Paid add-ons or higher tiers of tools they already use are fair options; label them commercial, price "verify".
 
-**Naming rule:** never name commercial products the user hasn't mentioned. Describe the tool type (e.g. "booking app with deposits", "field-service app", "AP invoice-capture service", "validated eQMS", "carrier identity-verification service") and attach the tool assessment kit. Open-source tools below may be named on the build path.
+**Naming rule:** never name commercial products, except tools the user says they already use. Describe the tool type (e.g. "booking app with deposits", "field-service app", "AP invoice-capture service", "validated eQMS", "carrier identity-verification service") and attach the tool assessment kit. Open-source tools below may be named on the build path.
 
 **Technical comfort decides the options:**
 - *Apps only*: tools they already have, then ready-made tool types, with step-by-step how-to and safe-use rules. A general-purpose AI assistant on a business plan (not a consumer plan for sensitive data) is often the right "AI" for drafting and summarizing; explain how to use it safely (no personal or confidential data unless the plan's terms allow it, check every output). Nothing from the self-hosted sections below.
@@ -26,7 +26,7 @@ Before any new tool, check the built-in features of what the user already has: t
 | Tool | Use it for | License | Skill | Self-host | Notes |
 |---|---|---|---|---|---|
 | n8n | Visual workflows, 400+ integrations, AI nodes, approval steps ("send and wait for response") | Sustainable Use License (source-available, not OSI) | N/L | S | Free to self-host for your own internal business use. Hosting it for clients or inside a paid product may need a commercial license (verify). SSO, external secrets and log streaming are paid features (verify). Has had critical RCEs in 2025–26 (e.g. CVE-2025-68613, in CISA KEV): patch promptly. Most popular choice for business users. |
-| Activepieces | Visual workflows, Zapier-like | MIT (community edition) | N | S | Some enterprise features are paid. Fewer integrations than n8n. |
+| Activepieces | Visual workflows, similar to commercial no-code automation services | MIT (community edition) | N | S | Some enterprise features are paid. Fewer integrations than n8n. |
 | Node-RED | Event/IoT-style flows, device and API wiring | Apache-2.0 | L | S | Strong for factory/IoT/sensor data. The editor has no login by default: set `adminAuth` and `credentialSecret`. |
 | Windmill | Scripts plus flows plus internal UIs | AGPL-3.0 (core) | L/C | M | Good when a team writes Python/TypeScript. AGPL: offering it to outside users over a network triggers source-sharing duties. |
 | Kestra | Declarative (YAML) data and process orchestration | Apache-2.0 | L/C | M | Good for scheduled data pipelines. |

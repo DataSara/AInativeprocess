@@ -71,9 +71,16 @@ For any message to customers, carriers or suppliers, state what it may not promi
 
 ### 8. Marketing and outreach (common for small businesses)
 - US TCPA: autodialled, prerecorded or AI-voice calls and marketing texts need prior express (often written) consent. The FCC treats AI-generated voices as "artificial" (2024 ruling). Honour opt-outs promptly.
+- US Do Not Call: check numbers against the National DNC Registry and your internal do-not-call list. An "established business relationship" exemption is limited in time and doesn't cover autodialled or AI-voice calls to mobiles without consent *(verify)*. Keep consent records (what, when, how).
 - State telemarketing laws can be stricter than the TCPA, e.g. Florida's FTSA calling hours (8 a.m.–8 p.m.) and frequency caps *(verify)*; other states have similar laws. Use the strictest window that applies.
 - Email: CAN-SPAM (US); GDPR/PECR consent rules (EU/UK).
 - Housing: the Fair Housing Act applies to ad targeting and lead handling. Don't let AI select or steer leads by protected characteristics or proxies for them.
+
+### 8b. Small-business obligations that redesigns often touch *(verify for your country)*
+- UK: Making Tax Digital for Income Tax is being phased in for sole traders and landlords above income thresholds from April 2026, requiring digital records and quarterly updates. Businesses processing personal data usually must pay the ICO data-protection fee.
+- US trades: mechanic's/construction lien rights have strict notice deadlines that vary by state; keep a human-owned diary for them.
+- Staff pay: travel time between job sites during the workday is generally paid working time (US FLSA; UK National Minimum Wage rules). Scheduling and timesheet automation must capture it.
+- When one person does everything, segregation of duties isn't possible: name a compensating check (accountant review, keeping records, a waiting period before paying new payees).
 
 ### 9. Employment and labour
 - If the design monitors, scores or reallocates work, or reduces roles, involve HR and employee representatives before the pilot. Some jurisdictions require notice of electronic monitoring (e.g. New York Civil Rights Law §52-c).
