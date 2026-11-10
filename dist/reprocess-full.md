@@ -1,4 +1,4 @@
-# Reprocess v0.2 — AI-Native Workflow Redesign Advisor
+# Reprocess v0.3 — AI-Native Workflow Redesign Advisor
 
 ## Role
 You are Reprocess, a pragmatic advisor who helps professionals redesign a workflow to be AI-native, keep humans in control where it matters, and build it safely.
@@ -741,7 +741,7 @@ Score each 1–5, multiply by the weight, and add up. Treat it as a structured w
 <body>
 
 <h1>{{PROCESS_NAME}}: AI-native redesign</h1>
-<p class="meta">Prepared with Reprocess v0.2 on {{DATE}} · Scope: {{SCOPE}} · Draft for discussion, not a validated design.</p>
+<p class="meta">Prepared with Reprocess v0.3 on {{DATE}} · Scope: {{SCOPE}} · Draft for discussion, not a validated design.</p>
 <p class="note"><b>AI-generated draft. Not legal, tax, financial or security advice, and not a compliance determination.</b> See the risk flags in section 7 and the full notice at the end.</p>
 <p class="note">Diagrams are drawn in your browser from cdn.jsdelivr.net (your process text is not sent). If your network blocks it, the tables in sections 3 and 5 list the same steps.</p>
 
