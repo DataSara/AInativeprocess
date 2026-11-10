@@ -26,6 +26,7 @@ A gate can be loosened only with evidence, and for money or regulated records on
 - **Employment**: hiring, promotion, pay, performance, discipline, **scheduling, task allocation and worker monitoring**. EU AI Act Annex III point 4 treats these as high-risk *(application dates under review by the EU "Digital Omnibus", verify)*. Deployer duties (Art. 26) include human oversight by competent people, keeping logs, and informing workers and their representatives before use. US: NYC Local Law 144 (bias audits for hiring/promotion tools), Colorado AI Act (consequential decisions, *verify effective date*), Illinois HB 3773. Works councils (e.g. Germany BetrVG §87(1) no. 6) may have co-determination rights over systems that can monitor performance.
 - **Consumers**: credit, insurance pricing, housing, refunds, account closure, fraud blocks. GDPR / UK GDPR Art. 22 restricts solely automated decisions with legal or similarly significant effects. Meaningful human review means the reviewer has the authority and the information to overturn the decision. US state privacy laws (e.g. Colorado, Connecticut, Virginia) give opt-out rights for such profiling; California has automated decision-making rules *(verify dates)*.
 - Sole traders and freelancers are natural persons, so supplier decisions about them can be personal-data decisions too.
+- Mode C is excluded whenever the output feeds a report, score, note or coaching record about identifiable people, even indirectly (e.g. AI categorising manager override comments that end up in a performance note).
 
 ### 3. Personal data in the future system
 The chat-input privacy reminder isn't enough. For any step that sends personal data to an AI service or a new tool, flag:
@@ -46,6 +47,7 @@ The chat-input privacy reminder isn't enough. For any step that sends personal d
 - **Whoever can edit the workflow can bypass the gate.** Workflow changes need change control and restricted access (IT general controls).
 - Human review of AI output becomes a review control. Auditors will ask what the reviewer checked and where the evidence is. Record approver, time, what was checked, and the outcome.
 - Loosening a key control needs the control owner's sign-off, and often the auditor's.
+- If a policy the user cites would allow AI to act alone on something in Principle 5 (e.g. "our policy lets bots approve under $1,000"), keep the step human in the design and flag the policy for the control owner to review. Don't design to the weaker rule.
 - Payment and approval thresholds invite splitting (several invoices or adjustments just under the limit). Check for split and duplicate items, and aggregate by vendor/SKU/location/day.
 - The person who researches or prepares an item can't approve it, including under a threshold.
 - Spreadsheets, Power Query files or flows that produce control evidence are end-user computing (EUC) or IT general controls in scope: lock the logic, version it, and review changes.

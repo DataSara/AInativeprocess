@@ -26,6 +26,7 @@
 
 <h1>Freelance consultant monthly bookkeeping: AI-native redesign</h1>
 <p class="meta">Prepared with Reprocess v0.2 on 2026-11-10 (example) · Scope: One person; monthly, quarterly and year-end bookkeeping · Draft for discussion, not a validated design.</p>
+<p class="note"><b>AI-generated draft. Not legal, tax, financial or security advice, and not a compliance determination.</b> See the risk flags in section 7 and the full notice at the end.</p>
 
 <p class="note">Diagrams are drawn in your browser from cdn.jsdelivr.net (your process text is not sent). If your network blocks it, each diagram has a plain-text step list underneath, and the diagram code can be pasted into any Mermaid-compatible tool your organization allows.</p>
 
@@ -81,7 +82,17 @@ flowchart LR
 <table><tr><th>Gate</th><th>After step</th><th>What the human checks</th><th>Approver</th><th>Enforced by</th><th>Actions</th><th>Escalation trigger</th><th>Record kept</th><th>Loosening</th></tr><tr><td>G1</td><td>Before invoices are sent</td><td>Hours, rate, client, PO number</td><td>Owner</td><td>System: draft can't send until approved</td><td>Approve / edit / hold</td><td>Hours differ from the contract cap</td><td>Sent invoice PDF and approval date in the invoicing tool</td><td>Do not loosen: client-facing money stays approved.</td></tr><tr><td>G2</td><td>After receipt extraction</td><td>Amount, date and tax against the image, in batches of at most 20</td><td>Owner</td><td>System: unconfirmed items stay in the review queue</td><td>Confirm / correct</td><td>Extracted total does not match the bank amount</td><td>Corrections logged in Paperless (original image kept)</td><td>Loosen on measured accuracy: after a few months of your own volume (about 40 receipts a month) with almost no corrections, auto-accept only receipts whose extracted total exactly matches a bank transaction (a rule check, not the AI's confidence) and review the rest (moves to C).</td></tr><tr><td>G3</td><td>After AI category suggestions</td><td>Category for non-rule transactions</td><td>Owner</td><td>System: uncategorized items stay flagged</td><td>Accept / change</td><td>Any amount over a set threshold, e.g. 500</td><td>Category history in Firefly III</td><td>Turn frequent corrections into rules (A). The AI share should shrink over time.</td></tr><tr><td>G4</td><td>Before tax payment</td><td>Calculated tax against last quarter and accountant guidance</td><td>Owner (accountant for year-end)</td><td>Policy: you pay manually at the tax portal</td><td>Pay / adjust</td><td>Change of more than 25% from last quarter</td><td>Tax report export and payment confirmation</td><td>Do not loosen: tax payment.</td></tr></table>
 <p>As a sole trader you are both preparer and approver. Segregation of duties isn't possible, so the records above and your accountant's year-end review are the compensating control.</p>
 
-<h2>7. Options and how to build</h2>
+<h2>7. Risk, compliance and security flags</h2>
+<p class="note">Screening only, not a compliance determination. Each flag needs checking by the person or team named.</p>
+<table><tr><th>Flag</th><th>Step(s)</th><th>Why it may apply</th><th>Who should check</th><th>Status</th></tr>
+<tr><td>Tax record retention</td><td>2, 3, 10</td><td>Moving receipts to digital storage and dropping paper may be allowed, but retention periods and format rules vary by country (often 5 to 10 years).</td><td>Your accountant</td><td>Unverified</td></tr>
+<tr><td>Client personal data</td><td>1, 7</td><td>Invoices and reminders contain client names and contact details. If clients are individuals in the EU/UK, GDPR applies to storing them.</td><td>You (check your privacy notice)</td><td>Unverified</td></tr>
+<tr><td>Card numbers on receipts</td><td>2, 3</td><td>Some receipts print card numbers. Check they're masked before OCR and AI see them.</td><td>You</td><td>Unverified</td></tr>
+<tr><td>Prompt injection in receipts and emails</td><td>3, 5b</td><td>An email or PDF could contain hidden text aimed at the AI. Mitigated: the AI only fills fields, rules validate them, and it can't send or pay.</td><td>You</td><td>Mitigated in design; test it</td></tr>
+<tr><td>Self-hosted server exposure</td><td>All</td><td>A home server holding financial data and email access is a target if it's reachable from the internet, and several of these tools have had serious security bugs.</td><td>You, or an IT-savvy helper</td><td>Unverified</td></tr>
+</table>
+
+<h2>8. Options and how to build</h2>
 <p class="note">You said you can follow a Docker tutorial and run a home server, so the options include building. You are responsible for security, privacy and legal compliance of anything you build; involve qualified people.</p>
 
 <div class="option recommended"><h3>Recommended: self-hosted stack on your NAS (Docker)</h3>
@@ -106,7 +117,7 @@ flowchart LR
 <div class="option"><h3>Option 3: ERPNext, if you plan to grow or hire</h3>
 <p>ERPNext (GPL-3.0) covers invoicing, payment reminders, bank reconciliation and accounting in one system. Add Paperless-ngx for receipts. <b>Effort:</b> L, several weeks. <b>Monthly cost:</b> no licence if self-hosted; hosting and your time. It is overkill for one person today, but worth it if you expect staff or more than about 15 clients.</p></div>
 
-<h2>8. Rollout plan and metrics</h2>
+<h2>9. Rollout plan and metrics</h2>
 <ol>
 <li><b>Before starting:</b> collect 10 to 20 past receipts where you know the right answers, and note how the AI gets them wrong, so you know what to look for at G2.</li>
 <li><b>Weeks 1 to 2, pilot:</b> bank import, recurring-vendor rules and auto-matching (steps 4, 5a, 6). Highest saving, no AI risk.</li>
@@ -119,16 +130,6 @@ flowchart LR
 <h3>Starter kit (drafts: check before use)</h3>
 <p><b>Payment reminder, 7 days overdue:</b> "Hi, a quick reminder that invoice [number] for [amount], due on [date], is still open. If you've already paid, thank you, and please ignore this. Payment details are on the invoice."</p>
 <p><b>Receipt rule for yourself:</b> photograph paper receipts the same day; forward email receipts to the receipts label; never photograph a card number.</p>
-
-<h2>9. Risk, compliance and security flags</h2>
-<p class="note">Screening only, not a compliance determination. Each flag needs checking by the person or team named.</p>
-<table><tr><th>Flag</th><th>Step(s)</th><th>Why it may apply</th><th>Who should check</th><th>Status</th></tr>
-<tr><td>Tax record retention</td><td>2, 3, 10</td><td>Moving receipts to digital storage and dropping paper may be allowed, but retention periods and format rules vary by country (often 5 to 10 years).</td><td>Your accountant</td><td>Unverified</td></tr>
-<tr><td>Client personal data</td><td>1, 7</td><td>Invoices and reminders contain client names and contact details. If clients are individuals in the EU/UK, GDPR applies to storing them.</td><td>You (check your privacy notice)</td><td>Unverified</td></tr>
-<tr><td>Card numbers on receipts</td><td>2, 3</td><td>Some receipts print card numbers. Check they're masked before OCR and AI see them.</td><td>You</td><td>Unverified</td></tr>
-<tr><td>Prompt injection in receipts and emails</td><td>3, 5b</td><td>An email or PDF could contain hidden text aimed at the AI. Mitigated: the AI only fills fields, rules validate them, and it can't send or pay.</td><td>You</td><td>Mitigated in design; test it</td></tr>
-<tr><td>Self-hosted server exposure</td><td>All</td><td>A home server holding financial data and email access is a target if it's reachable from the internet, and several of these tools have had serious security bugs.</td><td>You, or an IT-savvy helper</td><td>Unverified</td></tr>
-</table>
 
 <h2>10. Limitations and how to improve</h2>
 <h3>Limitations of this analysis</h3>
@@ -144,7 +145,7 @@ flowchart LR
 <ul><li>Filing tax returns stays with your accountant (out of scope).</li><li>Whether your bank offers an automatic feed (would remove step 4's CSV download).</li></ul>
 
 <h2>11. Assumptions</h2>
-<ul><li>[ASSUMPTION] The bank offers CSV export only, with no feed.</li><li>[ASSUMPTION] At least half of the transactions come from recurring vendors.</li><li>[ASSUMPTION] The NAS can run Docker containers.</li><li>[ASSUMPTION] There is no legal requirement to keep paper originals (check locally).</li><li>[ASSUMPTION] Future step times in section 7 are estimates to measure in the pilot.</li></ul>
+<ul><li>[ASSUMPTION] The bank offers CSV export only, with no feed.</li><li>[ASSUMPTION] At least half of the transactions come from recurring vendors.</li><li>[ASSUMPTION] The NAS can run Docker containers.</li><li>[ASSUMPTION] There is no legal requirement to keep paper originals (check locally).</li><li>[ASSUMPTION] Future step times in section 9 are estimates to measure in the pilot.</li></ul>
 
 <p class="note">
   <b>Not legal, tax, financial or security advice, and not a compliance determination.</b> This AI-generated draft is based only on what was shared in the conversation.
