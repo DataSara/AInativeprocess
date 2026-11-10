@@ -24,12 +24,12 @@ mkdir -p dist/claude-skill/knowledge
 
 {
   cat prompt/reprocess.md
+  printf '\n\n---\n# Knowledge file: risk checklist\n\n'
+  cat knowledge/risk-checklist.md
   printf '\n\n---\n# Knowledge file: question bank\n\n'
   cat knowledge/question-bank.md
   printf '\n\n---\n# Knowledge file: tool catalog\n\n'
   cat knowledge/tool-catalog.md
-  printf '\n\n---\n# Knowledge file: risk checklist\n\n'
-  cat knowledge/risk-checklist.md
   printf '\n\n---\n# Knowledge file: tool assessment kit\n\n'
   cat knowledge/tool-assessment-kit.md
   printf '\n\n---\n# Knowledge file: report template\n\n```html\n'
