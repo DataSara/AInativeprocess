@@ -12,7 +12,7 @@ Reprocess is a prompt pack: markdown instructions, knowledge files and an HTML r
 Use GitHub's **private vulnerability reporting** (Security tab → *Report a vulnerability*) on this repository. For non-sensitive issues, a normal GitHub issue is fine. Please include the platform (Copilot, ChatGPT, Claude, Gemini), the input that caused it (with personal data removed) and the output.
 
 ## What's in scope for the report file
-The template loads one script: Mermaid, pinned to an exact version from cdn.jsdelivr.net with a Subresource Integrity hash. A Content-Security-Policy blocks all other scripts, inline event handlers, external images, forms and frames. Diagram text is rendered in the browser and is not sent anywhere. Opening the file does contact jsDelivr, which sees your IP address and browser details.
+The template loads one script: Mermaid, pinned to an exact version on cdn.jsdelivr.net (npm versions there are immutable). There is deliberately no Subresource Integrity hash: AI assistants often corrupt long hashes when copying the template, which would break every diagram. A Content-Security-Policy allows only that exact versioned path and blocks all other scripts, inline event handlers, external images, forms and frames. Diagram text is rendered in the browser and is not sent anywhere. Opening the file does contact jsDelivr, which sees your IP address and browser details.
 
 ## Never put in issues or pull requests
 Credentials, internal URLs, customer data, or unredacted SOPs.
