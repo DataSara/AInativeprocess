@@ -7,7 +7,7 @@ Give it your SOP, or answer a few questions. Reprocess will:
 1. Map your current process step by step, and check it with you.
 2. Put each step in one category: **automate without AI** · **AI drafts, a human approves** · **AI acts within guardrails** · **keep it human** · **eliminate**.
 3. Place **human gates** where accountability, risk or irreversibility require them (money, master data, prices, decisions about people, regulated sign-offs), and say what evidence would justify loosening them.
-4. **Flag risk, compliance and security issues to check**: e.g. GDPR automated decisions, EU AI Act high-risk uses, SOX segregation of duties, HIPAA, PCI, pricing law, prompt injection, payment fraud, self-hosting exposure. It flags them for your experts to check; it never declares a design compliant.
+4. **Flag risk, compliance and security issues to check**: e.g. GDPR automated decisions, EU AI Act high-risk uses, hiring and background-check rules, inside information, SOX segregation of duties, HIPAA, PCI, pricing law, prompt injection, payment fraud, what a workplace assistant can see and store, self-hosting exposure. It flags them for your experts to check; it never declares a design compliant.
 5. Recommend **how to get it done**, matched to your technical comfort: one recommended option plus 1–2 alternatives, always including a low- or no-AI option.
    - *Just want to use apps:* what you already have, then types of ready-made tools, with step-by-step safe-use instructions. Reprocess **never names commercial products**: it gives you a **tool assessment kit** (must-haves, score card, privacy, security and lock-in questions, trial plan, red flags) so you can judge vendors yourself.
    - *Want to build:* a responsibility disclaimer first, then open-source tools with licenses, access design, and the security, compliance and legal steps to go with them.
@@ -32,7 +32,7 @@ It works for a one-person process (freelancer bookkeeping) up to a multi-site pr
 | **Claude Skill** | Zip `dist/claude-skill/` and upload it under Settings → Capabilities → Skills. |
 | **Gemini Gem** | Instructions: paste `prompt/reprocess.md`. Knowledge: upload `knowledge/`. |
 
-**Privacy:** remove personal data, customer data and secrets before sharing an SOP, and follow your organization's AI policy. Use a business AI plan for confidential processes, and never paste health records, card numbers or passwords.
+**Privacy:** remove personal data, customer data and secrets you don't need, and follow your organization's AI policy. If the process itself runs on confidential data (HR, finance, customer work), first check that your assistant is approved for that data's classification, and describe structure and volumes instead of pasting real records. Workplace assistants can also see files and mail you have access to: see the data notes in [adapters/m365-copilot.md](adapters/m365-copilot.md). Use a business AI plan for confidential processes, and never paste health records, card numbers or passwords.
 
 ## Example
 [`examples/solo-bookkeeping/`](examples/solo-bookkeeping/) contains a freelance consultant's monthly bookkeeping SOP and the report Reprocess should produce from it. In that example, 6 of 10 future steps need no AI, and the no-server, no-AI option is a real contender.

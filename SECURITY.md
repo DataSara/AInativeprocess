@@ -7,6 +7,7 @@ Reprocess is a prompt pack: markdown instructions, knowledge files and an HTML r
 - Prompt-injection weaknesses: SOP or document content that can make the assistant ignore its rules, add links, or recommend a specific tool.
 - Report-template issues: script injection, external requests beyond the pinned Mermaid library, or bypasses of the Content-Security-Policy.
 - Tool-catalog errors: wrong licenses, typosquatted or abandoned projects, missing security warnings.
+- Advice that ignores what a workplace-grounded assistant can see, store or send (overshared files, delegate mailboxes, web search, chat history).
 
 ## How to report
 Use GitHub's **private vulnerability reporting** (Security tab → *Report a vulnerability*) on this repository. For non-sensitive issues, a normal GitHub issue is fine. Please include the platform (Copilot, ChatGPT, Claude, Gemini), the input that caused it (with personal data removed) and the output.
