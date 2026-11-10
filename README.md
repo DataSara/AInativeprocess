@@ -44,6 +44,7 @@ knowledge/                   question bank, open-source tool catalog, risk and s
 examples/                    sample SOPs and expected reports
 adapters/                    platform setup guides
 scripts/build.sh             builds dist/ and checks the character limit
+scripts/check-report.py      checks a generated report against the template's safety rules
 dist/                        generated files: do not edit by hand
 ```
 

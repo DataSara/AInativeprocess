@@ -2,8 +2,12 @@
 <!--
   Reprocess report template v0.2. The AI replaces every {{PLACEHOLDER}} and removes these comments.
   Keep the Content-Security-Policy meta tag, the <style> block, the Mermaid <script> tag (pinned version) and the footer exactly as they are.
-  HTML-escape all user-supplied text (& < > " as &amp; &lt; &gt; &quot;). Never add <script>, extra <meta> tags, event handlers (onclick, onerror...), iframes, forms, links or external images.
-  No Mermaid "click" lines, links or HTML inside diagram labels.
+  HTML-escape all user-supplied text in tables and paragraphs (& < > " as &amp; &lt; &gt; &quot;).
+  Use only these tags: h1 h2 h3 p ul ol li table tr th td b i span div br pre. Never add meta, base, link, a, style, script, svg, img, iframe,
+  object, embed or form tags, event-handler attributes (onclick, onerror...), or style attributes. The CSP cannot block a <meta http-equiv="refresh"> redirect.
+  DIAGRAMS: Mermaid decodes HTML entities, so inside diagram labels DELETE these characters, never escape them: < > & " ' ` # ; % { } [ ] ( ) |
+  (e.g. write Approve PO over 5k, not Approve "PO" > 5k). Never write lines starting with click, %%, style, linkStyle, or any init/config directive.
+  SIZE: aim under 30 KB. Cells max about 25 words. Risk flags max about 10 rows, hand-offs max about 8; merge similar items.
   Tables: use <table> with a header row. Mode tags: <span class="tag A">A Automate</span> (A/B/C/D/E).
   Mermaid: keep diagrams inside <pre class="mermaid">, flowchart LR. Quote all labels: s1["Label"]. No < > & " inside labels.
   COMPACT MODE (just you or a team of up to about 5): aim for 8–10 printed pages. Keep every section but shorten: scope is one line; classification table columns # | Step | Mode | Why only;
@@ -45,7 +49,7 @@
 <h1>{{PROCESS_NAME}}: AI-native redesign</h1>
 <p class="meta">Prepared with Reprocess v0.2 on {{DATE}} · Scope: {{SCOPE}} · Draft for discussion, not a validated design.</p>
 <p class="note"><b>AI-generated draft. Not legal, tax, financial or security advice, and not a compliance determination.</b> See the risk flags in section 7 and the full notice at the end.</p>
-<p class="note">Diagrams are drawn in your browser from cdn.jsdelivr.net (your process text is not sent). If your network blocks it, each diagram has a plain-text step list underneath, and the diagram code can be pasted into any Mermaid-compatible tool your organization allows.</p>
+<p class="note">Diagrams are drawn in your browser from cdn.jsdelivr.net (your process text is not sent). If your network blocks it, the tables under each diagram list the same steps.</p>
 
 <h2>1. Executive summary</h2>
 <p><b>Do this week (max 3 steps):</b></p>
@@ -67,8 +71,6 @@
 <pre class="mermaid">
 {{CURRENT_STATE_MERMAID}}
 </pre>
-<!-- Plain-text fallback: an ordered list of the same steps, one line each. -->
-{{CURRENT_STATE_STEP_LIST}}
 {{CURRENT_STATE_TABLE}}
 
 <h2>4. Future state</h2>
@@ -83,12 +85,10 @@
 <pre class="mermaid">
 {{FUTURE_STATE_MERMAID}}
 </pre>
-<!-- Plain-text fallback: ordered list "step — mode — gate after it, if any". -->
-{{FUTURE_STATE_STEP_LIST}}
 
 <h2>5. Step classification</h2>
-<!-- Columns: # | Step | Mode | Why | Confidence | Predictability | Input structure | Error cost | Reversibility | Volume | Accountability.
-     Mark steps already automated today as "no change". -->
+<!-- Columns: # | Step | Mode | Why (one line) | Confidence | Ratings as six letters H/M/L in this order: predictability, input structure, error cost,
+     reversibility, volume, accountability (e.g. "H H L H M L"); explain the order once above the table. Mark steps already automated today as "no change". -->
 {{CLASSIFICATION_TABLE}}
 
 <h2>6. Human gates</h2>

@@ -14,5 +14,7 @@ Use GitHub's **private vulnerability reporting** (Security tab → *Report a vul
 ## What's in scope for the report file
 The template loads one script: Mermaid, pinned to an exact version on cdn.jsdelivr.net (npm versions there are immutable). There is deliberately no Subresource Integrity hash: AI assistants often corrupt long hashes when copying the template, which would break every diagram. A Content-Security-Policy allows only that exact versioned path and blocks all other scripts, inline event handlers, external images, forms and frames. Diagram text is rendered in the browser and is not sent anywhere. Opening the file does contact jsDelivr, which sees your IP address and browser details.
 
+A Content-Security-Policy can't stop a `<meta http-equiv="refresh">` redirect or a plain link, so the template also tells the assistant to use a fixed list of tags only. To check a report before opening or sharing it, run `python3 -I scripts/check-report.py reprocess-report.html` (standard library only). It flags extra tags, links, redirects, event handlers, changed security headers, unsafe diagram lines and unfilled placeholders.
+
 ## Never put in issues or pull requests
 Credentials, internal URLs, customer data, or unredacted SOPs.
