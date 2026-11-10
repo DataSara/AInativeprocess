@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <!--
-  Reprocess report template. The AI replaces every {{PLACEHOLDER}} and removes these comments.
+  Reprocess report template v0.2. The AI replaces every {{PLACEHOLDER}} and removes these comments.
+  Keep the Content-Security-Policy meta tag, the <style> block, the Mermaid <script> tag (pinned version + integrity) and the footer exactly as they are.
+  HTML-escape all user-supplied text (& < > " as &amp; &lt; &gt; &quot;). Never add <script>, event handlers (onclick, onerror...), iframes, forms or external links/images.
   Tables: use <table> with a header row. Mode tags: <span class="tag A">A Automate</span> (A/B/C/D/E).
-  Mermaid: keep diagrams inside <pre class="mermaid">. Quote all labels. No < > & " inside labels.
+  Mermaid: keep diagrams inside <pre class="mermaid">, flowchart LR. Quote all labels: s1["Label"]. No < > & " inside labels.
+  Human gates are diamonds: g1{"Approve?"}. In the future-state diagram, tag each step with :::A to :::E and end it with these lines:
+    classDef A fill:#dbeafe,stroke:#2563eb
+    classDef B fill:#fef3c7,stroke:#d97706
+    classDef C fill:#dcfce7,stroke:#16a34a
+    classDef D fill:#fee2e2,stroke:#dc2626
+    classDef E fill:#f3f4f6,stroke:#9ca3af,stroke-dasharray:5 5
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; font-src data:; script-src https://cdn.jsdelivr.net/npm/mermaid@11.17.2/; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Reprocess report: {{PROCESS_NAME}}</title>
 <style>
@@ -29,7 +38,7 @@
 <body>
 
 <h1>{{PROCESS_NAME}}: AI-native redesign</h1>
-<p class="meta">Prepared with Reprocess v0.1 on {{DATE}} · Scope: {{SCOPE}} · Draft for discussion, not a validated design.</p>
+<p class="meta">Prepared with Reprocess v0.2 on {{DATE}} · Scope: {{SCOPE}} · Draft for discussion, not a validated design.</p>
 
 <h2>1. Executive summary</h2>
 <ul>
@@ -60,7 +69,7 @@
 {{CLASSIFICATION_TABLE}}
 
 <h2>5. Human gates</h2>
-<!-- Columns: Gate | Location | What the human checks | Actions | Escalation trigger | Evidence to loosen later -->
+<!-- Columns: Gate | Location | What the human checks | Approver role | Actions | Escalation trigger | Record kept | Evidence to loosen later -->
 {{GATES_TABLE}}
 
 <h2>6. Build options</h2>
@@ -71,7 +80,12 @@
 <h2>7. Rollout plan and metrics</h2>
 {{ROLLOUT_AND_METRICS}}
 
-<h2>8. Limitations and how to improve</h2>
+<h2>8. Risk, compliance and security flags</h2>
+<p class="note">Screening only, not a compliance determination. Each flag needs checking by the person or team named.</p>
+<!-- Columns: Flag | Step(s) | Why it may apply | Who should check | Status (always "unverified"). From the risk checklist file. If nothing applies, say which checks were run. -->
+{{RISK_FLAGS_TABLE}}
+
+<h2>9. Limitations and how to improve</h2>
 <h3>Limitations of this analysis</h3>
 {{ANALYSIS_LIMITATIONS}}
 <h3>Limitations of the proposed system</h3>
@@ -81,18 +95,17 @@
 <h3>What to tune once running</h3>
 {{TUNING}}
 
-<h2>9. Assumptions</h2>
+<h2>10. Assumptions</h2>
 {{ASSUMPTIONS}}
 
 <p class="note">
-  Diagrams load from the internet (jsDelivr). If you see diagram code instead of a picture, your network may block it: paste the code into
-  <a href="https://mermaid.live">mermaid.live</a>. Tool licenses, features and pricing change. Verify before you adopt anything.
-  AI-generated analysis: review it with the people who run this process.
+  <b>Not legal, tax, financial or security advice, and not a compliance determination.</b> This AI-generated draft is based only on what was shared in the conversation.
+  Review it with the people who run the process and with your compliance, legal and security teams before acting. Tools named are examples, not endorsements;
+  licenses, features, security status and pricing change, so verify before you adopt anything. You are responsible for decisions made using this report.<br>
+  Diagrams are drawn in your browser by Mermaid, loaded from cdn.jsdelivr.net; your process text is not sent. If you see diagram code instead of a picture,
+  your network may block it: paste the code into mermaid.live.
 </p>
 
-<script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({ startOnLoad: true, securityLevel: 'strict' });
-</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11.17.2/dist/mermaid.min.js" integrity="sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2" crossorigin="anonymous"></script>
 </body>
 </html>

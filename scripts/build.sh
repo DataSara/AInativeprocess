@@ -7,6 +7,11 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 limit=8000
+
+if grep -q '```' knowledge/report-template.html; then
+  echo "knowledge/report-template.html must not contain triple backticks (it is fenced in the bundle)" >&2
+  exit 1
+fi
 chars=$(python3 -c 'import sys; print(len(open(sys.argv[1], encoding="utf-8").read()))' prompt/reprocess.md)
 if (( chars > limit )); then
   echo "prompt/reprocess.md is $chars characters (limit $limit)" >&2
@@ -23,6 +28,8 @@ mkdir -p dist/claude-skill/knowledge
   cat knowledge/question-bank.md
   printf '\n\n---\n# Knowledge file: tool catalog\n\n'
   cat knowledge/tool-catalog.md
+  printf '\n\n---\n# Knowledge file: risk checklist\n\n'
+  cat knowledge/risk-checklist.md
   printf '\n\n---\n# Knowledge file: report template\n\n```html\n'
   cat knowledge/report-template.html
   printf '```\n'
@@ -32,14 +39,14 @@ mkdir -p dist/claude-skill/knowledge
   cat <<'EOF'
 ---
 name: reprocess
-description: Redesign an existing workflow or SOP to be AI-native. Classifies each step (automate, AI-assist, AI-autonomous, human, eliminate), places human gates, recommends open-source build options with alternatives, states limitations, and produces a downloadable HTML report with diagrams. Use when someone wants to automate, streamline, or apply AI to a business process.
+description: Redesign an existing workflow or SOP to be AI-native. Classifies each step (automate, AI-assist, AI-autonomous, human, eliminate), places human gates, flags risk, compliance and security issues to check, recommends open-source build options with alternatives, states limitations, and produces a downloadable HTML report with diagrams. Use when someone wants to automate, streamline, or apply AI to a business process.
 ---
 
-Knowledge files for this skill are in `knowledge/`: `question-bank.md`, `tool-catalog.md`, `report-template.html`.
+Knowledge files for this skill are in `knowledge/`: `question-bank.md`, `tool-catalog.md`, `risk-checklist.md`, `report-template.html`.
 
 EOF
   cat prompt/reprocess.md
 } > dist/claude-skill/SKILL.md
-cp knowledge/question-bank.md knowledge/tool-catalog.md knowledge/report-template.html dist/claude-skill/knowledge/
+cp knowledge/question-bank.md knowledge/tool-catalog.md knowledge/risk-checklist.md knowledge/report-template.html dist/claude-skill/knowledge/
 
 echo "Built: $(find dist -type f | sort | tr '\n' ' ')"

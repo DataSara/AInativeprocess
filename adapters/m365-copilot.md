@@ -15,6 +15,7 @@ Menu names change between Copilot releases. If a label below doesn't match, look
    - [`knowledge/tool-catalog.md`](../knowledge/tool-catalog.md)
    - [`knowledge/question-bank.md`](../knowledge/question-bank.md)
    - [`knowledge/report-template.html`](../knowledge/report-template.html). If .html uploads are blocked, rename it to `report-template.txt`.
+   - [`knowledge/risk-checklist.md`](../knowledge/risk-checklist.md)
 5. **Capabilities:** turn on **Code interpreter**, so the agent can try to create the report file for download.
 6. **Starter prompts** (optional):
    - `Here's my SOP, redesign it` (then attach the SOP)
@@ -25,6 +26,8 @@ Menu names change between Copilot releases. If a label below doesn't match, look
 ## Data and policy
 - Copilot inside your company tenant is usually covered by your organization's data protection terms. Still follow your company's AI-use policy and remove sensitive data you don't need.
 - The agent can't see your systems. It only knows what you tell it or upload.
+- Turn off web search for this agent unless your policy allows it; web grounding can send query content outside your tenant under different terms (verify current Microsoft docs).
+- Don't add SOPs with personal or confidential data to the agent's knowledge. Everyone you share the agent with can draw on it.
 
 ## Known Copilot limitations (to test and report)
 - Long answers may be cut off. The prompt tells the agent to split the HTML report into parts. If it stops mid-way, reply `continue`.
