@@ -57,6 +57,13 @@ The core list the prompt requires. Cover all of these (combine where natural); t
 - How long must records from this process be kept, and where?
 - Any sector rules (food safety, medical devices, export controls, customs, regulated profession)?
 
+## Finance controls and audit (ask the control owner or internal audit)
+- Which steps are controls, and which are key controls? Control IDs and types (preventive or detective, manual or automated)?
+- Which reports, spreadsheets or queries does each control rely on, and how is their completeness and accuracy evidenced?
+- Who can change workflows, templates and thresholds, and how are changes approved and logged?
+- When are change freezes, close windows and audit testing?
+- Would moving a review to exceptions or a model change the control's design (needs control-owner and auditor sign-off)?
+
 ## Self-employed and small business (replace the IT questions with these)
 - Are you mostly on a phone or a computer? (Phone users get a short text checklist first; the HTML report is optional.)
 - Do you want anything you have to install or look after, or only apps you sign up for?

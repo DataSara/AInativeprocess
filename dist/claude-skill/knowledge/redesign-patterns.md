@@ -4,19 +4,21 @@ Use these after classifying the current steps (Phase 3). Classification asks "ho
 
 Mode M = a statistical or machine-learning model (forecast, estimate, score), not an LLM. It needs: a baseline it must beat (the current method and a simple naive method), back-testing on past data, accuracy and bias monitoring, a named owner, and a documented fallback. Full governance list: risk checklist §M.
 
-**Hard limit:** M never decides anything on Principle 5's list (money, commitments, prices shown to customers, decisions about individuals, safety, regulated sign-off), and "exceptions, not every item" never applies there. A model may inform; a human decides each item.
+**Hard limit:** M never decides anything on Principle 5's list (money, commitments, prices shown to customers, decisions about individuals, safety, regulated sign-off), and "exceptions, not every item" never applies there. A model may inform; a human decides each item. **Never design M to score, rank, filter or predict about individual candidates, workers or customers.** If the organization already uses such a tool, treat it as a decision about people: per-item human review, a bias audit where required, never C.
+- **When not to use M:** no comparable history to back-test, or one-off judgements. Then it's D (or B with evidence).
+- **Figures:** an LLM never produces a figure. It may extract one (B) only with a check against structured data or the source.
 
 ## Core patterns
 | Pattern | Today | AI-native | Guardrails |
 |---|---|---|---|
 | **Model-first, human challenge** | People type estimates (lift, effort, risk) that become the number | A model (M) proposes the number with a range; the human accepts or overrides with a reason. Both numbers are kept | Overrides are allowed and recorded; the model never has the final say on Principle 5 decisions; measure whether overrides help **by stage or role, not per person** (per-person tracking is performance monitoring: HR, privacy and works council first). No model-first scores about individuals (candidates, employees, customers) without HR or legal review and a bias audit |
-| **Exceptions, not every item** | Every item is reviewed or discussed | Rules or M handle routine items; people review only items above a materiality or uncertainty threshold | **Never for Principle 5 items or safety.** Thresholds set from the cost of an error; a random sample of routine items is still checked and kept; thresholds re-tightened when errors rise. If the review is a finance control (e.g. SOX), moving to exceptions is a control redesign: control owner and auditor sign-off first |
+| **Exceptions, not every item** | Every item is reviewed or discussed | Rules or M handle routine items; people review only items above a materiality or uncertainty threshold | **Never for Principle 5 items, key controls or safety:** exceptions change only the preparer's work; each approval stays item by item. Thresholds set from the cost of an error; a random sample of routine items is still checked and kept; thresholds re-tightened when errors rise. If the review is a finance control (e.g. SOX), moving to exceptions is a control redesign: control owner and auditor sign-off first |
 | **One versioned source of truth** | Spreadsheets emailed, copied and merged | One shared, versioned record (event register, plan version, case record) that every function reads | Locked snapshots for each approved version; who changed what, when; no side copies |
 | **Fewer hand-offs** | A → B → C in sequence, each re-keying | Parallel contributions into the shared record; hand-offs replaced by status and alerts | Each contribution keeps an owner; the approver is still separate |
 | **Closed learning loop** | Nobody checks whether past estimates were right | Every prediction or estimate is compared with the actual outcome; results feed back into the model and into people's next estimates | Never park this step. Compare snapshots taken before the outcome (no hindsight). Track bias by source (model, each human adjustment) |
 | **Decision brief instead of a meeting to reconcile numbers** | A meeting spends its time agreeing the numbers | Numbers are reconciled before the meeting; an AI-drafted brief (B) lists the decisions, evidence and options; the meeting decides | The brief cites its sources; figures come from systems, not from the AI; the decision and its owner are recorded. Not for meetings on people, legal advice or inside information unless the AI tool is approved for that data |
 | **Separate measures** | One number means several things | Keep distinct: what we expect (forecast), what we want (target), what we can do (constrained plan), what we commit to (approved plan or order) | Never adjust the forecast to hit a target; show the gap and let the owner decide what to do about it |
-| **Scenarios, not a single number** | One point estimate is passed downstream | Base, upside and downside ranges, with what would trigger each | Downstream commitments still go through their own approvals |
+| **Scenarios, not a single number** | One point estimate is passed downstream | Base, upside and downside ranges, with what would trigger each, shaped for each consumer (e.g. Finance revenue band, Procurement requirement range, Supply capacity exposure) | Downstream commitments still go through their own approvals |
 
 ## Planning and forecasting (demand, sales, capacity, budget)
 - **Statistical baseline (M).** Keep it, and measure it against a naive forecast. Don't rebuild it until its accuracy and bias are measured.
@@ -25,7 +27,16 @@ Mode M = a statistical or machine-learning model (forecast, estimate, score), no
 - **New products (M with human challenge).** Use analogous past launches and adoption curves; Product owns the assumptions and the target; show the gap between expected demand and the target.
 - **Reconciliation (A + M).** Align levels and time buckets automatically; detect conflicts and double counts; produce exceptions and a decision brief (B).
 - **Measure the value of every adjustment** (forecast value added): accuracy and bias before and after each stage (model, sales, product, consensus), reported by stage or team, not by named person. Stop adjustments that make the forecast worse.
+- **Hidden commitments:** ask whether publishing the plan automatically triggers requisitions, purchase orders, production orders or budgets. If so, that release is a commitment (Principle 5) and needs its own approval.
+- **Rollout for monthly processes:** back-test on past cycles and events first, then shadow the current process for several cycles before switching; a 2–4 week pilot is too short.
 - **Primary metrics:** forecast accuracy (e.g. weighted absolute percentage error), bias, forecast value added, uplift calibration; effort comes second.
+
+## People processes (hiring, onboarding, scheduling, performance, HR queries)
+- Intake and logistics can be A: structured forms, candidate or employee self-scheduling, status updates.
+- A decision brief may be drafted (B) only from people's own written input (interviewers' feedback, the employee's request), reviewed by someone other than the decision-maker's preparer.
+- No M or C on decisions about people, and no exceptions-only review of them. Each decision is made and recorded by a person.
+- Tell people before AI is used in a process that affects them (notice rules vary; see risk checklist §2).
+- Health, accommodation and leave information stays out of AI tools and in the restricted case system.
 
 ## Intake and requests (tickets, applications, orders, enquiries)
 - Structured intake form (A) instead of free-text email; AI extracts from the unavoidable free text (B) with validation against master data.

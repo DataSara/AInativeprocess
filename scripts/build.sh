@@ -19,6 +19,13 @@ if (( chars > limit )); then
 fi
 echo "prompt/reprocess.md: $chars / $limit characters"
 
+pv=$(sed -n 's/^# Reprocess \(v[0-9.]*\).*/\1/p' prompt/reprocess.md | head -1)
+tv=$(sed -n 's/.*Prepared with Reprocess \(v[0-9.]*\).*/\1/p' knowledge/report-template.html | head -1)
+if [ "$pv" != "$tv" ]; then
+  echo "version mismatch: prompt $pv, template $tv" >&2
+  exit 1
+fi
+
 rm -rf dist
 mkdir -p dist/claude-skill/knowledge
 

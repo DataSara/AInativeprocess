@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  Reprocess report template v0.2. The AI replaces every {{PLACEHOLDER}} and removes these comments.
+  Reprocess report template v0.4. The AI replaces every {{PLACEHOLDER}} and removes these comments.
   Keep the Content-Security-Policy meta tag, the <style> block, the Mermaid <script> tag (pinned version) and the footer exactly as they are.
   HTML-escape all user-supplied text in tables and paragraphs (& < > " as &amp; &lt; &gt; &quot;).
   Use only these tags: h1 h2 h3 p ul ol li table tr th td b i span div br pre. Never add meta, base, link, a, style, script, svg, img, iframe,
@@ -10,17 +10,17 @@
   Diagrams over about 12 nodes: use flowchart TB or split into two diagrams.
   SIZE: aim under 30 KB (about 6,000 words of visible text). Cells max about 25 words. Hand-offs max about 8; merge similar items.
   Risk flags: list every High flag (never merge or drop one to save space); merge Medium and Low ones to keep the table under about 12 rows.
-  If too long, cut in this order: limitations detail → classification "why" text → merge hand-offs → assessment kit down to must-haves and data/security questions → rollout detail.
+  If too long, cut in this order: limitations detail → classification "why" text → decision rights and cadence down to one table (max 6 rows) → merge hand-offs → assessment kit down to must-haves and data/security questions → rollout detail. Today → AI-native cells about 20 words each.
   Never cut: gates, every High risk flag, control-impact table, safety-critical starter-kit items (e.g. bank call-back checklist), the footer.
   SPLIT DECLINED: map at summary level (max about 15 steps) and note site variations in the table.
   PARTIAL ANALYSIS (one sub-process of several): end section 2 with a "Next session" block: sub-processes left, hand-offs, open risks, and the facts already gathered, for the user to paste into the next session.
-  Tables: use <table> with a header row. Mode tags: <span class="tag A">A Automate</span> (A/B/C/D/E).
+  Tables: use <table> with a header row. Mode tags: <span class="tag A">A Automate</span> (A/B/C/D/E/M).
   Mermaid: keep diagrams inside <pre class="mermaid">, flowchart LR. Quote all labels: s1["Label"]. No < > & " inside labels.
   COMPACT MODE (only if the whole organisation is small, up to about 5 people, and nothing is externally audited; a one-person role inside a larger or audited company gets the full report): aim for 8–10 printed pages. Keep every section but shorten: scope is one line; classification table columns # | Step | Mode | Why only;
   limitations max 3 bullets per subsection; omit the control-impact table; tailor the assessment kit to must-haves, how to find candidates, score card and trial plan.
   Use plain words: "a second person or your accountant checks" instead of "segregation of duties"; "keep a record" instead of "evidence for auditors".
   If one person does everything, say so once and name the compensating check (accountant review, a record, a waiting period) instead of "must not approve".
-  Human gates are diamonds: g1{"Approve?"}. In the future-state diagram, tag each step with :::A to :::E and end it with these lines:
+  Human gates are diamonds: g1{"Approve?"}. In the future-state diagram, tag each step with :::A to :::E or :::M and end it with these lines:
     classDef A fill:#dbeafe,stroke:#2563eb
     classDef B fill:#fef3c7,stroke:#d97706
     classDef C fill:#dcfce7,stroke:#16a34a
@@ -54,7 +54,7 @@
 <body>
 
 <h1>{{PROCESS_NAME}}: AI-native redesign</h1>
-<p class="meta">Prepared with Reprocess v0.3 on {{DATE}} · Scope: {{SCOPE}} · Draft for discussion, not a validated design.</p>
+<p class="meta">Prepared with Reprocess v0.4 on {{DATE}} · Scope: {{SCOPE}} · Draft for discussion, not a validated design.</p>
 <p class="note"><b>AI-generated draft. Not legal, tax, financial or security advice, and not a compliance determination.</b> See the risk flags in section 7 and the full notice at the end.</p>
 <p class="note">Diagrams are drawn in your browser from cdn.jsdelivr.net (your process text is not sent). If your network blocks it, the tables in sections 3 and 5 list the same steps.</p>
 
@@ -101,11 +101,13 @@
 <h2>5. Step classification</h2>
 <!-- Columns: # | Step | Mode | Why (one line) | Confidence | Ratings as six letters H/M/L in this order: predictability, input structure, error cost,
      reversibility, volume, accountability (e.g. "H H L H M L"); explain the order once above the table. Mark steps already automated today as "no change".
-     One mode per row; split mixed steps. A step that rejects, ranks or filters people is never plain A: add a human review of rejections (or review on request in the EU/UK) and pass-rate monitoring. -->
+     One mode per row; split mixed steps. A step that rejects, ranks or filters people is never plain A: add a human review of rejections (or review on request in the EU/UK) and pass-rate monitoring. 
+     M rows name the baseline to beat and the fallback if the model fails or drifts. -->
 {{CLASSIFICATION_TABLE}}
 
 <h2>6. Human gates</h2>
-<!-- Columns: Gate | After step | What the human checks | Approver role | Must not approve (preparer, poster, beneficiary) | Threshold |
+<!-- Fixed approved templates filled only from system fields are mode A and need no per-message gate; hand-edited or AI-drafted external messages are gated.
+     Columns: Gate | After step | What the human checks | Approver role | Must not approve (preparer, poster, beneficiary) | Threshold |
      Enforced by (system block or policy only) | Escalation trigger | Record kept (what, where) | Loosening (evidence needed, or "Do not loosen" and why).
      Low volume (weekly or monthly): keep the gate, or loosen only after an agreed number of periods with no corrections. Record hands-on and waiting time separately. -->
 {{GATES_TABLE}}
