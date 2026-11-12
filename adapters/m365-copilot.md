@@ -16,6 +16,7 @@ Menu names change between Copilot releases. If a label below doesn't match, look
    - [`knowledge/question-bank.md`](../knowledge/question-bank.md)
    - [`knowledge/report-template.html`](../knowledge/report-template.html). If .html uploads are blocked, rename it to `report-template.txt`.
    - [`knowledge/risk-checklist.md`](../knowledge/risk-checklist.md)
+   - [`knowledge/redesign-patterns.md`](../knowledge/redesign-patterns.md)
    - [`knowledge/tool-assessment-kit.md`](../knowledge/tool-assessment-kit.md)
 5. **Capabilities:** turn on **Code interpreter**, so the agent can try to create the report file for download.
 6. **Starter prompts** (optional):

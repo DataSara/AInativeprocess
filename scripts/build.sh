@@ -26,6 +26,8 @@ mkdir -p dist/claude-skill/knowledge
   cat prompt/reprocess.md
   printf '\n\n---\n# Knowledge file: risk checklist\n\n'
   cat knowledge/risk-checklist.md
+  printf '\n\n---\n# Knowledge file: redesign patterns\n\n'
+  cat knowledge/redesign-patterns.md
   printf '\n\n---\n# Knowledge file: question bank\n\n'
   cat knowledge/question-bank.md
   printf '\n\n---\n# Knowledge file: tool catalog\n\n'
@@ -44,11 +46,11 @@ name: reprocess
 description: Redesign an existing workflow or SOP to be AI-native. Classifies each step (automate, AI-assist, AI-autonomous, human, eliminate), places human gates, flags risk, compliance and security issues to check, recommends open-source build options with alternatives, states limitations, and produces a downloadable HTML report with diagrams. Use when someone wants to automate, streamline, or apply AI to a business process.
 ---
 
-Knowledge files for this skill are in `knowledge/`: `question-bank.md`, `tool-catalog.md`, `risk-checklist.md`, `tool-assessment-kit.md`, `report-template.html`.
+Knowledge files for this skill are in `knowledge/`: `question-bank.md`, `redesign-patterns.md`, `tool-catalog.md`, `risk-checklist.md`, `tool-assessment-kit.md`, `report-template.html`.
 
 EOF
   cat prompt/reprocess.md
 } > dist/claude-skill/SKILL.md
-cp knowledge/question-bank.md knowledge/tool-catalog.md knowledge/risk-checklist.md knowledge/tool-assessment-kit.md knowledge/report-template.html dist/claude-skill/knowledge/
+cp knowledge/redesign-patterns.md knowledge/question-bank.md knowledge/tool-catalog.md knowledge/risk-checklist.md knowledge/tool-assessment-kit.md knowledge/report-template.html dist/claude-skill/knowledge/
 
 echo "Built: $(find dist -type f | sort | tr '\n' ' ')"

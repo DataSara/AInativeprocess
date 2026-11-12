@@ -26,6 +26,7 @@
     classDef C fill:#dcfce7,stroke:#16a34a
     classDef D fill:#fee2e2,stroke:#dc2626
     classDef E fill:#f3f4f6,stroke:#9ca3af,stroke-dasharray:5 5
+    classDef M fill:#ede9fe,stroke:#7c3aed
 -->
 <html lang="en">
 <head>
@@ -42,7 +43,7 @@
   th,td{border:1px solid #e5e7eb;padding:.4rem .6rem;text-align:left;vertical-align:top}
   th{background:#f9fafb}
   .tag{display:inline-block;padding:0 .5rem;border-radius:999px;font-size:.8rem;font-weight:600;white-space:nowrap}
-  .A{background:#dbeafe}.B{background:#fef3c7}.C{background:#dcfce7}.D{background:#fee2e2}.E{background:#f3f4f6;border:1px dashed #9ca3af}
+  .A{background:#dbeafe}.B{background:#fef3c7}.C{background:#dcfce7}.D{background:#fee2e2}.E{background:#f3f4f6;border:1px dashed #9ca3af}.M{background:#ede9fe}
   .option{border:1px solid #e5e7eb;border-radius:8px;padding:.8rem 1rem;margin:1rem 0}
   .option.recommended{border:2px solid #2563eb}
   .note{background:#f9fafb;border-left:4px solid #9ca3af;padding:.6rem 1rem;font-size:.9rem}
@@ -58,6 +59,8 @@
 <p class="note">Diagrams are drawn in your browser from cdn.jsdelivr.net (your process text is not sent). If your network blocks it, the tables in sections 3 and 5 list the same steps.</p>
 
 <h2>1. Executive summary</h2>
+<!-- Today → AI-native table first: 5-7 rows. Columns: Dimension | Today | AI-native. Describe how the process changes shape (from the redesign-patterns file), not just which steps get faster. -->
+{{TODAY_VS_AI_NATIVE_TABLE}}
 <p><b>Do this week (max 3 steps):</b></p>
 <ol>
   {{THIS_WEEK_STEPS}}
@@ -87,6 +90,7 @@
   <span class="tag C">C AI-autonomous with guardrails</span>
   <span class="tag D">D Human</span>
   <span class="tag E">E Eliminate</span>
+  <span class="tag M">M Model (statistical or ML, not an LLM)</span>
   · Diamonds = human gates
 </p>
 <!-- Diagram labels: DELETE these characters, never escape them: < > & " ' ` # ; % { } [ ] ( ) | -->
@@ -108,6 +112,10 @@
 <!-- Only if the process is regulated or audited: Control impact table. Columns: Control (ID if known) | Key control? | Changed how |
      Validation / change control needed | Evidence for auditors | Owner. Otherwise omit this block. -->
 {{CONTROL_IMPACT_TABLE}}
+
+<!-- Optional, for processes involving several teams: Decision rights table. Columns: Role | Owns | Must not do. Include the AI/model as a row
+     (e.g. "estimates, detects, drafts" | "set targets, approve commitments, publish without approval"). Then a short cadence table: Cadence | Automated work | Human focus. Omit if not useful. -->
+{{DECISION_RIGHTS_AND_CADENCE}}
 
 <h2>7. Risk, compliance and security flags</h2>
 <p class="note">Screening only, not a compliance determination. Each flag needs checking by the person or team named.</p>
@@ -131,6 +139,8 @@
 {{ASSESSMENT_KIT}}
 
 <h2>9. Rollout plan and metrics</h2>
+<!-- Primary metrics = outcome quality in the user's terms (e.g. forecast accuracy, bias and value added by each adjustment; error or rework rate; time to decision). Effort and hours saved come second.
+     Any step that predicts or estimates has a learning step here: compare predictions with outcomes and feed back. One worked example may use hypothetical numbers, labelled "Illustration: hypothetical numbers". -->
 {{ROLLOUT_AND_METRICS}}
 
 <h3>Starter kit (drafts: check before use)</h3>

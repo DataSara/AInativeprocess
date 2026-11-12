@@ -6,6 +6,8 @@ Give it your SOP, or answer a few questions. Reprocess will:
 
 1. Map your current process step by step, and check it with you.
 2. Put each step in one category: **automate without AI** · **AI drafts, a human approves** · **AI acts within guardrails** · **keep it human** · **eliminate**.
+   Forecasts, estimates and scores get their own mode, **model** (statistical or machine learning, not an LLM), with a baseline to beat and accuracy and bias monitoring.
+   Then it **rethinks the flow**, not just the steps: model-first estimates that people can challenge, exception-based review, one versioned source of truth, fewer hand-offs, and a learning loop that checks predictions against outcomes.
 3. Place **human gates** where accountability, risk or irreversibility require them (money, master data, prices, decisions about people, regulated sign-offs), and say what evidence would justify loosening them.
 4. **Flag risk, compliance and security issues to check**: e.g. GDPR automated decisions, EU AI Act high-risk uses, hiring and background-check rules, inside information, SOX segregation of duties, HIPAA, PCI, pricing law, prompt injection, payment fraud, what a workplace assistant can see and store, self-hosting exposure. It flags them for your experts to check; it never declares a design compliant.
 5. Recommend **how to get it done**, matched to your technical comfort: one recommended option plus 1–2 alternatives, always including a low- or no-AI option.
@@ -27,7 +29,7 @@ It works for a one-person process (freelancer bookkeeping) up to a multi-site pr
 |---|---|
 | **Any AI chat** | Download [`dist/reprocess-full.md`](dist/reprocess-full.md), attach it, and type: *"Follow the instructions in the attached file. Start now."* |
 | **Microsoft 365 Copilot agent** | See [adapters/m365-copilot.md](adapters/m365-copilot.md) |
-| **ChatGPT Custom GPT** | Instructions: paste [`prompt/reprocess.md`](prompt/reprocess.md). Knowledge: upload all five files in [`knowledge/`](knowledge/). Enable Code Interpreter. |
+| **ChatGPT Custom GPT** | Instructions: paste [`prompt/reprocess.md`](prompt/reprocess.md). Knowledge: upload all six files in [`knowledge/`](knowledge/). Enable Code Interpreter. |
 | **Claude Project** | Project instructions: paste `prompt/reprocess.md`. Project knowledge: upload `knowledge/`. |
 | **Claude Skill** | Zip `dist/claude-skill/` and upload it under Settings → Capabilities → Skills. |
 | **Gemini Gem** | Instructions: paste `prompt/reprocess.md`. Knowledge: upload `knowledge/`. |
@@ -40,7 +42,7 @@ It works for a one-person process (freelancer bookkeeping) up to a multi-site pr
 ## Repo layout
 ```
 prompt/reprocess.md          core instructions (under 8,000 chars for Copilot / Custom GPT limits)
-knowledge/                   question bank, open-source tool catalog, risk and security checklist, tool assessment kit, HTML report template
+knowledge/                   question bank, redesign patterns, open-source tool catalog, risk and security checklist, tool assessment kit, HTML report template
 examples/                    sample SOPs and expected reports
 adapters/                    platform setup guides
 scripts/build.sh             builds dist/ and checks the character limit

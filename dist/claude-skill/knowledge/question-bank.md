@@ -3,6 +3,14 @@
 Pick follow-up questions from here; don't ask all of them. Ask max 4 per round, numbered. Skip anything the SOP already answers. For solo owners and small teams, use the "Self-employed and small business" wording instead of corporate terms like "IT approval" or "company AI policy".
 
 ## Always (any scale)
+The core list the prompt requires. Cover all of these (combine where natural); the numbered questions below help phrase them.
+- Outcome and what "done well" means · scale (just you / one team / several teams or sites) · trigger, frequency, volume
+- Steps by role, with tools and time per step · biggest pain · cost of a mistake
+- Countries/states · regulation and audits · approvals and segregation of duties
+- Data class and whether the AI tool is approved for it · peak seasons · budget
+- Technical comfort (use apps only / configure / build) and IT limits · phone or computer
+- If the process predicts or estimates anything: how accuracy and bias are measured today, and which human adjustments are made on top of the model
+
 1. What is the process, and what does "done well" look like?
 2. What triggers it (an email, a date, a customer request, a system event)?
 3. How often does it run, and what volume (items per day/week/month)?

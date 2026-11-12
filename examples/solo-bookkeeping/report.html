@@ -14,7 +14,7 @@
   th,td{border:1px solid #e5e7eb;padding:.4rem .6rem;text-align:left;vertical-align:top}
   th{background:#f9fafb}
   .tag{display:inline-block;padding:0 .5rem;border-radius:999px;font-size:.8rem;font-weight:600;white-space:nowrap}
-  .A{background:#dbeafe}.B{background:#fef3c7}.C{background:#dcfce7}.D{background:#fee2e2}.E{background:#f3f4f6;border:1px dashed #9ca3af}
+  .A{background:#dbeafe}.B{background:#fef3c7}.C{background:#dcfce7}.D{background:#fee2e2}.E{background:#f3f4f6;border:1px dashed #9ca3af}.M{background:#ede9fe}
   .option{border:1px solid #e5e7eb;border-radius:8px;padding:.8rem 1rem;margin:1rem 0}
   .option.recommended{border:2px solid #2563eb}
   .note{background:#f9fafb;border-left:4px solid #9ca3af;padding:.6rem 1rem;font-size:.9rem}
@@ -25,12 +25,20 @@
 <body>
 
 <h1>Freelance consultant monthly bookkeeping: AI-native redesign</h1>
-<p class="meta">Prepared with Reprocess v0.3 on 2026-11-10 (example) · Scope: One person; monthly, quarterly and year-end bookkeeping · Draft for discussion, not a validated design.</p>
+<p class="meta">Prepared with Reprocess v0.4 on 2026-11-10 (example) · Scope: One person; monthly, quarterly and year-end bookkeeping · Draft for discussion, not a validated design.</p>
 <p class="note"><b>AI-generated draft. Not legal, tax, financial or security advice, and not a compliance determination.</b> See the risk flags in section 7 and the full notice at the end.</p>
 
 <p class="note">Diagrams are drawn in your browser from cdn.jsdelivr.net (your process text is not sent). If your network blocks it, the tables in sections 3 and 5 list the same steps.</p>
 
 <h2>1. Executive summary</h2>
+<table><tr><th>Dimension</th><th>Today</th><th>AI-native</th></tr>
+<tr><td>Getting data in</td><td>Download CSVs, forward and photograph receipts</td><td>Scheduled imports and one receipts inbox</td></tr>
+<tr><td>Categorizing</td><td>120 transactions by hand each month</td><td>Rules for repeat vendors; AI suggests the rest; you confirm</td></tr>
+<tr><td>Matching</td><td>Manual search for each receipt</td><td>Automatic match by amount and date; you handle the exceptions</td></tr>
+<tr><td>Chasing payments</td><td>Remember to email late clients</td><td>Scheduled reminders; you handle persistent late payers</td></tr>
+<tr><td>Year end</td><td>Re-type totals and zip receipts</td><td>Export reports and receipts by year</td></tr>
+<tr><td>Learning</td><td>Same corrections every month</td><td>Each repeated correction becomes a rule, so the AI share shrinks</td></tr>
+</table>
 <p><b>Do this week (max 3 steps):</b></p>
 <ol><li>Set up a Gmail filter that labels emailed receipts, and one phone-scan folder for paper receipts.</li><li>List your 20 most frequent vendors and the category each belongs to (these become rules).</li><li>Check with your accountant how long receipts must be kept and in what form.</li></ol>
 <ul>
@@ -57,6 +65,7 @@ flowchart LR
   <span class="tag C">C AI-autonomous with guardrails</span>
   <span class="tag D">D Human</span>
   <span class="tag E">E Eliminate</span>
+  <span class="tag M">M Model (statistical or ML, not an LLM)</span>
   · Diamonds = human gates
 </p>
 <pre class="mermaid">
