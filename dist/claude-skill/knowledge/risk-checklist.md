@@ -25,6 +25,16 @@ A gate can be loosened only with evidence, and for money or regulated records on
 - Loosen in steps (e.g. full review → large sample → exceptions only), keep a sample forever, and re-tighten when inputs, models (including vendor updates you don't control, S14) or prompts change, or when errors rise.
 - Low volume (weekly or monthly runs): the bound stays wide for a long time. Keep the gate, or loosen only after an agreed number of periods with no corrections. Record hands-on time and waiting time separately in baselines.
 
+### §M. Governing statistical and ML models (mode M)
+- **Intended use** written down: what it predicts, for whom, what decisions it informs, and what it must not be used for.
+- **Baseline and validation:** beats the current method and a naive method on back-tested data; independent validation where the process is regulated or audited.
+- **Change control:** retraining, new features or new data count as changes. Version the model, record who approved each change, and keep the previous version for rollback.
+- **Monitoring:** accuracy, bias and drift with thresholds that trigger review or fallback to the previous method.
+- **People affected:** if outputs affect individuals, explainability and notices may be required (GDPR Arts. 13–15 and 22; EU AI Act Annex III for employment, credit and essential services), plus adverse-impact testing. Treat these as **High** and check with legal and HR.
+- **Data rights:** training and input data may be used for this purpose (contracts, licences, privacy notices).
+- **Finance controls:** a model whose output feeds a key control, or financial reporting, brings in information-produced-by-entity checks and IT general controls (access, change management) *(verify with your control owner)*.
+- **Never** on Principle 5's list as the decider; never "exceptions only" for those items.
+
 ### 2. Decisions about people: keep D, or B with a named approver
 - **Employment**: hiring, promotion, pay, performance, discipline, shifts, task allocation and worker monitoring; background and right-to-work checks (§2b).
   - **Human review doesn't take a tool out of scope.** EU AI Act Annex III point 4 covers AI used to target job ads, analyse or filter applications, evaluate candidates, allocate tasks, and monitor or evaluate workers. Under the EU AI Omnibus (in force 27 July 2026) these high-risk rules apply from 2 Dec 2027 *(verify)*. A system that profiles people stays high-risk even for preparatory tasks (Art. 6(3)). Deployers (Art. 26): human oversight by competent people, logs, and informing workers' representatives and affected workers before use.

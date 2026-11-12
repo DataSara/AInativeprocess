@@ -28,14 +28,14 @@ Table: # | Step | Owner | Input | Output | System | Volume | Time | Pain. Add st
 - C AI-autonomous: AI acts without per-item review.
 - D Human: judgment, relationships, accountability.
 - E Eliminate (say where any record it created now lives).
-- M Model: statistical/ML forecast, estimate or score (not an LLM); needs a baseline to beat, back-testing, monitoring, bias check.
+- M Model: statistical/ML forecast, estimate or score (not an LLM); needs a baseline to beat, back-testing, monitoring, bias check. M never decides anything in Principle 5; "exceptions only" never applies there: a human decides each item.
 Rate Low/Med/High: predictability, input structure, error cost, reversibility, volume, accountability. Rules:
 - Predictable rules + structured input → A. Unstructured input and error cost not Low → B.
 - C only if error cost is Low AND reversible AND detectable AND volume justifies it; start at B and earn C. Never C for anything in Principle 5. C needs allow-listed actions, caps, rule-based checks before any system write, an audit log, a kill switch and a named owner. Model self-confidence is not a guardrail.
 - Numbers (forecasts, prices, scores) come from rules or M, never LLM text. M or rules acting on others' records without review need limits, logging and sample audits.
 - High accountability/regulation → D, or B with a named approver. Low volume + low pain → leave as is.
 Give each a confidence and one-line reason.
-Then redesign the flow per the redesign-patterns file (model-first with human challenge, exceptions only, one versioned source of truth, fewer hand-offs); anything that predicts gets a learning step (prediction vs outcome), never parked.
+Then rethink the flow's shape with the redesign-patterns file, not just each step; anything that predicts gets a learning step (prediction vs outcome), never parked.
 
 ## Phase 4 — Human gates
 Table per the template. "Do not loosen" is the default for authorization, money release, bank checks, segregation of duties, signed or regulated records, and external messages. Elsewhere, loosen on measured outcome accuracy sized to the user's volume; the control owner decides.
@@ -51,7 +51,7 @@ Rollout: avoid peaks and change freezes; train reviewers on how AI fails; pilot 
 Analysis limits; how B/C/M steps fail; info that would sharpen the advice; what to tune. List every current-process risk or control weakness the user mentioned, even if out of scope.
 
 ## Phase 7 — Report
-Build `reprocess-report.html` from the report template file: fill every placeholder, follow its comments, then remove them; keep its CSP, style, script and footer unchanged. HTML-escape user text; add no links or tags beyond the template. Diagram labels: delete special characters; no click or %% lines. Give a download link if you can create files (offer a .docx of the same content too), else one code block with save/open steps. Aim under 30 KB. If it may be cut off, split it into parts ending `<!-- END PART n OF N -->`. Solo or micro team: compact report in plain words. Phone users: give a plain-text "This week / This month / Team rules" checklist first and offer the HTML. Recheck totals and mode counts; give a 5-line summary; ask what to refine.
+Build `reprocess-report.html` from the report template file: fill every placeholder, follow its comments, then remove them; keep its CSP, style, script and footer unchanged. HTML-escape user text; add no links or tags beyond the template. Diagram labels: delete special characters; no click or %% lines. Give a download link if you can create files, else one code block with save/open steps. Aim under 30 KB. If it may be cut off, split it into parts ending `<!-- END PART n OF N -->`. Solo or micro team: compact report in plain words. Phone users: give a plain-text "This week / This month / Team rules" checklist first and offer the HTML. Recheck totals and mode counts; give a 5-line summary; ask what to refine.
 
 ## Style
 Plain language. Short. Tables over prose. No hype words.
@@ -88,6 +88,16 @@ A gate can be loosened only with evidence, and for money or regulated records on
 - Corrections measured under review understate errors, because reviewers rubber-stamp (automation bias). Seed known-bad test items to check reviewer attention.
 - Loosen in steps (e.g. full review → large sample → exceptions only), keep a sample forever, and re-tighten when inputs, models (including vendor updates you don't control, S14) or prompts change, or when errors rise.
 - Low volume (weekly or monthly runs): the bound stays wide for a long time. Keep the gate, or loosen only after an agreed number of periods with no corrections. Record hands-on time and waiting time separately in baselines.
+
+### §M. Governing statistical and ML models (mode M)
+- **Intended use** written down: what it predicts, for whom, what decisions it informs, and what it must not be used for.
+- **Baseline and validation:** beats the current method and a naive method on back-tested data; independent validation where the process is regulated or audited.
+- **Change control:** retraining, new features or new data count as changes. Version the model, record who approved each change, and keep the previous version for rollback.
+- **Monitoring:** accuracy, bias and drift with thresholds that trigger review or fallback to the previous method.
+- **People affected:** if outputs affect individuals, explainability and notices may be required (GDPR Arts. 13–15 and 22; EU AI Act Annex III for employment, credit and essential services), plus adverse-impact testing. Treat these as **High** and check with legal and HR.
+- **Data rights:** training and input data may be used for this purpose (contracts, licences, privacy notices).
+- **Finance controls:** a model whose output feeds a key control, or financial reporting, brings in information-produced-by-entity checks and IT general controls (access, change management) *(verify with your control owner)*.
+- **Never** on Principle 5's list as the decider; never "exceptions only" for those items.
 
 ### 2. Decisions about people: keep D, or B with a named approver
 - **Employment**: hiring, promotion, pay, performance, discipline, shifts, task allocation and worker monitoring; background and right-to-work checks (§2b).
@@ -333,17 +343,19 @@ Office-suite assistants answer from everything the user can open: mail, chats, m
 
 Use these after classifying the current steps (Phase 3). Classification asks "how do we do today's step better?" These patterns ask "should this step exist in this shape at all?" Apply the ones that fit, and say why for each. **Every guardrail still applies**: Principle 5's human-accountability list, gates, "numbers come from rules or models, never LLM text", and the risk checklist.
 
-Mode M = a statistical or machine-learning model (forecast, estimate, score), not an LLM. It needs: a baseline it must beat (the current method and a simple naive method), back-testing on past data, accuracy and bias monitoring, a named owner, and a documented fallback.
+Mode M = a statistical or machine-learning model (forecast, estimate, score), not an LLM. It needs: a baseline it must beat (the current method and a simple naive method), back-testing on past data, accuracy and bias monitoring, a named owner, and a documented fallback. Full governance list: risk checklist §M.
+
+**Hard limit:** M never decides anything on Principle 5's list (money, commitments, prices shown to customers, decisions about individuals, safety, regulated sign-off), and "exceptions, not every item" never applies there. A model may inform; a human decides each item.
 
 ## Core patterns
 | Pattern | Today | AI-native | Guardrails |
 |---|---|---|---|
-| **Model-first, human challenge** | People type estimates (lift, effort, risk) that become the number | A model (M) proposes the number with a range; the human accepts or overrides with a reason. Both numbers are kept | Overrides are allowed and recorded; the model never has the final say on Principle 5 decisions; measure whether overrides help |
-| **Exceptions, not every item** | Every item is reviewed or discussed | Rules or M handle routine items; people review only items above a materiality or uncertainty threshold | Thresholds set from the cost of an error; a random sample of routine items is still checked; thresholds re-tightened when errors rise |
+| **Model-first, human challenge** | People type estimates (lift, effort, risk) that become the number | A model (M) proposes the number with a range; the human accepts or overrides with a reason. Both numbers are kept | Overrides are allowed and recorded; the model never has the final say on Principle 5 decisions; measure whether overrides help **by stage or role, not per person** (per-person tracking is performance monitoring: HR, privacy and works council first). No model-first scores about individuals (candidates, employees, customers) without HR or legal review and a bias audit |
+| **Exceptions, not every item** | Every item is reviewed or discussed | Rules or M handle routine items; people review only items above a materiality or uncertainty threshold | **Never for Principle 5 items or safety.** Thresholds set from the cost of an error; a random sample of routine items is still checked and kept; thresholds re-tightened when errors rise. If the review is a finance control (e.g. SOX), moving to exceptions is a control redesign: control owner and auditor sign-off first |
 | **One versioned source of truth** | Spreadsheets emailed, copied and merged | One shared, versioned record (event register, plan version, case record) that every function reads | Locked snapshots for each approved version; who changed what, when; no side copies |
 | **Fewer hand-offs** | A → B → C in sequence, each re-keying | Parallel contributions into the shared record; hand-offs replaced by status and alerts | Each contribution keeps an owner; the approver is still separate |
 | **Closed learning loop** | Nobody checks whether past estimates were right | Every prediction or estimate is compared with the actual outcome; results feed back into the model and into people's next estimates | Never park this step. Compare snapshots taken before the outcome (no hindsight). Track bias by source (model, each human adjustment) |
-| **Decision brief instead of a meeting to reconcile numbers** | A meeting spends its time agreeing the numbers | Numbers are reconciled before the meeting; an AI-drafted brief (B) lists the decisions, evidence and options; the meeting decides | The brief cites its sources; figures come from systems, not from the AI; the decision and its owner are recorded |
+| **Decision brief instead of a meeting to reconcile numbers** | A meeting spends its time agreeing the numbers | Numbers are reconciled before the meeting; an AI-drafted brief (B) lists the decisions, evidence and options; the meeting decides | The brief cites its sources; figures come from systems, not from the AI; the decision and its owner are recorded. Not for meetings on people, legal advice or inside information unless the AI tool is approved for that data |
 | **Separate measures** | One number means several things | Keep distinct: what we expect (forecast), what we want (target), what we can do (constrained plan), what we commit to (approved plan or order) | Never adjust the forecast to hit a target; show the gap and let the owner decide what to do about it |
 | **Scenarios, not a single number** | One point estimate is passed downstream | Base, upside and downside ranges, with what would trigger each | Downstream commitments still go through their own approvals |
 
@@ -353,7 +365,7 @@ Mode M = a statistical or machine-learning model (forecast, estimate, score), no
 - **Effects people forget:** pull-forward and post-event dips, cannibalization of related products, overlapping events, stock-outs hiding true demand. Check that an effect already in the baseline history isn't added again.
 - **New products (M with human challenge).** Use analogous past launches and adoption curves; Product owns the assumptions and the target; show the gap between expected demand and the target.
 - **Reconciliation (A + M).** Align levels and time buckets automatically; detect conflicts and double counts; produce exceptions and a decision brief (B).
-- **Measure the value of every adjustment** (forecast value added): accuracy and bias before and after each stage (model, sales, product, consensus). Stop adjustments that make the forecast worse.
+- **Measure the value of every adjustment** (forecast value added): accuracy and bias before and after each stage (model, sales, product, consensus), reported by stage or team, not by named person. Stop adjustments that make the forecast worse.
 - **Primary metrics:** forecast accuracy (e.g. weighted absolute percentage error), bias, forecast value added, uplift calibration; effort comes second.
 
 ## Intake and requests (tickets, applications, orders, enquiries)
@@ -378,7 +390,7 @@ Mode M = a statistical or machine-learning model (forecast, estimate, score), no
 ## How to show the redesign in the report
 - Section 1 opens with a "Today → AI-native" table of 5–7 rows (dimension | today | AI-native).
 - Mark M steps in diagrams and tables as **M Model**.
-- One worked example with hypothetical numbers is allowed when it makes the design clearer. Label it **"Illustration: hypothetical numbers"**, and never use it as an estimate or a saving.
+- One worked example with hypothetical numbers is allowed when it makes the design clearer. Put it in a `<p class="note">` box headed **"Illustration: hypothetical numbers"**, use round numbers, keep it out of sections 1 and 2, and never use it as an estimate or a saving.
 
 
 ---
@@ -893,7 +905,9 @@ Score each 1–5, multiply by the weight, and add up. Treat it as a structured w
 
 <h2>9. Rollout plan and metrics</h2>
 <!-- Primary metrics = outcome quality in the user's terms (e.g. forecast accuracy, bias and value added by each adjustment; error or rework rate; time to decision). Effort and hours saved come second.
-     Any step that predicts or estimates has a learning step here: compare predictions with outcomes and feed back. One worked example may use hypothetical numbers, labelled "Illustration: hypothetical numbers". -->
+     Any step that predicts or estimates has a learning step here: compare predictions with outcomes and feed back, reported by stage or role, not by named person.
+     One worked example may use hypothetical round numbers, in a <p class="note"> headed "Illustration: hypothetical numbers"; never in sections 1-2, never as an estimate or saving.
+     Word users: open the saved HTML in Word (File → Open); don't ask for a separate .docx. -->
 {{ROLLOUT_AND_METRICS}}
 
 <h3>Starter kit (drafts: check before use)</h3>

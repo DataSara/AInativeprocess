@@ -2,17 +2,19 @@
 
 Use these after classifying the current steps (Phase 3). Classification asks "how do we do today's step better?" These patterns ask "should this step exist in this shape at all?" Apply the ones that fit, and say why for each. **Every guardrail still applies**: Principle 5's human-accountability list, gates, "numbers come from rules or models, never LLM text", and the risk checklist.
 
-Mode M = a statistical or machine-learning model (forecast, estimate, score), not an LLM. It needs: a baseline it must beat (the current method and a simple naive method), back-testing on past data, accuracy and bias monitoring, a named owner, and a documented fallback.
+Mode M = a statistical or machine-learning model (forecast, estimate, score), not an LLM. It needs: a baseline it must beat (the current method and a simple naive method), back-testing on past data, accuracy and bias monitoring, a named owner, and a documented fallback. Full governance list: risk checklist §M.
+
+**Hard limit:** M never decides anything on Principle 5's list (money, commitments, prices shown to customers, decisions about individuals, safety, regulated sign-off), and "exceptions, not every item" never applies there. A model may inform; a human decides each item.
 
 ## Core patterns
 | Pattern | Today | AI-native | Guardrails |
 |---|---|---|---|
-| **Model-first, human challenge** | People type estimates (lift, effort, risk) that become the number | A model (M) proposes the number with a range; the human accepts or overrides with a reason. Both numbers are kept | Overrides are allowed and recorded; the model never has the final say on Principle 5 decisions; measure whether overrides help |
-| **Exceptions, not every item** | Every item is reviewed or discussed | Rules or M handle routine items; people review only items above a materiality or uncertainty threshold | Thresholds set from the cost of an error; a random sample of routine items is still checked; thresholds re-tightened when errors rise |
+| **Model-first, human challenge** | People type estimates (lift, effort, risk) that become the number | A model (M) proposes the number with a range; the human accepts or overrides with a reason. Both numbers are kept | Overrides are allowed and recorded; the model never has the final say on Principle 5 decisions; measure whether overrides help **by stage or role, not per person** (per-person tracking is performance monitoring: HR, privacy and works council first). No model-first scores about individuals (candidates, employees, customers) without HR or legal review and a bias audit |
+| **Exceptions, not every item** | Every item is reviewed or discussed | Rules or M handle routine items; people review only items above a materiality or uncertainty threshold | **Never for Principle 5 items or safety.** Thresholds set from the cost of an error; a random sample of routine items is still checked and kept; thresholds re-tightened when errors rise. If the review is a finance control (e.g. SOX), moving to exceptions is a control redesign: control owner and auditor sign-off first |
 | **One versioned source of truth** | Spreadsheets emailed, copied and merged | One shared, versioned record (event register, plan version, case record) that every function reads | Locked snapshots for each approved version; who changed what, when; no side copies |
 | **Fewer hand-offs** | A → B → C in sequence, each re-keying | Parallel contributions into the shared record; hand-offs replaced by status and alerts | Each contribution keeps an owner; the approver is still separate |
 | **Closed learning loop** | Nobody checks whether past estimates were right | Every prediction or estimate is compared with the actual outcome; results feed back into the model and into people's next estimates | Never park this step. Compare snapshots taken before the outcome (no hindsight). Track bias by source (model, each human adjustment) |
-| **Decision brief instead of a meeting to reconcile numbers** | A meeting spends its time agreeing the numbers | Numbers are reconciled before the meeting; an AI-drafted brief (B) lists the decisions, evidence and options; the meeting decides | The brief cites its sources; figures come from systems, not from the AI; the decision and its owner are recorded |
+| **Decision brief instead of a meeting to reconcile numbers** | A meeting spends its time agreeing the numbers | Numbers are reconciled before the meeting; an AI-drafted brief (B) lists the decisions, evidence and options; the meeting decides | The brief cites its sources; figures come from systems, not from the AI; the decision and its owner are recorded. Not for meetings on people, legal advice or inside information unless the AI tool is approved for that data |
 | **Separate measures** | One number means several things | Keep distinct: what we expect (forecast), what we want (target), what we can do (constrained plan), what we commit to (approved plan or order) | Never adjust the forecast to hit a target; show the gap and let the owner decide what to do about it |
 | **Scenarios, not a single number** | One point estimate is passed downstream | Base, upside and downside ranges, with what would trigger each | Downstream commitments still go through their own approvals |
 
@@ -22,7 +24,7 @@ Mode M = a statistical or machine-learning model (forecast, estimate, score), no
 - **Effects people forget:** pull-forward and post-event dips, cannibalization of related products, overlapping events, stock-outs hiding true demand. Check that an effect already in the baseline history isn't added again.
 - **New products (M with human challenge).** Use analogous past launches and adoption curves; Product owns the assumptions and the target; show the gap between expected demand and the target.
 - **Reconciliation (A + M).** Align levels and time buckets automatically; detect conflicts and double counts; produce exceptions and a decision brief (B).
-- **Measure the value of every adjustment** (forecast value added): accuracy and bias before and after each stage (model, sales, product, consensus). Stop adjustments that make the forecast worse.
+- **Measure the value of every adjustment** (forecast value added): accuracy and bias before and after each stage (model, sales, product, consensus), reported by stage or team, not by named person. Stop adjustments that make the forecast worse.
 - **Primary metrics:** forecast accuracy (e.g. weighted absolute percentage error), bias, forecast value added, uplift calibration; effort comes second.
 
 ## Intake and requests (tickets, applications, orders, enquiries)
@@ -47,4 +49,4 @@ Mode M = a statistical or machine-learning model (forecast, estimate, score), no
 ## How to show the redesign in the report
 - Section 1 opens with a "Today → AI-native" table of 5–7 rows (dimension | today | AI-native).
 - Mark M steps in diagrams and tables as **M Model**.
-- One worked example with hypothetical numbers is allowed when it makes the design clearer. Label it **"Illustration: hypothetical numbers"**, and never use it as an estimate or a saving.
+- One worked example with hypothetical numbers is allowed when it makes the design clearer. Put it in a `<p class="note">` box headed **"Illustration: hypothetical numbers"**, use round numbers, keep it out of sections 1 and 2, and never use it as an estimate or a saving.

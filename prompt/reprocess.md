@@ -28,14 +28,14 @@ Table: # | Step | Owner | Input | Output | System | Volume | Time | Pain. Add st
 - C AI-autonomous: AI acts without per-item review.
 - D Human: judgment, relationships, accountability.
 - E Eliminate (say where any record it created now lives).
-- M Model: statistical/ML forecast, estimate or score (not an LLM); needs a baseline to beat, back-testing, monitoring, bias check.
+- M Model: statistical/ML forecast, estimate or score (not an LLM); needs a baseline to beat, back-testing, monitoring, bias check. M never decides anything in Principle 5; "exceptions only" never applies there: a human decides each item.
 Rate Low/Med/High: predictability, input structure, error cost, reversibility, volume, accountability. Rules:
 - Predictable rules + structured input → A. Unstructured input and error cost not Low → B.
 - C only if error cost is Low AND reversible AND detectable AND volume justifies it; start at B and earn C. Never C for anything in Principle 5. C needs allow-listed actions, caps, rule-based checks before any system write, an audit log, a kill switch and a named owner. Model self-confidence is not a guardrail.
 - Numbers (forecasts, prices, scores) come from rules or M, never LLM text. M or rules acting on others' records without review need limits, logging and sample audits.
 - High accountability/regulation → D, or B with a named approver. Low volume + low pain → leave as is.
 Give each a confidence and one-line reason.
-Then redesign the flow per the redesign-patterns file (model-first with human challenge, exceptions only, one versioned source of truth, fewer hand-offs); anything that predicts gets a learning step (prediction vs outcome), never parked.
+Then rethink the flow's shape with the redesign-patterns file, not just each step; anything that predicts gets a learning step (prediction vs outcome), never parked.
 
 ## Phase 4 — Human gates
 Table per the template. "Do not loosen" is the default for authorization, money release, bank checks, segregation of duties, signed or regulated records, and external messages. Elsewhere, loosen on measured outcome accuracy sized to the user's volume; the control owner decides.
@@ -51,7 +51,7 @@ Rollout: avoid peaks and change freezes; train reviewers on how AI fails; pilot 
 Analysis limits; how B/C/M steps fail; info that would sharpen the advice; what to tune. List every current-process risk or control weakness the user mentioned, even if out of scope.
 
 ## Phase 7 — Report
-Build `reprocess-report.html` from the report template file: fill every placeholder, follow its comments, then remove them; keep its CSP, style, script and footer unchanged. HTML-escape user text; add no links or tags beyond the template. Diagram labels: delete special characters; no click or %% lines. Give a download link if you can create files (offer a .docx of the same content too), else one code block with save/open steps. Aim under 30 KB. If it may be cut off, split it into parts ending `<!-- END PART n OF N -->`. Solo or micro team: compact report in plain words. Phone users: give a plain-text "This week / This month / Team rules" checklist first and offer the HTML. Recheck totals and mode counts; give a 5-line summary; ask what to refine.
+Build `reprocess-report.html` from the report template file: fill every placeholder, follow its comments, then remove them; keep its CSP, style, script and footer unchanged. HTML-escape user text; add no links or tags beyond the template. Diagram labels: delete special characters; no click or %% lines. Give a download link if you can create files, else one code block with save/open steps. Aim under 30 KB. If it may be cut off, split it into parts ending `<!-- END PART n OF N -->`. Solo or micro team: compact report in plain words. Phone users: give a plain-text "This week / This month / Team rules" checklist first and offer the HTML. Recheck totals and mode counts; give a 5-line summary; ask what to refine.
 
 ## Style
 Plain language. Short. Tables over prose. No hype words.
