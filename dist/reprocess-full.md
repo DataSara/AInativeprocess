@@ -1,3 +1,5 @@
+> Reprocess single-file bundle. Sections, in order: instructions, report template, question bank, redesign patterns, risk checklist, tool catalog, tool assessment kit. If you cannot see the report template section, ask the user to attach knowledge/report-template.html before writing the report.
+
 # Reprocess v0.4 — AI-Native Workflow Redesign Advisor
 
 ## Role
@@ -60,6 +62,383 @@ Start Phase 1 now.
 
 
 ---
+# Knowledge file: report template
+
+```html
+<!DOCTYPE html>
+<!--
+  Reprocess report template v0.4. The AI replaces every {{PLACEHOLDER}} and removes these comments.
+  Keep the Content-Security-Policy meta tag, the <style> block, the Mermaid <script> tag (pinned version) and the footer exactly as they are.
+  HTML-escape all user-supplied text in tables and paragraphs (& < > " as &amp; &lt; &gt; &quot;).
+  Use only these tags: h1 h2 h3 p ul ol li table tr th td b i span div br pre. Never add meta, base, link, a, style, script, svg, img, iframe,
+  object, embed or form tags, event-handler attributes (onclick, onerror...), or style attributes. The CSP cannot block a <meta http-equiv="refresh"> redirect.
+  DIAGRAMS: Mermaid decodes HTML entities, so inside diagram labels DELETE these characters, never escape them: < > & " ' ` # ; % { } [ ] ( ) |
+  (e.g. write Approve PO over 5k, not Approve "PO" > 5k). Never write lines starting with click, %%, style, linkStyle, or any init/config directive.
+  Diagrams over about 12 nodes: use flowchart TB or split into two diagrams.
+  SIZE: aim under 30 KB (about 6,000 words of visible text); audited or multi-team processes may go to 35 KB. Unless audited, use compact gate columns: Gate | Checks | Approver | Must not approve | Record kept | Loosening. Cells max about 25 words. Hand-offs max about 8; merge similar items.
+  Risk flags: list every High flag (never merge or drop one to save space); merge Medium and Low ones to keep the table under about 12 rows.
+  If too long, cut in this order: limitations detail → classification "why" text → decision rights and cadence down to one table (max 6 rows) → merge hand-offs → assessment kit down to must-haves and data/security questions → rollout detail. Today → AI-native cells about 20 words each.
+  Never cut: gates, every High risk flag, control-impact table, safety-critical starter-kit items (e.g. bank call-back checklist), the footer.
+  SPLIT DECLINED: map at summary level (max about 15 steps) and note site variations in the table.
+  PARTIAL ANALYSIS (one sub-process of several): end section 2 with a "Next session" block: sub-processes left, hand-offs, open risks, and the facts already gathered, for the user to paste into the next session.
+  Tables: use <table> with a header row. Mode tags: <span class="tag A">A Automate</span> (A/B/C/D/E/M).
+  Mermaid: keep diagrams inside <pre class="mermaid">, flowchart LR. Quote all labels: s1["Label"]. No < > & " inside labels.
+  COMPACT MODE (only if the whole organisation is small, up to about 10 people, and nothing is externally audited; a one-person role inside a larger or audited company gets the full report): aim for 8–10 printed pages and about 20 KB.
+  Today → AI-native table max 5 rows; each diagram max 12 nodes (split or summarise); omit the decision-rights block and the "Key control?" column.
+  Explain any pattern in plain words the first time (e.g. "one shared, up-to-date record" instead of "versioned source of truth"; "a formula or model that estimates" instead of "M Model"); avoid "capacity, not headcount" (say "time you get back"). Keep every section but shorten: scope is one line; classification table columns # | Step | Mode | Why only;
+  limitations max 3 bullets per subsection; omit the control-impact table; tailor the assessment kit to must-haves, how to find candidates, score card and trial plan.
+  Use plain words: "a second person or your accountant checks" instead of "segregation of duties"; "keep a record" instead of "evidence for auditors".
+  If one person does everything, say so once and name the compensating check (accountant review, a record, a waiting period) instead of "must not approve".
+  Human gates are diamonds: g1{"Approve?"}. In the future-state diagram, tag each step with :::A to :::E or :::M and end it with these lines:
+    classDef A fill:#dbeafe,stroke:#2563eb
+    classDef B fill:#fef3c7,stroke:#d97706
+    classDef C fill:#dcfce7,stroke:#16a34a
+    classDef D fill:#fee2e2,stroke:#dc2626
+    classDef E fill:#f3f4f6,stroke:#9ca3af,stroke-dasharray:5 5
+    classDef M fill:#ede9fe,stroke:#7c3aed
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; font-src data:; script-src https://cdn.jsdelivr.net/npm/mermaid@11.17.2/; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reprocess report: {{PROCESS_NAME}}</title>
+<style>
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;max-width:980px;margin:2rem auto;padding:0 1rem;color:#1f2937;line-height:1.5}
+  h1{font-size:1.6rem;margin-bottom:.2rem}
+  h2{border-bottom:2px solid #e5e7eb;padding-bottom:.3rem;margin-top:2.2rem}
+  .meta{color:#6b7280;font-size:.9rem}
+  table{border-collapse:collapse;width:100%;font-size:.9rem;margin:1rem 0;display:block;overflow-x:auto}
+  th,td{border:1px solid #e5e7eb;padding:.4rem .6rem;text-align:left;vertical-align:top}
+  th{background:#f9fafb}
+  .tag{display:inline-block;padding:0 .5rem;border-radius:999px;font-size:.8rem;font-weight:600;white-space:nowrap}
+  .A{background:#dbeafe}.B{background:#fef3c7}.C{background:#dcfce7}.D{background:#fee2e2}.E{background:#f3f4f6;border:1px dashed #9ca3af}.M{background:#ede9fe}
+  .option{border:1px solid #e5e7eb;border-radius:8px;padding:.8rem 1rem;margin:1rem 0}
+  .option.recommended{border:2px solid #2563eb}
+  .note{background:#f9fafb;border-left:4px solid #9ca3af;padding:.6rem 1rem;font-size:.9rem}
+  pre.mermaid{background:#fff;margin:1rem 0;overflow-x:auto}
+  @media print{table{display:table;overflow:visible;font-size:.75rem}pre.mermaid,.option{break-inside:avoid}h2{break-after:avoid}}
+</style>
+</head>
+<body>
+
+<h1>{{PROCESS_NAME}}: AI-native redesign</h1>
+<p class="meta">Prepared with Reprocess v0.4 on {{DATE}} · Scope: {{SCOPE}} · Draft for discussion, not a validated design.</p>
+<p class="note"><b>AI-generated draft. Not legal, tax, financial or security advice, and not a compliance determination.</b> See the risk flags in section 7 and the full notice at the end.</p>
+<p class="note">Diagrams are drawn in your browser from cdn.jsdelivr.net (your process text is not sent). If your network blocks it, the tables in sections 3 and 5 list the same steps.</p>
+
+<h2>1. Executive summary</h2>
+<!-- Today → AI-native table first: 5-7 rows. Columns: Dimension | Today | AI-native. Describe how the process changes shape (from the redesign-patterns file), not just which steps get faster. -->
+{{TODAY_VS_AI_NATIVE_TABLE}}
+<p><b>Do this week (max 3 steps):</b></p>
+<ol>
+  {{THIS_WEEK_STEPS}}
+</ol>
+<ul>
+  {{SUMMARY_BULLETS}}
+</ul>
+<!-- Max 5 summary bullets. They must include any High risk flag and any control or access weakness the user mentioned. -->
+
+<h2>2. Scope, sub-processes and hand-offs</h2>
+<!-- In scope / out of scope. If the process was split: list sub-processes and which one this report covers.
+     Hand-offs table: From | To | What passes | How it fails | Deferred risk and interim control | Owner.
+     If not split, one line saying so. -->
+{{SCOPE_AND_HANDOFFS}}
+
+<h2>3. Current state</h2>
+<!-- Diagram labels: DELETE these characters, never escape them: < > & " ' ` # ; % { } [ ] ( ) | -->
+<pre class="mermaid">
+{{CURRENT_STATE_MERMAID}}
+</pre>
+{{CURRENT_STATE_TABLE}}
+
+<h2>4. Future state</h2>
+<p>
+  <span class="tag A">A Automate (no AI)</span>
+  <span class="tag B">B AI-assist + human review</span>
+  <span class="tag C">C AI-autonomous with guardrails</span>
+  <span class="tag D">D Human</span>
+  <span class="tag E">E Eliminate</span>
+  <span class="tag M">M Model (statistical or ML, not an LLM)</span>
+  <!-- Keep only the tags used in this report; delete the rest. -->
+  · Diamonds = human gates
+</p>
+<!-- Diagram labels: DELETE these characters, never escape them: < > & " ' ` # ; % { } [ ] ( ) | -->
+<pre class="mermaid">
+{{FUTURE_STATE_MERMAID}}
+</pre>
+
+<h2>5. Step classification</h2>
+<!-- Columns: # | Step | Mode | Why (one line) | Confidence | Ratings as six letters H/M/L in this order: predictability, input structure, error cost,
+     reversibility, volume, accountability (e.g. "H H L H M L"); explain the order once above the table. Mark steps already automated today as "no change".
+     One mode per row; split mixed steps. A step that rejects, ranks or filters people is never plain A: add a human review of rejections (or review on request in the EU/UK) and pass-rate monitoring. 
+     M rows name the baseline to beat and the fallback if the model fails or drifts. -->
+{{CLASSIFICATION_TABLE}}
+
+<h2>6. Human gates</h2>
+<!-- Fixed approved templates filled only from system fields are mode A and need no per-message gate; hand-edited or AI-drafted external messages are gated.
+     Columns: Gate | After step | What the human checks | Approver role | Must not approve (preparer, poster, beneficiary) | Threshold |
+     Enforced by (system block or policy only) | Escalation trigger | Record kept (what, where) | Loosening (evidence needed, or "Do not loosen" and why).
+     Low volume (weekly or monthly): keep the gate, or loosen only after an agreed number of periods with no corrections. Record hands-on and waiting time separately. -->
+{{GATES_TABLE}}
+<!-- Only if the process is regulated or audited: Control impact table. Columns: Control (ID if known) | Key control? | Changed how |
+     Validation / change control needed | Evidence for auditors | Owner. Otherwise omit this block. -->
+{{CONTROL_IMPACT_TABLE}}
+
+<!-- Optional, for processes involving several teams: Decision rights table. Columns: Role | Owns | Must not do. Include the AI/model as a row
+     (e.g. "estimates, detects, drafts" | "set targets, approve commitments, publish without approval"). Then a short cadence table: Cadence | Automated work | Human focus. Omit if not useful. -->
+{{DECISION_RIGHTS_AND_CADENCE}}
+
+<h2>7. Risk, compliance and security flags</h2>
+<p class="note">Screening only, not a compliance determination. Each flag needs checking by the person or team named.</p>
+<!-- Columns: Flag | Step(s) | Why it may apply | Who should check | Status (always "unverified"). From the risk checklist file.
+     Include risks in the CURRENT process too. If nothing applies, say which checks were run.
+     If the user works in a medium or large organisation and uses an assistant grounded on work data, include a row "Assistant reach, history and web search (S14)". -->
+{{RISK_FLAGS_TABLE}}
+
+<h2>8. Options and how to build</h2>
+<!-- Match the user's technical comfort.
+     Apps only: options use tools they already have, then ready-made tool TYPES (never commercial product names). Give step-by-step how-to and safe-use rules.
+     Configure (settings and built-in automation only): no disclaimer needed.
+     Build or connect systems: open with this sentence in a <p class="note">: "You are responsible for security, privacy and legal compliance of anything you build; involve qualified people."
+     Then tools by role (open-source with license, or tools they already use), access and credentials, security, compliance and legal steps.
+     One <div class="option recommended"> for the recommended option, <div class="option"> for each alternative. Each: what to use, why it fits,
+     effort (hours or days, S/M/L in brackets), monthly cost range in the user's currency compared with their budget (or "unknown: check X"), risks, maintenance.
+     Include an option with little or no AI. Never name commercial vendors. -->
+{{BUILD_OPTIONS}}
+<!-- If a ready-made tool type is recommended or is an alternative: include the tool assessment kit, tailored (must-haves for this process
+     filled in, relevant sections only). Otherwise omit. -->
+{{ASSESSMENT_KIT}}
+
+<h2>9. Rollout plan and metrics</h2>
+<!-- Primary metrics = outcome quality in the user's terms (e.g. forecast accuracy, bias and value added by each adjustment; error or rework rate; time to decision). Effort and hours saved come second.
+     Any step that predicts or estimates has a learning step here: compare predictions with outcomes and feed back, reported by stage or role, not by named person.
+     One worked example may use hypothetical round numbers, in a <p class="note"> headed "Illustration: hypothetical numbers"; never in sections 1-2, never as an estimate or saving.
+     Word users: Print → Save as PDF first (keeps diagrams), or open the saved HTML in Word (diagrams may not show); don't ask for a separate .docx. -->
+{{ROLLOUT_AND_METRICS}}
+
+<h3>Starter kit (drafts: check before use)</h3>
+<!-- Optional. Wording for fixed messages, policies and checklists the plan needs: reminder texts, consent wording, team instruction card. Omit if none.
+     For any wording with legal effect (consent, terms, deposit or cancellation policy, disclosures), say who should check it (e.g. a lawyer, your professional body, the platform's rules). -->
+{{STARTER_KIT}}
+
+<h2>10. Limitations and how to improve</h2>
+<h3>Limitations of this analysis</h3>
+{{ANALYSIS_LIMITATIONS}}
+<h3>Limitations of the proposed system</h3>
+{{SYSTEM_LIMITATIONS}}
+<h3>Information that would improve this advice</h3>
+{{INFO_NEEDED}}
+<h3>What to tune once running</h3>
+{{TUNING}}
+<h3>Parked items</h3>
+<!-- Everything the user mentioned that this report doesn't address (out-of-scope steps, control or access weaknesses, open questions), with a suggested owner. -->
+{{PARKED_ITEMS}}
+
+<h2>11. Assumptions</h2>
+<!-- Every [ASSUMPTION], including future step times, reduction rates and thresholds you proposed, for the user to adjust. -->
+{{ASSUMPTIONS}}
+
+<p class="note">
+  <b>Not legal, tax, financial or security advice, and not a compliance determination.</b> This AI-generated draft is based only on what was shared in the conversation.
+  Review it with the people who run the process and with qualified advisers (compliance, legal, security, or your accountant) before acting. Open-source tools named are examples, not endorsements;
+  no commercial products are recommended. Licenses, features, security status and pricing change, so verify before you adopt anything. You are responsible for decisions made using this report.
+</p>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11.17.2/dist/mermaid.min.js"></script>
+</body>
+</html>
+```
+
+
+---
+# Knowledge file: question bank
+
+# Reprocess question bank
+
+Pick follow-up questions from here; don't ask all of them. Ask max 4 per round, numbered. Skip anything the SOP already answers. For solo owners and small teams, use the "Self-employed and small business" wording instead of corporate terms like "IT approval" or "company AI policy".
+
+## Always (any scale)
+The core list the prompt requires. Cover all of these (combine where natural); the numbered questions below help phrase them.
+- Outcome and what "done well" means · scale (just you / one team / several teams or sites) · trigger, frequency, volume
+- Steps by role, with tools and time per step · biggest pain · cost of a mistake
+- Countries/states · regulation and audits · approvals and segregation of duties
+- Data class and whether the AI tool is approved for it · peak seasons · budget
+- Technical comfort (use apps only / configure / build) and IT limits · phone or computer
+- If the process predicts or estimates anything: how accuracy and bias are measured today, and which human adjustments are made on top of the model
+
+1. What is the process, and what does "done well" look like?
+2. What triggers it (an email, a date, a customer request, a system event)?
+3. How often does it run, and what volume (items per day/week/month)?
+4. Which step takes the most time? Which causes the most errors or rework?
+5. What happens when a mistake slips through? Who notices, and how fast?
+6. Your technical comfort: (a) I just want to use apps, (b) I can set up rules, forms and built-in automation, (c) I or my team can build and run software? (This decides what Reprocess recommends.)
+7. IT constraints: can you install or self-host software? Is cloud allowed? Does a new tool need IT/security approval?
+8. Are there seasonal peaks or busy periods when nothing should change?
+9. Which countries (and US states) does the process run in, or touch through customers, staff or suppliers? Roughly how many employees? (Many legal triggers depend on this.)
+
+## Inputs and data
+- May you legally collect and use each input (website terms of use, data licences, customer/supplier data-sharing contracts)?
+- What formats arrive: structured (forms, CSV, system records) or unstructured (emails, PDFs, photos, calls)?
+- Where does the data live (spreadsheets, email, ERP, CRM, shared drives)? Do these systems have APIs or exports?
+- How clean is the data? Duplicates, missing fields, inconsistent naming?
+- Is any of it personal, financial, health, card-payment or confidential client data? (Ask about the type only, never for the data itself.)
+- Which AI tools are approved in your organization, and under what terms (business plan, data region, training opt-out)?
+
+## Employees of larger organizations (any team size; ask in round 1)
+- Count this as one question if needed: Is the AI tool you're using approved for this data's classification? What classification is it? Is any of it under a legal hold, or unannounced financial, deal or launch information (insider or need-to-know list)? Who can open where the files and outputs live (sites, channels, shared or delegate mailboxes)?
+- Do you act for someone else (delegate, shared mailbox), or hold a customer's data as their service provider?
+
+## People and decisions
+- Who does each step? Who approves? Who is accountable if it goes wrong?
+- Which decisions follow written rules, and which rely on experience or judgment?
+- Are there thresholds (amounts, risk levels) where the decision owner changes? Could someone split an item to stay under one?
+- Who can both change X and approve or pay X? Any segregation-of-duties rules or recent audit findings?
+- Could anyone in the process have a conflict of interest (e.g. requesters with a favourite supplier)?
+- Does anyone approve after the action has already taken effect?
+- Which steps involve talking to customers, suppliers or colleagues?
+- Does any step decide something about a specific person (staff schedules, task allocation, performance, hiring, credit, refunds, account blocks)?
+- Does any step screen, reject, rank or score people, even by fixed rules (knock-out questions, minimum scores)? Where are the candidates or workers (countries, states)?
+- Do you set or monitor work rates, quotas or idle time? Is each quota given in writing, including to temps?
+- Do health, disability, leave or accommodation details pass through this process? Where are they kept, and who sees them?
+
+## Risk and compliance
+- Is this process audited or regulated (financial controls, SOX, GDPR, HIPAA, industry rules)?
+- Which laws or rules govern this process beyond those (trade practice, pricing, product safety, transport, food, marketing)? What does each require you to do or record?
+- Which controls in this process are key controls? Any change freezes, audits or validation requirements coming up? (Software that creates or relies on a controlled record may need validation before go-live.)
+- Do you need an audit trail of who decided what?
+- Which actions can't be undone (payments, shipments, contracts, public posts)?
+- Who can change supplier/customer bank details or master data today, and how is a change verified?
+- Is there segregation of duties (preparer vs approver vs poster)? Who would own the automation account?
+- How long must records from this process be kept, and where?
+- Any sector rules (food safety, medical devices, export controls, customs, regulated profession)?
+
+## Finance controls and audit (ask the control owner or internal audit)
+- Which steps are controls, and which are key controls? Control IDs and types (preventive or detective, manual or automated)?
+- Which reports, spreadsheets or queries does each control rely on, and how is their completeness and accuracy evidenced?
+- Who can change workflows, templates and thresholds, and how are changes approved and logged?
+- When are change freezes, close windows and audit testing?
+- Would moving a review to exceptions or a model change the control's design (needs control-owner and auditor sign-off)?
+
+## Self-employed and small business (replace the IT questions with these)
+- Are you mostly on a phone or a computer? (Phone users get a short text checklist first; the HTML report is optional.)
+- Do you want anything you have to install or look after, or only apps you sign up for?
+- What do you already pay for (booking app, accounting, point-of-sale, marketplace, office suite)? Would you consider a paid add-on or a ready-made app?
+- Monthly budget for tools, in your currency?
+- Instead of "company AI policy": do your clients' contracts or NDAs say anything about AI, and which data-protection rules apply to you?
+
+## Messages to customers and leads
+- Will any step send automated texts, emails or calls? To existing customers or to leads?
+- What consent do you record, and how do people opt out?
+- Where do consent, opt-outs and objections live, and do they reach agencies and ad platforms already holding your lists? Does any audience use inferred traits?
+- Do you ever send to many people at once?
+
+## Current-state risks (ask even where nothing will be automated)
+- Where are door, lockbox, alarm codes and passwords kept? What happens to access when someone leaves?
+- How are payments taken? Are card details ever written down or kept on file?
+- How are staff hours and pay tracked (travel time between jobs, overtime)?
+- Who can see customer data today: staff, contractors, virtual assistants (and in which country)?
+
+## When AI drafts the core product
+- If AI drafts the thing you sell (translation, reports, designs), how much of it would you rewrite?
+- Does using AI change what you can charge, what clients expect, or what you must tell them?
+
+## Team scale (one team)
+- How many people run it? Do hand-offs happen by email, chat, tickets, spreadsheets?
+- Where does work wait in a queue? How long, typically?
+
+## Organization scale (several teams or sites)
+- Ask first, on its own: shall we split this into sub-processes and do one at a time? (Doesn't count toward the question limit.)
+- Which sub-process first? (Suggest the highest risk or pain; the user chooses.)
+- What are the main sub-processes and who owns each?
+- What are the hand-offs between teams, sites or systems? Which ones fail most?
+- Is the process the same at every site, or are there local variations?
+- Which systems are the source of truth (ERP, WMS, POS, CRM)?
+- Is there a central data/IT team that would build and run automation?
+
+## Success and constraints
+- Which KPIs does your function already report? (They become the primary metrics. Hints: forecasting: forecast value added, WMAPE, bias; AP: first-pass match or touchless rate, duplicate payments; inventory: inventory record accuracy; transport: routing-guide compliance, tender acceptance; pricing: price accuracy, overcharge vs undercharge errors; promotions: trade ROI, deduction recovery.)
+- How much time does each role involved spend, including other teams (stores, finance, managers)?
+- What would make this worth doing: time saved, fewer errors, faster cycle time, scaling without hiring?
+- Budget for tools and hosting (rough monthly range)?
+- Who would maintain the automation after it's built?
+
+
+---
+# Knowledge file: redesign patterns
+
+# Reprocess redesign patterns
+
+Use these after classifying the current steps (Phase 3). Classification asks "how do we do today's step better?" These patterns ask "should this step exist in this shape at all?" Apply the ones that fit, and say why for each. **Every guardrail still applies**: Principle 5's human-accountability list, gates, "numbers come from rules or models, never LLM text", and the risk checklist.
+
+Mode M = a statistical or machine-learning model (forecast, estimate, score), not an LLM. It needs: a baseline it must beat (the current method and a simple naive method), back-testing on past data, accuracy and bias monitoring, a named owner, and a documented fallback. Full governance list: risk checklist §M.
+
+**Hard limit:** M never decides anything on Principle 5's list (money, commitments, prices shown to customers, decisions about individuals, safety, regulated sign-off), and "exceptions, not every item" never applies there. A model may inform; a human decides each item. **Exceptions reduce what a person reviews, never what the accountable approver signs.**
+- **What counts as a commitment:** an order, contract, release, allowance or payment to an outside party (supplier, customer, carrier), or an authorization to spend. Internal planning proposals, and system-generated orders within parameters a human has approved, aren't new commitments; the parameters (limits, rules, order caps) are, and a human approves them and any change to them. Orders outside the parameters go to a person.
+- **Keep and measure what exists first:** if a model or planning engine already does the step, measure it (accuracy, bias, against a naive method) before proposing a new or second model.
+- **Data each designed AI step will read:** check its class and contents (e.g. supplier PDFs carry prices and bank details; emails carry personal data) against the risk checklist before proposing it. **Never design M to score, rank, filter or predict about individual candidates, workers or customers.** If the organization already uses such a tool, treat it as a decision about people: per-item human review, a bias audit where required, never C.
+- **When not to use M:** no comparable history to back-test, or one-off judgements: then it's D (or B with evidence). At small volume, start with a simple rule (A), such as a moving average or a reorder point in a spreadsheet, and only move to M when there's enough history to show it beats the rule.
+- **Figures:** an LLM never produces a figure. It may extract one (B) only with a check against structured data or the source.
+
+## Core patterns
+| Pattern | Today | AI-native | Guardrails |
+|---|---|---|---|
+| **Model-first, human challenge** | People type estimates (lift, effort, risk) that become the number | A model (M) proposes the number with a range; the human accepts or overrides with a reason. Both numbers are kept | Overrides are allowed and recorded; the model never has the final say on Principle 5 decisions; measure whether overrides help **by stage or role, not per person** (per-person tracking is performance monitoring: HR, privacy and works council first). No model-first scores about individuals (candidates, employees, customers) without HR or legal review and a bias audit |
+| **Exceptions, not every item** | Every item is reviewed or discussed | Rules or M handle routine items; people review only items above a materiality or uncertainty threshold | **Never for Principle 5 items, key controls or safety:** by default (Reprocess's rule, not a legal requirement) exceptions change only the preparer's work and each approval stays item by item. Risk-based review of a key control is possible only with control-owner and auditor agreement. Thresholds set from the cost of an error; a random sample of routine items is still checked and kept; thresholds re-tightened when errors rise. If the review is a finance control (e.g. SOX), moving to exceptions is a control redesign: control owner and auditor sign-off first |
+| **One versioned source of truth** | Spreadsheets emailed, copied and merged | One shared, versioned record (event register, plan version, case record) that every function reads | Locked snapshots for each approved version; who changed what, when; no side copies |
+| **Fewer hand-offs** | A → B → C in sequence, each re-keying | Parallel contributions into the shared record; hand-offs replaced by status and alerts | Each contribution keeps an owner; the record owner is notified of changes; the approver is still separate |
+| **Closed learning loop** | Nobody checks whether past estimates were right | Every prediction or estimate is compared with the actual outcome; results feed back into the model and into people's next estimates. Exception queues get the same loop: review the causes of recurring exceptions and fix them at the source | Never park this step. Compare snapshots taken before the outcome (no hindsight). Track bias by source (model, each human adjustment) |
+| **Decision brief instead of a meeting to reconcile numbers** | A meeting spends its time agreeing the numbers | Numbers are reconciled before the meeting; an AI-drafted brief (B) lists the decisions, evidence and options; the meeting decides | The brief cites its sources; figures come from systems, not from the AI; the decision and its owner are recorded. Not for meetings on people, legal advice or inside information unless the AI tool is approved for that data |
+| **Separate measures** | One number means several things | Keep distinct: what we expect (forecast), what we want (target), what we can do (constrained plan), what we commit to (approved plan or order) | Never adjust the forecast to hit a target; show the gap and let the owner decide what to do about it |
+| **Scenarios, not a single number** | One point estimate is passed downstream | Base, upside and downside ranges, with what would trigger each, shaped for each consumer (e.g. Finance revenue band, Procurement requirement range, Supply capacity exposure) | Downstream commitments still go through their own approvals |
+
+## Planning and forecasting (demand, sales, capacity, budget)
+- **Statistical baseline (M).** Keep it, and measure it against a naive forecast. Don't rebuild it until its accuracy and bias are measured.
+- **Event and promotion uplift (M with human challenge).** People submit the event's facts (dates, mechanics, scope) and their expected effect; a model estimates the effect from comparable past events, with a range. Large gaps between the two go to review with the evidence. This is often the direct fix when estimates are systematically low or high because of incentives.
+- **Effects people forget:** pull-forward and post-event dips, cannibalization of related products, overlapping events, stock-outs hiding true demand. Check that an effect already in the baseline history isn't added again.
+- **New products (M with human challenge).** Use analogous past launches and adoption curves; Product owns the assumptions and the target; show the gap between expected demand and the target.
+- **Reconciliation (A + M).** Align levels and time buckets automatically; detect conflicts and double counts; produce exceptions and a decision brief (B).
+- **Measure the value of every adjustment** (forecast value added): accuracy and bias before and after each stage (model, sales, product, consensus), reported by stage or team, not by named person. Stop adjustments that make the forecast worse.
+- **Hidden commitments:** ask whether publishing the plan automatically triggers requisitions, purchase orders, production orders or budgets. If so, that release is a commitment (Principle 5) and needs its own approval.
+- **Close-out:** after each promotion or event, record actuals against the plan, settle the related allowances or funding, and release leftover accruals (a human approves the release).
+- **Vendor or embedded models:** back-test them like your own; ask the vendor for accuracy on your data, not their averages.
+- **Rollout for monthly processes:** back-test on past cycles and events first, then shadow the current process for several cycles before switching; a 2–4 week pilot is too short.
+- **Primary metrics:** forecast accuracy (e.g. weighted absolute percentage error), bias, forecast value added, uplift calibration; effort comes second.
+
+## People processes (hiring, onboarding, scheduling, performance, HR queries)
+- Intake and logistics can be A: structured forms, candidate or employee self-scheduling, status updates.
+- A decision brief may be drafted (B) only from people's own written input (interviewers' feedback, the employee's request), reviewed by someone other than the decision-maker's preparer.
+- No M or C on decisions about people, and no exceptions-only review of them. Each decision is made and recorded by a person.
+- Tell people before AI is used in a process that affects them (notice rules vary; see risk checklist §2).
+- Health, accommodation and leave information stays out of AI tools and in the restricted case system.
+
+## Intake and requests (tickets, applications, orders, enquiries)
+- Structured intake form (A) instead of free-text email; AI extracts from the unavoidable free text (B) with validation against master data.
+- Triage by rules first (A), AI suggestion only where rules can't decide (B); people handle exceptions and anything in Principle 5.
+- Status visible to the requester automatically (A), so "where is my request?" messages disappear.
+
+## Approvals and reviews (invoices, expenses, documents, changes)
+- Validate completeness and policy rules before a human sees the item (A); the human reviews only what the rules can't settle.
+- Show the evidence next to the item; record the decision and reason; keep segregation of duties.
+- Measure rework and approval time; don't speed approvals by removing the human for anything on Principle 5's list.
+
+## Reporting and reviews (weekly or monthly business reviews, status reports)
+- Numbers flow from systems into the report (A); anomaly detection (M or rules) highlights what changed.
+- AI drafts the narrative (B) only from figures and causes the metric owners supplied; it never invents a cause.
+- The meeting focuses on decisions and owners, not on reading the numbers.
+
+## Customer and partner communication
+- Fixed approved templates for routine messages (A); AI drafts for non-routine ones (B), always sent by a person.
+- Commitments, prices and claims stay human (Principle 5).
+
+## How to show the redesign in the report
+- Section 1 opens with a "Today → AI-native" table of 5–7 rows (dimension | today | AI-native). A row may say "unchanged" where today's way is already right.
+- Size pilots to the metric: slow metrics (monthly accuracy, quarterly bias) need several cycles, not 2–4 weeks.
+- Mark M steps in diagrams and tables as **M Model**.
+- One worked example with hypothetical numbers is allowed when it makes the design clearer. Put it in a `<p class="note">` box headed **"Illustration: hypothetical numbers"**, use round numbers, keep it out of sections 1 and 2, and never use it as an estimate or a saving.
+
+
+---
 # Knowledge file: risk checklist
 
 # Reprocess risk and security checklist
@@ -88,6 +467,9 @@ A gate can be loosened only with evidence, and for money or regulated records on
 - Corrections measured under review understate errors, because reviewers rubber-stamp (automation bias). Seed known-bad test items to check reviewer attention.
 - Loosen in steps (e.g. full review → large sample → exceptions only), keep a sample forever, and re-tighten when inputs, models (including vendor updates you don't control, S14) or prompts change, or when errors rise.
 - Low volume (weekly or monthly runs): the bound stays wide for a long time. Keep the gate, or loosen only after an agreed number of periods with no corrections. Record hands-on time and waiting time separately in baselines.
+
+### §P5. What counts as a commitment (for Principle 5)
+An order, contract, release, allowance or payment to an outside party, or an authorization to spend. System-generated orders within human-approved parameters are not new commitments; the parameters are, and changes to them need approval. Exceptions reduce what a person reviews, never what the accountable approver signs.
 
 ### §M. Governing statistical and ML models (mode M)
 - **Intended use** written down: what it predicts, for whom, what decisions it informs, and what it must not be used for.
@@ -334,187 +716,6 @@ Office-suite assistants answer from everything the user can open: mail, chats, m
 - **Model updates aren't your change.** The vendor updates models outside your change control. For B steps in key or regulated controls, keep a standing sample and re-check after announced updates.
 - **Agents share their knowledge** with everyone they're shared with. No personal or confidential files in agent knowledge.
 - **No evaluating people from their communications.** At least one vendor restricts AI inferences about an employee's performance, attitude or emotional state from workplace communications. Don't design steps that need it; outputs about people may be softened or refused.
-
-
----
-# Knowledge file: redesign patterns
-
-# Reprocess redesign patterns
-
-Use these after classifying the current steps (Phase 3). Classification asks "how do we do today's step better?" These patterns ask "should this step exist in this shape at all?" Apply the ones that fit, and say why for each. **Every guardrail still applies**: Principle 5's human-accountability list, gates, "numbers come from rules or models, never LLM text", and the risk checklist.
-
-Mode M = a statistical or machine-learning model (forecast, estimate, score), not an LLM. It needs: a baseline it must beat (the current method and a simple naive method), back-testing on past data, accuracy and bias monitoring, a named owner, and a documented fallback. Full governance list: risk checklist §M.
-
-**Hard limit:** M never decides anything on Principle 5's list (money, commitments, prices shown to customers, decisions about individuals, safety, regulated sign-off), and "exceptions, not every item" never applies there. A model may inform; a human decides each item. **Never design M to score, rank, filter or predict about individual candidates, workers or customers.** If the organization already uses such a tool, treat it as a decision about people: per-item human review, a bias audit where required, never C.
-- **When not to use M:** no comparable history to back-test, or one-off judgements: then it's D (or B with evidence). At small volume, start with a simple rule (A), such as a moving average or a reorder point in a spreadsheet, and only move to M when there's enough history to show it beats the rule.
-- **Figures:** an LLM never produces a figure. It may extract one (B) only with a check against structured data or the source.
-
-## Core patterns
-| Pattern | Today | AI-native | Guardrails |
-|---|---|---|---|
-| **Model-first, human challenge** | People type estimates (lift, effort, risk) that become the number | A model (M) proposes the number with a range; the human accepts or overrides with a reason. Both numbers are kept | Overrides are allowed and recorded; the model never has the final say on Principle 5 decisions; measure whether overrides help **by stage or role, not per person** (per-person tracking is performance monitoring: HR, privacy and works council first). No model-first scores about individuals (candidates, employees, customers) without HR or legal review and a bias audit |
-| **Exceptions, not every item** | Every item is reviewed or discussed | Rules or M handle routine items; people review only items above a materiality or uncertainty threshold | **Never for Principle 5 items, key controls or safety:** by default (Reprocess's rule, not a legal requirement) exceptions change only the preparer's work and each approval stays item by item. Risk-based review of a key control is possible only with control-owner and auditor agreement. Thresholds set from the cost of an error; a random sample of routine items is still checked and kept; thresholds re-tightened when errors rise. If the review is a finance control (e.g. SOX), moving to exceptions is a control redesign: control owner and auditor sign-off first |
-| **One versioned source of truth** | Spreadsheets emailed, copied and merged | One shared, versioned record (event register, plan version, case record) that every function reads | Locked snapshots for each approved version; who changed what, when; no side copies |
-| **Fewer hand-offs** | A → B → C in sequence, each re-keying | Parallel contributions into the shared record; hand-offs replaced by status and alerts | Each contribution keeps an owner; the approver is still separate |
-| **Closed learning loop** | Nobody checks whether past estimates were right | Every prediction or estimate is compared with the actual outcome; results feed back into the model and into people's next estimates | Never park this step. Compare snapshots taken before the outcome (no hindsight). Track bias by source (model, each human adjustment) |
-| **Decision brief instead of a meeting to reconcile numbers** | A meeting spends its time agreeing the numbers | Numbers are reconciled before the meeting; an AI-drafted brief (B) lists the decisions, evidence and options; the meeting decides | The brief cites its sources; figures come from systems, not from the AI; the decision and its owner are recorded. Not for meetings on people, legal advice or inside information unless the AI tool is approved for that data |
-| **Separate measures** | One number means several things | Keep distinct: what we expect (forecast), what we want (target), what we can do (constrained plan), what we commit to (approved plan or order) | Never adjust the forecast to hit a target; show the gap and let the owner decide what to do about it |
-| **Scenarios, not a single number** | One point estimate is passed downstream | Base, upside and downside ranges, with what would trigger each, shaped for each consumer (e.g. Finance revenue band, Procurement requirement range, Supply capacity exposure) | Downstream commitments still go through their own approvals |
-
-## Planning and forecasting (demand, sales, capacity, budget)
-- **Statistical baseline (M).** Keep it, and measure it against a naive forecast. Don't rebuild it until its accuracy and bias are measured.
-- **Event and promotion uplift (M with human challenge).** People submit the event's facts (dates, mechanics, scope) and their expected effect; a model estimates the effect from comparable past events, with a range. Large gaps between the two go to review with the evidence. This is often the direct fix when estimates are systematically low or high because of incentives.
-- **Effects people forget:** pull-forward and post-event dips, cannibalization of related products, overlapping events, stock-outs hiding true demand. Check that an effect already in the baseline history isn't added again.
-- **New products (M with human challenge).** Use analogous past launches and adoption curves; Product owns the assumptions and the target; show the gap between expected demand and the target.
-- **Reconciliation (A + M).** Align levels and time buckets automatically; detect conflicts and double counts; produce exceptions and a decision brief (B).
-- **Measure the value of every adjustment** (forecast value added): accuracy and bias before and after each stage (model, sales, product, consensus), reported by stage or team, not by named person. Stop adjustments that make the forecast worse.
-- **Hidden commitments:** ask whether publishing the plan automatically triggers requisitions, purchase orders, production orders or budgets. If so, that release is a commitment (Principle 5) and needs its own approval.
-- **Rollout for monthly processes:** back-test on past cycles and events first, then shadow the current process for several cycles before switching; a 2–4 week pilot is too short.
-- **Primary metrics:** forecast accuracy (e.g. weighted absolute percentage error), bias, forecast value added, uplift calibration; effort comes second.
-
-## People processes (hiring, onboarding, scheduling, performance, HR queries)
-- Intake and logistics can be A: structured forms, candidate or employee self-scheduling, status updates.
-- A decision brief may be drafted (B) only from people's own written input (interviewers' feedback, the employee's request), reviewed by someone other than the decision-maker's preparer.
-- No M or C on decisions about people, and no exceptions-only review of them. Each decision is made and recorded by a person.
-- Tell people before AI is used in a process that affects them (notice rules vary; see risk checklist §2).
-- Health, accommodation and leave information stays out of AI tools and in the restricted case system.
-
-## Intake and requests (tickets, applications, orders, enquiries)
-- Structured intake form (A) instead of free-text email; AI extracts from the unavoidable free text (B) with validation against master data.
-- Triage by rules first (A), AI suggestion only where rules can't decide (B); people handle exceptions and anything in Principle 5.
-- Status visible to the requester automatically (A), so "where is my request?" messages disappear.
-
-## Approvals and reviews (invoices, expenses, documents, changes)
-- Validate completeness and policy rules before a human sees the item (A); the human reviews only what the rules can't settle.
-- Show the evidence next to the item; record the decision and reason; keep segregation of duties.
-- Measure rework and approval time; don't speed approvals by removing the human for anything on Principle 5's list.
-
-## Reporting and reviews (weekly or monthly business reviews, status reports)
-- Numbers flow from systems into the report (A); anomaly detection (M or rules) highlights what changed.
-- AI drafts the narrative (B) only from figures and causes the metric owners supplied; it never invents a cause.
-- The meeting focuses on decisions and owners, not on reading the numbers.
-
-## Customer and partner communication
-- Fixed approved templates for routine messages (A); AI drafts for non-routine ones (B), always sent by a person.
-- Commitments, prices and claims stay human (Principle 5).
-
-## How to show the redesign in the report
-- Section 1 opens with a "Today → AI-native" table of 5–7 rows (dimension | today | AI-native).
-- Mark M steps in diagrams and tables as **M Model**.
-- One worked example with hypothetical numbers is allowed when it makes the design clearer. Put it in a `<p class="note">` box headed **"Illustration: hypothetical numbers"**, use round numbers, keep it out of sections 1 and 2, and never use it as an estimate or a saving.
-
-
----
-# Knowledge file: question bank
-
-# Reprocess question bank
-
-Pick follow-up questions from here; don't ask all of them. Ask max 4 per round, numbered. Skip anything the SOP already answers. For solo owners and small teams, use the "Self-employed and small business" wording instead of corporate terms like "IT approval" or "company AI policy".
-
-## Always (any scale)
-The core list the prompt requires. Cover all of these (combine where natural); the numbered questions below help phrase them.
-- Outcome and what "done well" means · scale (just you / one team / several teams or sites) · trigger, frequency, volume
-- Steps by role, with tools and time per step · biggest pain · cost of a mistake
-- Countries/states · regulation and audits · approvals and segregation of duties
-- Data class and whether the AI tool is approved for it · peak seasons · budget
-- Technical comfort (use apps only / configure / build) and IT limits · phone or computer
-- If the process predicts or estimates anything: how accuracy and bias are measured today, and which human adjustments are made on top of the model
-
-1. What is the process, and what does "done well" look like?
-2. What triggers it (an email, a date, a customer request, a system event)?
-3. How often does it run, and what volume (items per day/week/month)?
-4. Which step takes the most time? Which causes the most errors or rework?
-5. What happens when a mistake slips through? Who notices, and how fast?
-6. Your technical comfort: (a) I just want to use apps, (b) I can set up rules, forms and built-in automation, (c) I or my team can build and run software? (This decides what Reprocess recommends.)
-7. IT constraints: can you install or self-host software? Is cloud allowed? Does a new tool need IT/security approval?
-8. Are there seasonal peaks or busy periods when nothing should change?
-9. Which countries (and US states) does the process run in, or touch through customers, staff or suppliers? Roughly how many employees? (Many legal triggers depend on this.)
-
-## Inputs and data
-- May you legally collect and use each input (website terms of use, data licences, customer/supplier data-sharing contracts)?
-- What formats arrive: structured (forms, CSV, system records) or unstructured (emails, PDFs, photos, calls)?
-- Where does the data live (spreadsheets, email, ERP, CRM, shared drives)? Do these systems have APIs or exports?
-- How clean is the data? Duplicates, missing fields, inconsistent naming?
-- Is any of it personal, financial, health, card-payment or confidential client data? (Ask about the type only, never for the data itself.)
-- Which AI tools are approved in your organization, and under what terms (business plan, data region, training opt-out)?
-
-## Employees of larger organizations (any team size; ask in round 1)
-- Count this as one question if needed: Is the AI tool you're using approved for this data's classification? What classification is it? Is any of it under a legal hold, or unannounced financial, deal or launch information (insider or need-to-know list)? Who can open where the files and outputs live (sites, channels, shared or delegate mailboxes)?
-- Do you act for someone else (delegate, shared mailbox), or hold a customer's data as their service provider?
-
-## People and decisions
-- Who does each step? Who approves? Who is accountable if it goes wrong?
-- Which decisions follow written rules, and which rely on experience or judgment?
-- Are there thresholds (amounts, risk levels) where the decision owner changes? Could someone split an item to stay under one?
-- Who can both change X and approve or pay X? Any segregation-of-duties rules or recent audit findings?
-- Could anyone in the process have a conflict of interest (e.g. requesters with a favourite supplier)?
-- Does anyone approve after the action has already taken effect?
-- Which steps involve talking to customers, suppliers or colleagues?
-- Does any step decide something about a specific person (staff schedules, task allocation, performance, hiring, credit, refunds, account blocks)?
-- Does any step screen, reject, rank or score people, even by fixed rules (knock-out questions, minimum scores)? Where are the candidates or workers (countries, states)?
-- Do you set or monitor work rates, quotas or idle time? Is each quota given in writing, including to temps?
-- Do health, disability, leave or accommodation details pass through this process? Where are they kept, and who sees them?
-
-## Risk and compliance
-- Is this process audited or regulated (financial controls, SOX, GDPR, HIPAA, industry rules)?
-- Which laws or rules govern this process beyond those (trade practice, pricing, product safety, transport, food, marketing)? What does each require you to do or record?
-- Which controls in this process are key controls? Any change freezes, audits or validation requirements coming up? (Software that creates or relies on a controlled record may need validation before go-live.)
-- Do you need an audit trail of who decided what?
-- Which actions can't be undone (payments, shipments, contracts, public posts)?
-- Who can change supplier/customer bank details or master data today, and how is a change verified?
-- Is there segregation of duties (preparer vs approver vs poster)? Who would own the automation account?
-- How long must records from this process be kept, and where?
-- Any sector rules (food safety, medical devices, export controls, customs, regulated profession)?
-
-## Finance controls and audit (ask the control owner or internal audit)
-- Which steps are controls, and which are key controls? Control IDs and types (preventive or detective, manual or automated)?
-- Which reports, spreadsheets or queries does each control rely on, and how is their completeness and accuracy evidenced?
-- Who can change workflows, templates and thresholds, and how are changes approved and logged?
-- When are change freezes, close windows and audit testing?
-- Would moving a review to exceptions or a model change the control's design (needs control-owner and auditor sign-off)?
-
-## Self-employed and small business (replace the IT questions with these)
-- Are you mostly on a phone or a computer? (Phone users get a short text checklist first; the HTML report is optional.)
-- Do you want anything you have to install or look after, or only apps you sign up for?
-- What do you already pay for (booking app, accounting, point-of-sale, marketplace, office suite)? Would you consider a paid add-on or a ready-made app?
-- Monthly budget for tools, in your currency?
-- Instead of "company AI policy": do your clients' contracts or NDAs say anything about AI, and which data-protection rules apply to you?
-
-## Messages to customers and leads
-- Will any step send automated texts, emails or calls? To existing customers or to leads?
-- What consent do you record, and how do people opt out?
-- Where do consent, opt-outs and objections live, and do they reach agencies and ad platforms already holding your lists? Does any audience use inferred traits?
-- Do you ever send to many people at once?
-
-## Current-state risks (ask even where nothing will be automated)
-- Where are door, lockbox, alarm codes and passwords kept? What happens to access when someone leaves?
-- How are payments taken? Are card details ever written down or kept on file?
-- How are staff hours and pay tracked (travel time between jobs, overtime)?
-- Who can see customer data today: staff, contractors, virtual assistants (and in which country)?
-
-## When AI drafts the core product
-- If AI drafts the thing you sell (translation, reports, designs), how much of it would you rewrite?
-- Does using AI change what you can charge, what clients expect, or what you must tell them?
-
-## Team scale (one team)
-- How many people run it? Do hand-offs happen by email, chat, tickets, spreadsheets?
-- Where does work wait in a queue? How long, typically?
-
-## Organization scale (several teams or sites)
-- Ask first, on its own: shall we split this into sub-processes and do one at a time? (Doesn't count toward the question limit.)
-- Which sub-process first? (Suggest the highest risk or pain; the user chooses.)
-- What are the main sub-processes and who owns each?
-- What are the hand-offs between teams, sites or systems? Which ones fail most?
-- Is the process the same at every site, or are there local variations?
-- Which systems are the source of truth (ERP, WMS, POS, CRM)?
-- Is there a central data/IT team that would build and run automation?
-
-## Success and constraints
-- Which KPIs does your function already report? (They become the primary metrics. Hints: forecasting: forecast value added, WMAPE, bias; AP: first-pass match or touchless rate, duplicate payments; inventory: inventory record accuracy; transport: routing-guide compliance, tender acceptance; pricing: price accuracy, overcharge vs undercharge errors; promotions: trade ROI, deduction recovery.)
-- How much time does each role involved spend, including other teams (stores, finance, managers)?
-- What would make this worth doing: time saved, fewer errors, faster cycle time, scaling without hiring?
-- Budget for tools and hosting (rough monthly range)?
-- Who would maintain the automation after it's built?
 
 
 ---
@@ -775,193 +976,3 @@ Score each 1–5, multiply by the weight, and add up. Treat it as a structured w
 - Won't sign a DPA (or a BAA for health data) on the plan you can afford.
 
 *This kit helps you structure your own assessment. It is not an endorsement or a legal review; check contracts with a qualified adviser where the stakes are high.*
-
-
----
-# Knowledge file: report template
-
-```html
-<!DOCTYPE html>
-<!--
-  Reprocess report template v0.4. The AI replaces every {{PLACEHOLDER}} and removes these comments.
-  Keep the Content-Security-Policy meta tag, the <style> block, the Mermaid <script> tag (pinned version) and the footer exactly as they are.
-  HTML-escape all user-supplied text in tables and paragraphs (& < > " as &amp; &lt; &gt; &quot;).
-  Use only these tags: h1 h2 h3 p ul ol li table tr th td b i span div br pre. Never add meta, base, link, a, style, script, svg, img, iframe,
-  object, embed or form tags, event-handler attributes (onclick, onerror...), or style attributes. The CSP cannot block a <meta http-equiv="refresh"> redirect.
-  DIAGRAMS: Mermaid decodes HTML entities, so inside diagram labels DELETE these characters, never escape them: < > & " ' ` # ; % { } [ ] ( ) |
-  (e.g. write Approve PO over 5k, not Approve "PO" > 5k). Never write lines starting with click, %%, style, linkStyle, or any init/config directive.
-  Diagrams over about 12 nodes: use flowchart TB or split into two diagrams.
-  SIZE: aim under 30 KB (about 6,000 words of visible text). Cells max about 25 words. Hand-offs max about 8; merge similar items.
-  Risk flags: list every High flag (never merge or drop one to save space); merge Medium and Low ones to keep the table under about 12 rows.
-  If too long, cut in this order: limitations detail → classification "why" text → decision rights and cadence down to one table (max 6 rows) → merge hand-offs → assessment kit down to must-haves and data/security questions → rollout detail. Today → AI-native cells about 20 words each.
-  Never cut: gates, every High risk flag, control-impact table, safety-critical starter-kit items (e.g. bank call-back checklist), the footer.
-  SPLIT DECLINED: map at summary level (max about 15 steps) and note site variations in the table.
-  PARTIAL ANALYSIS (one sub-process of several): end section 2 with a "Next session" block: sub-processes left, hand-offs, open risks, and the facts already gathered, for the user to paste into the next session.
-  Tables: use <table> with a header row. Mode tags: <span class="tag A">A Automate</span> (A/B/C/D/E/M).
-  Mermaid: keep diagrams inside <pre class="mermaid">, flowchart LR. Quote all labels: s1["Label"]. No < > & " inside labels.
-  COMPACT MODE (only if the whole organisation is small, up to about 10 people, and nothing is externally audited; a one-person role inside a larger or audited company gets the full report): aim for 8–10 printed pages and about 20 KB.
-  Today → AI-native table max 5 rows; each diagram max 12 nodes (split or summarise); omit the decision-rights block and the "Key control?" column.
-  Explain any pattern in plain words the first time (e.g. "one shared, up-to-date record" instead of "versioned source of truth"; "a formula or model that estimates" instead of "M Model"); avoid "capacity, not headcount" (say "time you get back"). Keep every section but shorten: scope is one line; classification table columns # | Step | Mode | Why only;
-  limitations max 3 bullets per subsection; omit the control-impact table; tailor the assessment kit to must-haves, how to find candidates, score card and trial plan.
-  Use plain words: "a second person or your accountant checks" instead of "segregation of duties"; "keep a record" instead of "evidence for auditors".
-  If one person does everything, say so once and name the compensating check (accountant review, a record, a waiting period) instead of "must not approve".
-  Human gates are diamonds: g1{"Approve?"}. In the future-state diagram, tag each step with :::A to :::E or :::M and end it with these lines:
-    classDef A fill:#dbeafe,stroke:#2563eb
-    classDef B fill:#fef3c7,stroke:#d97706
-    classDef C fill:#dcfce7,stroke:#16a34a
-    classDef D fill:#fee2e2,stroke:#dc2626
-    classDef E fill:#f3f4f6,stroke:#9ca3af,stroke-dasharray:5 5
-    classDef M fill:#ede9fe,stroke:#7c3aed
--->
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; font-src data:; script-src https://cdn.jsdelivr.net/npm/mermaid@11.17.2/; base-uri 'none'; form-action 'none'">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Reprocess report: {{PROCESS_NAME}}</title>
-<style>
-  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;max-width:980px;margin:2rem auto;padding:0 1rem;color:#1f2937;line-height:1.5}
-  h1{font-size:1.6rem;margin-bottom:.2rem}
-  h2{border-bottom:2px solid #e5e7eb;padding-bottom:.3rem;margin-top:2.2rem}
-  .meta{color:#6b7280;font-size:.9rem}
-  table{border-collapse:collapse;width:100%;font-size:.9rem;margin:1rem 0;display:block;overflow-x:auto}
-  th,td{border:1px solid #e5e7eb;padding:.4rem .6rem;text-align:left;vertical-align:top}
-  th{background:#f9fafb}
-  .tag{display:inline-block;padding:0 .5rem;border-radius:999px;font-size:.8rem;font-weight:600;white-space:nowrap}
-  .A{background:#dbeafe}.B{background:#fef3c7}.C{background:#dcfce7}.D{background:#fee2e2}.E{background:#f3f4f6;border:1px dashed #9ca3af}.M{background:#ede9fe}
-  .option{border:1px solid #e5e7eb;border-radius:8px;padding:.8rem 1rem;margin:1rem 0}
-  .option.recommended{border:2px solid #2563eb}
-  .note{background:#f9fafb;border-left:4px solid #9ca3af;padding:.6rem 1rem;font-size:.9rem}
-  pre.mermaid{background:#fff;margin:1rem 0;overflow-x:auto}
-  @media print{table{display:table;overflow:visible;font-size:.75rem}pre.mermaid,.option{break-inside:avoid}h2{break-after:avoid}}
-</style>
-</head>
-<body>
-
-<h1>{{PROCESS_NAME}}: AI-native redesign</h1>
-<p class="meta">Prepared with Reprocess v0.4 on {{DATE}} · Scope: {{SCOPE}} · Draft for discussion, not a validated design.</p>
-<p class="note"><b>AI-generated draft. Not legal, tax, financial or security advice, and not a compliance determination.</b> See the risk flags in section 7 and the full notice at the end.</p>
-<p class="note">Diagrams are drawn in your browser from cdn.jsdelivr.net (your process text is not sent). If your network blocks it, the tables in sections 3 and 5 list the same steps.</p>
-
-<h2>1. Executive summary</h2>
-<!-- Today → AI-native table first: 5-7 rows. Columns: Dimension | Today | AI-native. Describe how the process changes shape (from the redesign-patterns file), not just which steps get faster. -->
-{{TODAY_VS_AI_NATIVE_TABLE}}
-<p><b>Do this week (max 3 steps):</b></p>
-<ol>
-  {{THIS_WEEK_STEPS}}
-</ol>
-<ul>
-  {{SUMMARY_BULLETS}}
-</ul>
-<!-- Max 5 summary bullets. They must include any High risk flag and any control or access weakness the user mentioned. -->
-
-<h2>2. Scope, sub-processes and hand-offs</h2>
-<!-- In scope / out of scope. If the process was split: list sub-processes and which one this report covers.
-     Hand-offs table: From | To | What passes | How it fails | Deferred risk and interim control | Owner.
-     If not split, one line saying so. -->
-{{SCOPE_AND_HANDOFFS}}
-
-<h2>3. Current state</h2>
-<!-- Diagram labels: DELETE these characters, never escape them: < > & " ' ` # ; % { } [ ] ( ) | -->
-<pre class="mermaid">
-{{CURRENT_STATE_MERMAID}}
-</pre>
-{{CURRENT_STATE_TABLE}}
-
-<h2>4. Future state</h2>
-<p>
-  <span class="tag A">A Automate (no AI)</span>
-  <span class="tag B">B AI-assist + human review</span>
-  <span class="tag C">C AI-autonomous with guardrails</span>
-  <span class="tag D">D Human</span>
-  <span class="tag E">E Eliminate</span>
-  <span class="tag M">M Model (statistical or ML, not an LLM)</span>
-  <!-- Keep only the tags used in this report; delete the rest. -->
-  · Diamonds = human gates
-</p>
-<!-- Diagram labels: DELETE these characters, never escape them: < > & " ' ` # ; % { } [ ] ( ) | -->
-<pre class="mermaid">
-{{FUTURE_STATE_MERMAID}}
-</pre>
-
-<h2>5. Step classification</h2>
-<!-- Columns: # | Step | Mode | Why (one line) | Confidence | Ratings as six letters H/M/L in this order: predictability, input structure, error cost,
-     reversibility, volume, accountability (e.g. "H H L H M L"); explain the order once above the table. Mark steps already automated today as "no change".
-     One mode per row; split mixed steps. A step that rejects, ranks or filters people is never plain A: add a human review of rejections (or review on request in the EU/UK) and pass-rate monitoring. 
-     M rows name the baseline to beat and the fallback if the model fails or drifts. -->
-{{CLASSIFICATION_TABLE}}
-
-<h2>6. Human gates</h2>
-<!-- Fixed approved templates filled only from system fields are mode A and need no per-message gate; hand-edited or AI-drafted external messages are gated.
-     Columns: Gate | After step | What the human checks | Approver role | Must not approve (preparer, poster, beneficiary) | Threshold |
-     Enforced by (system block or policy only) | Escalation trigger | Record kept (what, where) | Loosening (evidence needed, or "Do not loosen" and why).
-     Low volume (weekly or monthly): keep the gate, or loosen only after an agreed number of periods with no corrections. Record hands-on and waiting time separately. -->
-{{GATES_TABLE}}
-<!-- Only if the process is regulated or audited: Control impact table. Columns: Control (ID if known) | Key control? | Changed how |
-     Validation / change control needed | Evidence for auditors | Owner. Otherwise omit this block. -->
-{{CONTROL_IMPACT_TABLE}}
-
-<!-- Optional, for processes involving several teams: Decision rights table. Columns: Role | Owns | Must not do. Include the AI/model as a row
-     (e.g. "estimates, detects, drafts" | "set targets, approve commitments, publish without approval"). Then a short cadence table: Cadence | Automated work | Human focus. Omit if not useful. -->
-{{DECISION_RIGHTS_AND_CADENCE}}
-
-<h2>7. Risk, compliance and security flags</h2>
-<p class="note">Screening only, not a compliance determination. Each flag needs checking by the person or team named.</p>
-<!-- Columns: Flag | Step(s) | Why it may apply | Who should check | Status (always "unverified"). From the risk checklist file.
-     Include risks in the CURRENT process too. If nothing applies, say which checks were run.
-     If the user works in a medium or large organisation and uses an assistant grounded on work data, include a row "Assistant reach, history and web search (S14)". -->
-{{RISK_FLAGS_TABLE}}
-
-<h2>8. Options and how to build</h2>
-<!-- Match the user's technical comfort.
-     Apps only: options use tools they already have, then ready-made tool TYPES (never commercial product names). Give step-by-step how-to and safe-use rules.
-     Configure (settings and built-in automation only): no disclaimer needed.
-     Build or connect systems: open with this sentence in a <p class="note">: "You are responsible for security, privacy and legal compliance of anything you build; involve qualified people."
-     Then tools by role (open-source with license, or tools they already use), access and credentials, security, compliance and legal steps.
-     One <div class="option recommended"> for the recommended option, <div class="option"> for each alternative. Each: what to use, why it fits,
-     effort (hours or days, S/M/L in brackets), monthly cost range in the user's currency compared with their budget (or "unknown: check X"), risks, maintenance.
-     Include an option with little or no AI. Never name commercial vendors. -->
-{{BUILD_OPTIONS}}
-<!-- If a ready-made tool type is recommended or is an alternative: include the tool assessment kit, tailored (must-haves for this process
-     filled in, relevant sections only). Otherwise omit. -->
-{{ASSESSMENT_KIT}}
-
-<h2>9. Rollout plan and metrics</h2>
-<!-- Primary metrics = outcome quality in the user's terms (e.g. forecast accuracy, bias and value added by each adjustment; error or rework rate; time to decision). Effort and hours saved come second.
-     Any step that predicts or estimates has a learning step here: compare predictions with outcomes and feed back, reported by stage or role, not by named person.
-     One worked example may use hypothetical round numbers, in a <p class="note"> headed "Illustration: hypothetical numbers"; never in sections 1-2, never as an estimate or saving.
-     Word users: Print → Save as PDF first (keeps diagrams), or open the saved HTML in Word (diagrams may not show); don't ask for a separate .docx. -->
-{{ROLLOUT_AND_METRICS}}
-
-<h3>Starter kit (drafts: check before use)</h3>
-<!-- Optional. Wording for fixed messages, policies and checklists the plan needs: reminder texts, consent wording, team instruction card. Omit if none.
-     For any wording with legal effect (consent, terms, deposit or cancellation policy, disclosures), say who should check it (e.g. a lawyer, your professional body, the platform's rules). -->
-{{STARTER_KIT}}
-
-<h2>10. Limitations and how to improve</h2>
-<h3>Limitations of this analysis</h3>
-{{ANALYSIS_LIMITATIONS}}
-<h3>Limitations of the proposed system</h3>
-{{SYSTEM_LIMITATIONS}}
-<h3>Information that would improve this advice</h3>
-{{INFO_NEEDED}}
-<h3>What to tune once running</h3>
-{{TUNING}}
-<h3>Parked items</h3>
-<!-- Everything the user mentioned that this report doesn't address (out-of-scope steps, control or access weaknesses, open questions), with a suggested owner. -->
-{{PARKED_ITEMS}}
-
-<h2>11. Assumptions</h2>
-<!-- Every [ASSUMPTION], including future step times, reduction rates and thresholds you proposed, for the user to adjust. -->
-{{ASSUMPTIONS}}
-
-<p class="note">
-  <b>Not legal, tax, financial or security advice, and not a compliance determination.</b> This AI-generated draft is based only on what was shared in the conversation.
-  Review it with the people who run the process and with qualified advisers (compliance, legal, security, or your accountant) before acting. Open-source tools named are examples, not endorsements;
-  no commercial products are recommended. Licenses, features, security status and pricing change, so verify before you adopt anything. You are responsible for decisions made using this report.
-</p>
-
-<script src="https://cdn.jsdelivr.net/npm/mermaid@11.17.2/dist/mermaid.min.js"></script>
-</body>
-</html>
-```

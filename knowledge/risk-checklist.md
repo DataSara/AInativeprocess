@@ -25,6 +25,9 @@ A gate can be loosened only with evidence, and for money or regulated records on
 - Loosen in steps (e.g. full review → large sample → exceptions only), keep a sample forever, and re-tighten when inputs, models (including vendor updates you don't control, S14) or prompts change, or when errors rise.
 - Low volume (weekly or monthly runs): the bound stays wide for a long time. Keep the gate, or loosen only after an agreed number of periods with no corrections. Record hands-on time and waiting time separately in baselines.
 
+### §P5. What counts as a commitment (for Principle 5)
+An order, contract, release, allowance or payment to an outside party, or an authorization to spend. System-generated orders within human-approved parameters are not new commitments; the parameters are, and changes to them need approval. Exceptions reduce what a person reviews, never what the accountable approver signs.
+
 ### §M. Governing statistical and ML models (mode M)
 - **Intended use** written down: what it predicts, for whom, what decisions it informs, and what it must not be used for.
 - **Baseline and validation:** beats the current method and a naive method on back-tested data; independent validation where the process is regulated or audited.

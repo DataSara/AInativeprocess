@@ -8,7 +8,7 @@
   DIAGRAMS: Mermaid decodes HTML entities, so inside diagram labels DELETE these characters, never escape them: < > & " ' ` # ; % { } [ ] ( ) |
   (e.g. write Approve PO over 5k, not Approve "PO" > 5k). Never write lines starting with click, %%, style, linkStyle, or any init/config directive.
   Diagrams over about 12 nodes: use flowchart TB or split into two diagrams.
-  SIZE: aim under 30 KB (about 6,000 words of visible text). Cells max about 25 words. Hand-offs max about 8; merge similar items.
+  SIZE: aim under 30 KB (about 6,000 words of visible text); audited or multi-team processes may go to 35 KB. Unless audited, use compact gate columns: Gate | Checks | Approver | Must not approve | Record kept | Loosening. Cells max about 25 words. Hand-offs max about 8; merge similar items.
   Risk flags: list every High flag (never merge or drop one to save space); merge Medium and Low ones to keep the table under about 12 rows.
   If too long, cut in this order: limitations detail → classification "why" text → decision rights and cadence down to one table (max 6 rows) → merge hand-offs → assessment kit down to must-haves and data/security questions → rollout detail. Today → AI-native cells about 20 words each.
   Never cut: gates, every High risk flag, control-impact table, safety-critical starter-kit items (e.g. bank call-back checklist), the footer.

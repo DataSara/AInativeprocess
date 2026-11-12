@@ -30,20 +30,21 @@ rm -rf dist
 mkdir -p dist/claude-skill/knowledge
 
 {
+  printf '%s\n\n' '> Reprocess single-file bundle. Sections, in order: instructions, report template, question bank, redesign patterns, risk checklist, tool catalog, tool assessment kit. If you cannot see the report template section, ask the user to attach knowledge/report-template.html before writing the report.'
   cat prompt/reprocess.md
-  printf '\n\n---\n# Knowledge file: risk checklist\n\n'
-  cat knowledge/risk-checklist.md
-  printf '\n\n---\n# Knowledge file: redesign patterns\n\n'
-  cat knowledge/redesign-patterns.md
+  printf '\n\n---\n# Knowledge file: report template\n\n```html\n'
+  cat knowledge/report-template.html
+  printf '```\n'
   printf '\n\n---\n# Knowledge file: question bank\n\n'
   cat knowledge/question-bank.md
+  printf '\n\n---\n# Knowledge file: redesign patterns\n\n'
+  cat knowledge/redesign-patterns.md
+  printf '\n\n---\n# Knowledge file: risk checklist\n\n'
+  cat knowledge/risk-checklist.md
   printf '\n\n---\n# Knowledge file: tool catalog\n\n'
   cat knowledge/tool-catalog.md
   printf '\n\n---\n# Knowledge file: tool assessment kit\n\n'
   cat knowledge/tool-assessment-kit.md
-  printf '\n\n---\n# Knowledge file: report template\n\n```html\n'
-  cat knowledge/report-template.html
-  printf '```\n'
 } > dist/reprocess-full.md
 
 {
