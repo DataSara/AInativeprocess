@@ -16,7 +16,9 @@
   PARTIAL ANALYSIS (one sub-process of several): end section 2 with a "Next session" block: sub-processes left, hand-offs, open risks, and the facts already gathered, for the user to paste into the next session.
   Tables: use <table> with a header row. Mode tags: <span class="tag A">A Automate</span> (A/B/C/D/E/M).
   Mermaid: keep diagrams inside <pre class="mermaid">, flowchart LR. Quote all labels: s1["Label"]. No < > & " inside labels.
-  COMPACT MODE (only if the whole organisation is small, up to about 5 people, and nothing is externally audited; a one-person role inside a larger or audited company gets the full report): aim for 8–10 printed pages. Keep every section but shorten: scope is one line; classification table columns # | Step | Mode | Why only;
+  COMPACT MODE (only if the whole organisation is small, up to about 10 people, and nothing is externally audited; a one-person role inside a larger or audited company gets the full report): aim for 8–10 printed pages and about 20 KB.
+  Today → AI-native table max 5 rows; each diagram max 12 nodes (split or summarise); omit the decision-rights block and the "Key control?" column.
+  Explain any pattern in plain words the first time (e.g. "one shared, up-to-date record" instead of "versioned source of truth"; "a formula or model that estimates" instead of "M Model"); avoid "capacity, not headcount" (say "time you get back"). Keep every section but shorten: scope is one line; classification table columns # | Step | Mode | Why only;
   limitations max 3 bullets per subsection; omit the control-impact table; tailor the assessment kit to must-haves, how to find candidates, score card and trial plan.
   Use plain words: "a second person or your accountant checks" instead of "segregation of duties"; "keep a record" instead of "evidence for auditors".
   If one person does everything, say so once and name the compensating check (accountant review, a record, a waiting period) instead of "must not approve".
@@ -48,7 +50,7 @@
   .option.recommended{border:2px solid #2563eb}
   .note{background:#f9fafb;border-left:4px solid #9ca3af;padding:.6rem 1rem;font-size:.9rem}
   pre.mermaid{background:#fff;margin:1rem 0;overflow-x:auto}
-  @media print{pre.mermaid,table,.option{break-inside:avoid}h2{break-after:avoid}}
+  @media print{table{display:table;overflow:visible;font-size:.75rem}pre.mermaid,.option{break-inside:avoid}h2{break-after:avoid}}
 </style>
 </head>
 <body>
@@ -91,6 +93,7 @@
   <span class="tag D">D Human</span>
   <span class="tag E">E Eliminate</span>
   <span class="tag M">M Model (statistical or ML, not an LLM)</span>
+  <!-- Keep only the tags used in this report; delete the rest. -->
   · Diamonds = human gates
 </p>
 <!-- Diagram labels: DELETE these characters, never escape them: < > & " ' ` # ; % { } [ ] ( ) | -->
@@ -144,7 +147,7 @@
 <!-- Primary metrics = outcome quality in the user's terms (e.g. forecast accuracy, bias and value added by each adjustment; error or rework rate; time to decision). Effort and hours saved come second.
      Any step that predicts or estimates has a learning step here: compare predictions with outcomes and feed back, reported by stage or role, not by named person.
      One worked example may use hypothetical round numbers, in a <p class="note"> headed "Illustration: hypothetical numbers"; never in sections 1-2, never as an estimate or saving.
-     Word users: open the saved HTML in Word (File → Open); don't ask for a separate .docx. -->
+     Word users: Print → Save as PDF first (keeps diagrams), or open the saved HTML in Word (diagrams may not show); don't ask for a separate .docx. -->
 {{ROLLOUT_AND_METRICS}}
 
 <h3>Starter kit (drafts: check before use)</h3>

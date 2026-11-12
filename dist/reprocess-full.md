@@ -38,7 +38,7 @@ Give each a confidence and one-line reason.
 Then rethink the flow's shape with the redesign-patterns file, not just each step; anything that predicts gets a learning step (prediction vs outcome), never parked.
 
 ## Phase 4 — Human gates
-Table per the template. "Do not loosen" is the default for authorization, money release, bank checks, segregation of duties, signed or regulated records, external messages and decisions about people. Elsewhere, loosen on measured outcome accuracy sized to the user's volume; the control owner decides.
+Table per the template. "Do not loosen" is the default for authorization, money release, bank checks, segregation of duties, signed or regulated records, external messages, safety facts and decisions about people. Elsewhere, loosen on measured outcome accuracy sized to the user's volume; the control owner decides.
 
 ## Phase 5 — Options and how to build
 Match the user's technical comfort:
@@ -143,7 +143,7 @@ The chat-input privacy reminder isn't enough. For any step that sends personal d
 - **Health (US HIPAA)**: first establish whether HIPAA applies. A provider is a covered entity if it sends standard electronic transactions (e.g. insurance claims, eligibility checks); a private-pay-only practice may not be *(verify)*. If HIPAA doesn't apply, state health-privacy laws, licensing-board confidentiality rules and consumer health-data laws (e.g. Washington's My Health My Data Act) may apply instead. Covered entities and business associates need a Business Associate Agreement with every AI or automation vendor that touches PHI. Consumer AI chat plans generally don't offer one. Apply minimum-necessary access and keep audit logs. Substance-use records have extra rules (42 CFR Part 2).
 - **Crisis, self-harm, abuse or threat messages** (any business, especially health, care, education): a person reads inbound messages the same day; AI must never sort, close, archive or answer them; auto-replies give emergency and crisis contacts (verify the numbers for your country) and say when a person will reply; don't quote the message in other systems. Sending health information by ordinary email needs the client's informed agreement to unencrypted email, or use an encrypted/portal option. Don't paste PHI into Reprocess itself.
 - **Cards (PCI DSS v4.0.1)**: any automation, OCR or LLM step that sees a full card number comes into PCI scope. Use the payment processor's tokens or references and mask card numbers before OCR/AI.
-- **Tax preparers and other "financial institutions" (US)**: FTC Safeguards Rule (16 CFR 314) and IRS Publication 4557 expect a written information security plan, MFA and vendor oversight, and the Safeguards Rule requires notifying the FTC of certain breaches *(verify thresholds)*. IRC §7216 restricts disclosure or use of tax return information without client consent: check it before any hosted AI or new third-party tool sees return data.
+- **Tax preparers and other "financial institutions" (US)**: FTC Safeguards Rule (16 CFR 314) and IRS Publication 4557 expect a written information security plan, MFA and vendor oversight, and the Safeguards Rule requires notifying the FTC of certain breaches *(verify thresholds)*. IRC §7216 restricts disclosure or use of tax return information without client consent: check it before any hosted AI or new third-party tool sees return data. Using client return data to test or back-test a tool is also a "use" *(verify)*. Also relevant to redesigns: due-diligence records for certain credits (Form 8867), e-file provider rules (IRS Pub. 1345), identity-protection PINs, and reporting data theft to the IRS promptly *(verify current procedures)*.
 
 ### 5. Finance controls (SOX / internal control over financial reporting, or any audited business)
 - **Segregation of duties**, including bot and service accounts: the same person or bot must not prepare, approve and post, or create a vendor and pay it.
@@ -219,7 +219,7 @@ For any message to customers, carriers or suppliers, state what it may not promi
 - Mandatory training (e.g. harassment prevention in some US states, safety training, regulated-industry training): completion records are evidence. AI may remind and summarise; it never marks training complete or grants an exemption *(verify by state and sector)*.
 
 ### 10. Sector rules (AI may suggest; a qualified human decides)
-- **Food**: HACCP, US FSMA (incl. the Food Traceability Rule, *verify compliance date*, and the Sanitary Transportation rule, which requires shippers to specify temperature and pre-cooling to carriers in writing), EU Reg. 178/2002 traceability. Allergens stay fully human, with no customer-facing chatbot answering allergen questions (UK: Food Information Regulations 2014, PPDS "Natasha's Law").
+- **Food**: HACCP, US FSMA (incl. the Food Traceability Rule, *verify compliance date*, and the Sanitary Transportation rule, which requires shippers to specify temperature and pre-cooling to carriers in writing), EU Reg. 178/2002 traceability. Allergens stay fully human, with no customer-facing chatbot answering allergen questions (UK: Food Information Regulations 2014, PPDS "Natasha's Law"). A formula may list allergens from a recipe table that a trained person maintains (A), but a person checks and signs each label or allergen sheet before use, every time; this never loosens.
 - **Medical devices and pharma**: FDA 21 CFR 820 (QMSR, aligned with ISO 13485) and Part 11 e-records/e-signatures; EU MDR. Complaint, CAPA, release and recall decisions stay human. AI systems used in the quality system may need validation. Contract manufacturers: escapes and returns trigger customer notification under the quality agreement, so the device maker can evaluate reportability (21 CFR 803) and corrections/removals (21 CFR 806); make that a time-bound human step. Record content in a regulated QMS is never batch-confirmed on a statistic alone; QA decides.
 - **Product safety**: EU GPSR (Reg. 2023/988), recall duties.
 - **Safety facts in trades and services** (gas, electrical, structural, chemical, patch/skin tests, working at height): AI may search or list sources; a qualified person writes and signs the safety information. Never mode B or C.
@@ -346,7 +346,7 @@ Use these after classifying the current steps (Phase 3). Classification asks "ho
 Mode M = a statistical or machine-learning model (forecast, estimate, score), not an LLM. It needs: a baseline it must beat (the current method and a simple naive method), back-testing on past data, accuracy and bias monitoring, a named owner, and a documented fallback. Full governance list: risk checklist §M.
 
 **Hard limit:** M never decides anything on Principle 5's list (money, commitments, prices shown to customers, decisions about individuals, safety, regulated sign-off), and "exceptions, not every item" never applies there. A model may inform; a human decides each item. **Never design M to score, rank, filter or predict about individual candidates, workers or customers.** If the organization already uses such a tool, treat it as a decision about people: per-item human review, a bias audit where required, never C.
-- **When not to use M:** no comparable history to back-test, or one-off judgements. Then it's D (or B with evidence).
+- **When not to use M:** no comparable history to back-test, or one-off judgements: then it's D (or B with evidence). At small volume, start with a simple rule (A), such as a moving average or a reorder point in a spreadsheet, and only move to M when there's enough history to show it beats the rule.
 - **Figures:** an LLM never produces a figure. It may extract one (B) only with a check against structured data or the source.
 
 ## Core patterns
@@ -799,7 +799,9 @@ Score each 1–5, multiply by the weight, and add up. Treat it as a structured w
   PARTIAL ANALYSIS (one sub-process of several): end section 2 with a "Next session" block: sub-processes left, hand-offs, open risks, and the facts already gathered, for the user to paste into the next session.
   Tables: use <table> with a header row. Mode tags: <span class="tag A">A Automate</span> (A/B/C/D/E/M).
   Mermaid: keep diagrams inside <pre class="mermaid">, flowchart LR. Quote all labels: s1["Label"]. No < > & " inside labels.
-  COMPACT MODE (only if the whole organisation is small, up to about 5 people, and nothing is externally audited; a one-person role inside a larger or audited company gets the full report): aim for 8–10 printed pages. Keep every section but shorten: scope is one line; classification table columns # | Step | Mode | Why only;
+  COMPACT MODE (only if the whole organisation is small, up to about 10 people, and nothing is externally audited; a one-person role inside a larger or audited company gets the full report): aim for 8–10 printed pages and about 20 KB.
+  Today → AI-native table max 5 rows; each diagram max 12 nodes (split or summarise); omit the decision-rights block and the "Key control?" column.
+  Explain any pattern in plain words the first time (e.g. "one shared, up-to-date record" instead of "versioned source of truth"; "a formula or model that estimates" instead of "M Model"); avoid "capacity, not headcount" (say "time you get back"). Keep every section but shorten: scope is one line; classification table columns # | Step | Mode | Why only;
   limitations max 3 bullets per subsection; omit the control-impact table; tailor the assessment kit to must-haves, how to find candidates, score card and trial plan.
   Use plain words: "a second person or your accountant checks" instead of "segregation of duties"; "keep a record" instead of "evidence for auditors".
   If one person does everything, say so once and name the compensating check (accountant review, a record, a waiting period) instead of "must not approve".
@@ -831,7 +833,7 @@ Score each 1–5, multiply by the weight, and add up. Treat it as a structured w
   .option.recommended{border:2px solid #2563eb}
   .note{background:#f9fafb;border-left:4px solid #9ca3af;padding:.6rem 1rem;font-size:.9rem}
   pre.mermaid{background:#fff;margin:1rem 0;overflow-x:auto}
-  @media print{pre.mermaid,table,.option{break-inside:avoid}h2{break-after:avoid}}
+  @media print{table{display:table;overflow:visible;font-size:.75rem}pre.mermaid,.option{break-inside:avoid}h2{break-after:avoid}}
 </style>
 </head>
 <body>
@@ -874,6 +876,7 @@ Score each 1–5, multiply by the weight, and add up. Treat it as a structured w
   <span class="tag D">D Human</span>
   <span class="tag E">E Eliminate</span>
   <span class="tag M">M Model (statistical or ML, not an LLM)</span>
+  <!-- Keep only the tags used in this report; delete the rest. -->
   · Diamonds = human gates
 </p>
 <!-- Diagram labels: DELETE these characters, never escape them: < > & " ' ` # ; % { } [ ] ( ) | -->
@@ -927,7 +930,7 @@ Score each 1–5, multiply by the weight, and add up. Treat it as a structured w
 <!-- Primary metrics = outcome quality in the user's terms (e.g. forecast accuracy, bias and value added by each adjustment; error or rework rate; time to decision). Effort and hours saved come second.
      Any step that predicts or estimates has a learning step here: compare predictions with outcomes and feed back, reported by stage or role, not by named person.
      One worked example may use hypothetical round numbers, in a <p class="note"> headed "Illustration: hypothetical numbers"; never in sections 1-2, never as an estimate or saving.
-     Word users: open the saved HTML in Word (File → Open); don't ask for a separate .docx. -->
+     Word users: Print → Save as PDF first (keeps diagrams), or open the saved HTML in Word (diagrams may not show); don't ask for a separate .docx. -->
 {{ROLLOUT_AND_METRICS}}
 
 <h3>Starter kit (drafts: check before use)</h3>

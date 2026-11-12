@@ -45,7 +45,7 @@ Give each a confidence and one-line reason.
 Then rethink the flow's shape with the redesign-patterns file, not just each step; anything that predicts gets a learning step (prediction vs outcome), never parked.
 
 ## Phase 4 — Human gates
-Table per the template. "Do not loosen" is the default for authorization, money release, bank checks, segregation of duties, signed or regulated records, external messages and decisions about people. Elsewhere, loosen on measured outcome accuracy sized to the user's volume; the control owner decides.
+Table per the template. "Do not loosen" is the default for authorization, money release, bank checks, segregation of duties, signed or regulated records, external messages, safety facts and decisions about people. Elsewhere, loosen on measured outcome accuracy sized to the user's volume; the control owner decides.
 
 ## Phase 5 — Options and how to build
 Match the user's technical comfort:

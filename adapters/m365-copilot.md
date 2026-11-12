@@ -42,7 +42,7 @@ Menu names change between Copilot releases. If a label below doesn't match, look
 - Long answers may be cut off. Reports aim for under 30 KB, but longer ones are split into parts that end with `<!-- END PART n OF N -->`. Paste them into one file in order; the last part ends with `</html>`. If it stops mid-way, reply `continue`.
 - Whether Code interpreter produces a downloadable `.html` file can vary. If it doesn't, copy the HTML code block into Notepad and save it as `reprocess-report.html`.
 - Diagrams load from jsDelivr. Some corporate networks block it; the report then shows diagram code, and the step tables in sections 3 and 5 list the same steps. Don't paste diagram code into external websites unless your policy allows it; a desktop diagram tool your organization approves is safer.
-- If you need Word or PDF: open the HTML in a browser and use Print → Save as PDF, or open the HTML file in Word. Don't ask the agent for a separate .docx: Word files can carry external links, remote templates and embedded objects that the report checker can't inspect.
+- If you need Word or PDF: open the HTML in a browser and use Print → Save as PDF, or open the HTML file in Word (diagrams may not show; print to PDF first if you need them). Don't ask the agent for a separate .docx: Word files can carry external links, remote templates and embedded objects that the report checker can't inspect.
 
 ## Fallback: no agent builder
 Open Copilot chat, attach `dist/reprocess-full.md`, and type:

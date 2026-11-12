@@ -5,7 +5,7 @@ Use these after classifying the current steps (Phase 3). Classification asks "ho
 Mode M = a statistical or machine-learning model (forecast, estimate, score), not an LLM. It needs: a baseline it must beat (the current method and a simple naive method), back-testing on past data, accuracy and bias monitoring, a named owner, and a documented fallback. Full governance list: risk checklist §M.
 
 **Hard limit:** M never decides anything on Principle 5's list (money, commitments, prices shown to customers, decisions about individuals, safety, regulated sign-off), and "exceptions, not every item" never applies there. A model may inform; a human decides each item. **Never design M to score, rank, filter or predict about individual candidates, workers or customers.** If the organization already uses such a tool, treat it as a decision about people: per-item human review, a bias audit where required, never C.
-- **When not to use M:** no comparable history to back-test, or one-off judgements. Then it's D (or B with evidence).
+- **When not to use M:** no comparable history to back-test, or one-off judgements: then it's D (or B with evidence). At small volume, start with a simple rule (A), such as a moving average or a reorder point in a spreadsheet, and only move to M when there's enough history to show it beats the rule.
 - **Figures:** an LLM never produces a figure. It may extract one (B) only with a check against structured data or the source.
 
 ## Core patterns
